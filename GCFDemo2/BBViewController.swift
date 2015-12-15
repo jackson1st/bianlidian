@@ -23,7 +23,6 @@ class BBViewController: UIViewController,MBProgressHUDDelegate,NSURLSessionTaskD
         //mbp!.dimBackground = true
         mbp!.delegate = self
         self.view.addSubview(mbp!)
-        
         // Do any additional setup after loading the view.
     }
     
