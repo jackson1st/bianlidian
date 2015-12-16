@@ -10,7 +10,6 @@ import UIKit
 import WebKit
 
 class MainViewController: UIViewController,WKNavigationDelegate,UISearchBarDelegate,UINavigationControllerDelegate,WKScriptMessageHandler,UITextFieldDelegate,UIScrollViewDelegate{
-    
     //一些变量的定义
     @IBOutlet weak var navItem: UINavigationItem!
     var webView: WKWebView?
