@@ -36,6 +36,7 @@ class MainViewController: UIViewController,WKNavigationDelegate,UISearchBarDeleg
     var item: GoodDetail?
     
     override func viewDidLoad() {
+        self.hidesBottomBarWhenPushed = false
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "viewDidLoad", name: "reloadMainView", object: nil)
         super.viewDidLoad()
         let item = UIBarButtonItem(title: "", style: .Plain, target: self, action: nil)
@@ -121,6 +122,7 @@ extension MainViewController{
         config.userContentController.addScriptMessageHandler(self, name: "gan")
         webView = WKWebView(frame: CGRect(x: 0, y:49, width: self.view.frame.width, height: self.view.frame.height-58),configuration: config)
         webView?.scrollView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
+        webView?.scrollView.frame.size.width = self.view.frame.width
         webView?.scrollView.bounces = false
         webView?.scrollView.showsHorizontalScrollIndicator = false
         webView?.scrollView.showsVerticalScrollIndicator = false
@@ -200,19 +202,27 @@ extension MainViewController{
                 var xx = x as! [String: AnyObject]
                 self.item?.comments?.append(Comment(content: xx["comment"] as? String, date: xx["commentDate"] as? String, userName: xx["custNo"] as? String))
             }
+            self.item?.barcode = dict["barcode"] as? String
             self.item?.eshopIntegral = dict["eshopIntegral"] as! Int
             self.item?.itemBynum1 = dict["itemBynum1"] as! String
             self.item?.itemName = dict["itemName"] as! String
             self.item?.itemNo = dict["itemNo"] as! String
             self.item?.itemSalePrice = dict["itemSalePrice"] as! String
             arry = response.objectForKey("stocks") as! NSArray
+            print(arry)
             self.item?.itemStocks = [ItemStock]()
             for var x in arry!{
                 var xx = x as! [String: AnyObject]
-                self.item?.itemStocks.append(ItemStock(name: xx["shopName"] as? String, qty: "\(xx["stockQty"]!)"))
+                self.item?.itemStocks.append(ItemStock(name: xx["shopName"] as? String, qty: xx["stockQty"] as? Int))
             }
             
-            self.item?.itemUnits = dict["itemUnits"] as! [ItemUnit]
+            arry = dict["itemUnits"] as! NSArray
+            print(arry)
+            self.item?.itemUnits = [ItemUnit]()
+            for var x in arry!{
+                var xx = x as! [String: AnyObject]
+                self.item?.itemUnits.append(ItemUnit(salePrice: xx["itemSalePrice"] as? String , sizeName: xx["itemSize"] as? String))
+            }
             
             self.item?.imageDetail = response.objectForKey("imageDetail") as! [String]
             self.item?.imageTop = response.objectForKey("imageTop") as! [String]
@@ -223,9 +233,9 @@ extension MainViewController{
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        
-        let y = scrollView.contentOffset.y > 40 ? 40: scrollView.contentOffset.y
-        if( y != 40){
+        print(scrollView.contentOffset.y)
+        let y = scrollView.contentOffset.y > 0 ? 0: scrollView.contentOffset.y
+        if( y != 0){
             if(ButtonSearch.hidden == false){
                 ButtonSearch.hidden = true
             }

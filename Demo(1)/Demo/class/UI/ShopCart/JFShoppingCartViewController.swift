@@ -18,8 +18,6 @@ class JFShoppingCartViewController: UIViewController{
     var SCREEN_HEIGHT = UIScreen.mainScreen().bounds.height
     // MARK: - 属性
     /// 已经添加进购物车的商品模型数组，初始化
-    private var staticGoodModels: [JFGoodModel] = []
-    private var addGoodArray: [JFGoodModel] = []
     private var canSelectShop: [String] = []
     private let loadAnimatIV: LoadAnimatImageView! = LoadAnimatImageView.sharedManager
     /// 传入金额
@@ -27,24 +25,30 @@ class JFShoppingCartViewController: UIViewController{
     /// 总金额，默认0.00
     var price: CFloat = 0.00
     var selectShop: String?
+    var backButtonShow: Bool = false
     /// 商品列表cell的重用标识符
     private let shoppingCarCellIdentifier = "shoppingCarCell"
-
+    
     // MARK: - view生命周期
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        dloadmodel()
+        
+        //dloadmodel()
         prepareUI()
-//        tableView.header.beginRefreshing()
-        starRefreshView()
-        self.hidesBottomBarWhenPushed = true
+        //        tableView.header.beginRefreshing()
+        if(Model.defaultModel.shopCart.count > 0){
+            self.canSelectShop.append(Model.defaultModel.shopCart[0].shopNameList[0].shopName!)
+        }
+        self.showMySelect()
+        self.tableView.reloadData()
+        
+        //        self.hidesBottomBarWhenPushed = true
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-//         布局UI
+        self.navigationController?.navigationBarHidden = false
+        //         布局UI
         layoutUI()
         
         // 重新计算价格
@@ -55,14 +59,17 @@ class JFShoppingCartViewController: UIViewController{
         navigationItem.title = "购物车列表"
         self.tabBarController!.tabBar.hidden = true;
         // 导航栏左边返回
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Plain, target: self, action: "didTappedBackButton")
+        if(backButtonShow){
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Plain, target: self, action: "didTappedBackButton")
+            self.tabBarController!.tabBar.hidden = true
+        }
         // view背景颜色
         view.backgroundColor = UIColor.whiteColor()
         view.addSubview(bottomView)
         bottomView.addSubview(selectButton)
         bottomView.addSubview(totalPriceLabel)
         bottomView.addSubview(buyButton)
-        for model in addGoodArray {
+        for model in Model.defaultModel.shopCart {
             if model.selected != true && model.canChange == true{
                 // 只要有一个不等于就不全选
                 selectButton.selected = false
@@ -79,18 +86,22 @@ class JFShoppingCartViewController: UIViewController{
         navigationItem.title = "购物车列表"
         self.tabBarController!.tabBar.hidden = false;
         // 导航栏左边返回
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Plain, target: self, action: "didTappedBackButton")
+        if(backButtonShow){
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Plain, target: self, action: "didTappedBackButton")
+            self.tabBarController!.tabBar.hidden = true
+        }
         // view背景颜色
         view.backgroundColor = UIColor.whiteColor()
         
         // cell行高
+        
         tableView.rowHeight = 80
         
         // 注册cell
         tableView.registerClass(JFShoppingCartCell.self, forCellReuseIdentifier: shoppingCarCellIdentifier)
         
         // 设置TableViewHeader
-//        setTableViewHeader(self, refreshingAction: "pullLoadDayData", imageFrame: CGRectMake((AppWidth - SD_RefreshImage_Width) * 0.5, 17, SD_RefreshImage_Width, SD_RefreshImage_Height), tableView: tableView)
+        //        setTableViewHeader(self, refreshingAction: "pullLoadDayData", imageFrame: CGRectMake((AppWidth - SD_RefreshImage_Width) * 0.5, 17, SD_RefreshImage_Width, SD_RefreshImage_Height), tableView: tableView)
         
         //配置toolbar
         configureToolbar()
@@ -104,7 +115,7 @@ class JFShoppingCartViewController: UIViewController{
         bottomView.addSubview(selectBrunch)
         // 判断是否需要全选
         
-        for model in addGoodArray {
+        for model in Model.defaultModel.shopCart {
             if model.selected != true && model.canChange == true{
                 // 只要有一个不等于就不全选
                 selectButton.selected = false
@@ -113,8 +124,8 @@ class JFShoppingCartViewController: UIViewController{
         }
         
     }
-
-
+    
+    
     
     /**
      布局UI
@@ -123,7 +134,7 @@ class JFShoppingCartViewController: UIViewController{
         
         // 约束子控件
         tableView.snp_makeConstraints { (make) -> Void in
-            make.top.equalTo(64)
+            make.top.equalTo(0)
             make.left.right.equalTo(0)
             make.bottom.equalTo(-49)
         }
@@ -151,7 +162,7 @@ class JFShoppingCartViewController: UIViewController{
     }
     
     // MARK: - 懒加载
-
+    
     
     /// pickView
     lazy var pickView: UIPickerView = {
@@ -265,7 +276,7 @@ class JFShoppingCartViewController: UIViewController{
 extension JFShoppingCartViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return addGoodArray.count ?? 0
+        return Model.defaultModel.shopCart.count ?? 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -280,7 +291,7 @@ extension JFShoppingCartViewController: UITableViewDataSource, UITableViewDelega
         cell.delegate = self
         
         // 传递模型
-        cell.goodModel = addGoodArray[indexPath.row]
+        cell.goodModel = Model.defaultModel.shopCart[indexPath.row]
         
         if cell.goodModel?.canChange == false {
             cell.backgroundColor = UIColor.grayColor()
@@ -301,7 +312,7 @@ extension JFShoppingCartViewController: UITableViewDataSource, UITableViewDelega
         return UITableViewCellEditingStyle.Delete
     }
     internal func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        addGoodArray.removeAtIndex(indexPath.row)
+        Model.defaultModel.shopCart.removeAtIndex(indexPath.row)
         tableView.deleteRowsAtIndexPaths([indexPath],withRowAnimation: UITableViewRowAnimation.Fade)
         reCalculateGoodCount()
     }
@@ -315,12 +326,12 @@ extension JFShoppingCartViewController: UIPickerViewDataSource,UIPickerViewDeleg
         return self.canSelectShop.count
     }
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-
+        
         return self.canSelectShop[row]
     }
-     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectShop = self.canSelectShop[row]
-   }
+    }
 }
 
 // MARK: - view上的一些事件处理
@@ -341,24 +352,24 @@ extension JFShoppingCartViewController {
     }
     //确认按钮事件
     func selectAction(barButtonItem:UIBarButtonItem ){
-    
-       self.selectBrunch.text = self.selectShop
-       canChange(self.selectBrunch.text!)
-       self.selectBrunch.resignFirstResponder()
-       self.tableView.reloadData()
-       reCalculateGoodCount()
+        
+        self.selectBrunch.text = self.selectShop
+        canChange(self.selectBrunch.text!)
+        self.selectBrunch.resignFirstResponder()
+        self.tableView.reloadData()
+        reCalculateGoodCount()
     }
     /**
      返回按钮
      */
     @objc private func didTappedBackButton() {
-        self.tabBarController?.selectedIndex = 1
+        self.navigationController?.popViewControllerAnimated(true)
     }
     /**
      付款按钮
-    */
+     */
     func isPaySelect() {
-
+        
         showPayAlertView()
     }
     
@@ -380,13 +391,13 @@ extension JFShoppingCartViewController {
             next.sumprice = "\(self.payPrice)"
             next.disprice = "0"
             next.discount = "已优惠 ¥0"
-            for var i = 0; i<self.addGoodArray.count; i++ {
-                if(self.addGoodArray[i].selected == true) {
-                    next.payModel.append(self.addGoodArray[i])
+            for var i = 0; i<Model.defaultModel.shopCart.count; i++ {
+                if(Model.defaultModel.shopCart[i].selected == true) {
+                    next.payModel.append(Model.defaultModel.shopCart[i])
                 }
             }
-//            self.presentViewController(next, animated: false, completion: nil)
-            self.navigationController?.pushViewController(next, animated: true)
+            self.presentViewController(UINavigationController(rootViewController: next), animated: false, completion: nil)
+            //            self.navigationController?.pushViewController(next, animated: true)
         }
         ispay.addAction(cancelAction)
         ispay.addAction(addAction)
@@ -398,7 +409,7 @@ extension JFShoppingCartViewController {
     private func reCalculateGoodCount() {
         
         // 遍历模型
-        for model in addGoodArray{
+        for model in Model.defaultModel.shopCart{
             
             // 只计算选中的商品
             if model.selected == true && model.canChange == true {
@@ -431,10 +442,10 @@ extension JFShoppingCartViewController {
     @objc private func didTappedSelectButton(button: UIButton) {
         
         selectButton.selected = !selectButton.selected
-        for model in addGoodArray {
+        for model in Model.defaultModel.shopCart {
             if model.canChange == true  {
-            model.selected = selectButton.selected
-            
+                model.selected = selectButton.selected
+                
             }
         }
         
@@ -445,83 +456,11 @@ extension JFShoppingCartViewController {
         tableView.reloadData()
     }
     
-    
-    // 载入数据
-    func dloadmodel() {
-        let manager = AFHTTPRequestOperationManager()
-        manager.responseSerializer = AFJSONResponseSerializer()
-        manager.requestSerializer = AFJSONRequestSerializer()
-        let parameters = ["cust":"cust01",
-            "areaName":"明阳小区"]
-        // manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/html") as Set<NSObject>
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            //这里写需要大量时间的代码
-            print("这里写需要大量时间的代码")
-            dispatch_async(dispatch_get_main_queue(), {
-                manager.POST("http://192.168.199.241:8080/BSMD/car/showCar.do", parameters: parameters, success: { (oper, data) -> Void in
-                    self.canSelectShop.removeAll()
-                    if let canShow = data as? NSDictionary{
-                        if let allshop = canShow["allShop"] as?  NSArray {
-                            for var i=0; i<allshop.count ; i++ {
-                                if let allShop = allshop[i] as? NSDictionary {
-                                     print(allShop["shopName"])
-                                     self.canSelectShop.append(allShop["shopName"] as! String)
-                                }
-                            }
-                        }
-                    }
-                    print(data)
-                    if let cartList = data as? NSDictionary{
-                        if let jfModellist = cartList["cartList"] as? NSArray {
-                            for var i=0 ; i<jfModellist.count ; i++ {
-                                if let jfModel = jfModellist[i] as? NSDictionary{
-                                    let JFmodel = JFGoodModel()
-                                    JFmodel.url = jfModel["url"] as? String
-                                    JFmodel.num = jfModel["num"] as! Int
-                                    JFmodel.custNo = jfModel["custNo"] as? String
-                                    JFmodel.itemName = jfModel["itemName"] as? String
-                                    JFmodel.itemSize = jfModel["itemSize"] as? String
-                                    JFmodel.barcode = jfModel["barcode"] as? String
-                                    let itemSalePrice = jfModel["itemSalePrice"] as? Double
-                                    let itemDistPrice = jfModel["itemDistPrice"] as? Double
-                                    JFmodel.itemSalePrice = "\(itemSalePrice! - itemDistPrice!)"
-                                    JFmodel.itemDistPrice = "\(itemSalePrice!)"
-                                    JFmodel.totalPrice = jfModel["totalPrice"] as! Double
-                                    if let shopnamelist = jfModel["shopNameList"] as? NSArray{
-                                        var arr: [ShopName] = []
-                                        for var j=0 ; j<shopnamelist.count ; j++ {
-                                            if let shopname = shopnamelist[j] as? NSDictionary{
-                                                let spName = ShopName()
-                                                spName.shopName = shopname["shopName"] as? String
-                                                spName.stockQty = shopname["stockQty"] as? Int
-                                                spName.onArea = shopname["onArea"] as? Bool
-                                                arr.append(spName)
-                                            }
-                                            JFmodel.shopNameList = arr
-                                        }
-                                        self.staticGoodModels.append(JFmodel)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    //对数据操作加入到 要生成的数据中
-                    self.showMySelect()
-                    self.tableView.reloadData()
-                    self.stopRefreshView()
-                    }) { (opeation, error) -> Void in
-                        SVProgressHUD.showErrorWithStatus("数据加载失败，请检查网络连接", maskType: SVProgressHUDMaskType.Black)
-                        print(error)
-                }
-            })
-        })
-    }
-    
     // 创造可操作数据
     func showMySelect(){
-        self.addGoodArray = self.staticGoodModels
+        // self.Model.defaultModel.shopCart = self.staticGoodModels
         //获得所有店名
-        print(self.canSelectShop)
+        // print(self.addGoodArray.count)
         if(self.canSelectShop.isEmpty == false) {
             self.selectBrunch.text = self.canSelectShop[0]
             canChange(self.selectBrunch.text!)
@@ -529,7 +468,7 @@ extension JFShoppingCartViewController {
         reCalculateGoodCount()
         pickView.reloadAllComponents()
     }
-
+    
     // 下拉加载刷新数据
     func pullLoadDayData() {
         weak var tmpSelf = self
@@ -554,19 +493,19 @@ extension JFShoppingCartViewController {
     
     // 根据店铺名判断商品是否可送
     func canChange(selectShopName: String){
-        for var i=0 ; i<self.addGoodArray.count ; i++ {
-            for var j=0 ; j<self.addGoodArray[i].shopNameList!.count ; j++ {
-                if (self.addGoodArray[i].shopNameList[j].shopName == selectShopName ){
-                    print(self.addGoodArray[i].shopNameList[j].shopName! + " " + selectShopName)
-                    addGoodArray[i].canChange = true
+        for var i=0 ; i<Model.defaultModel.shopCart.count ; i++ {
+            for var j=0 ; j<Model.defaultModel.shopCart[i].shopNameList!.count ; j++ {
+                if (Model.defaultModel.shopCart[i].shopNameList[j].shopName == selectShopName ){
+                    print(Model.defaultModel.shopCart[i].shopNameList[j].shopName! + " " + selectShopName)
+                    Model.defaultModel.shopCart[i].canChange = true
                     break;
                 }
                 else {
-                    addGoodArray[i].canChange = false
+                    Model.defaultModel.shopCart[i].canChange = false
                 }
             }
-            if(addGoodArray[i].canChange == false) {
-                addGoodArray[i].selected = false
+            if(Model.defaultModel.shopCart[i].canChange == false) {
+                Model.defaultModel.shopCart[i].selected = false
             }
         }
     }
@@ -590,25 +529,25 @@ extension JFShoppingCartViewController: JFShoppingCartCellDelegate {
         }
         
         // 获取当前模型，添加到购物车模型数组
-        let model = addGoodArray[indexPath.row]
+        let model = Model.defaultModel.shopCart[indexPath.row]
         
         if model.canChange == true {
-        
-        if button.tag == 10 {
             
-            if model.num < 1 {
-                print("数量不能低于0")
-                return
+            if button.tag == 10 {
+                
+                if model.num < 1 {
+                    print("数量不能低于0")
+                    return
+                }
+                
+                // 减
+                model.num--
+                countLabel.text = "\(model.num)"
+            } else {
+                // 加
+                model.num++
+                countLabel.text = "\(model.num)"
             }
-            
-            // 减
-            model.num--
-            countLabel.text = "\(model.num)"
-        } else {
-            // 加
-            model.num++
-            countLabel.text = "\(model.num)"
-        }
             
         }
         
@@ -624,7 +563,13 @@ extension JFShoppingCartViewController: JFShoppingCartCellDelegate {
     }
 }
 
-
+extension JFShoppingCartViewController: payDelegate {
+    func returnOk(ok: String){
+        if(ok == "true"){
+            self.tableView.reloadData()
+        }
+    }
+}
 
 
 

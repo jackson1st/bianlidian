@@ -13,16 +13,22 @@ public let SD_UserAddress_Notification = "SD_UserAddress_Notification"
 public let SD_UserDefaults_Telephone = "SD_UserDefaults_Telephone"
 public let SD_UserDefaults_Address = "SD_UserDefaults_Address"
 
-
+protocol payDelegate: NSObjectProtocol {
+    func returnOk(ok: String)
+}
 class PayViewController: UIViewController {
     
     
     @IBOutlet var tableView: UITableView!
+    var delegate: payDelegate?
     var payModel: [JFGoodModel] = []
     var sumprice: String!
     var disprice: String!
     @IBOutlet var sumPrice: UILabel!
     @IBOutlet var discountPrice: UILabel!
+    @IBAction func canback(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     @IBAction func okSelect(sender: AnyObject) {
         print("我点了确认下单")
         let title = "选择付款方式"
@@ -35,12 +41,15 @@ class PayViewController: UIViewController {
             print("取消了订单")
         }
         let okPayFromAddressAction = UIAlertAction(title: "确认", style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
+            self.delegate?.returnOk("true")
+             self.dismissViewControllerAnimated(true, completion: nil)
         }
         let lookPayFromAddressAction = UIAlertAction(title: "查看订单", style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
-            
-            
-            NSNotificationCenter.defaultCenter().postNotificationName("finishAOrder", object: self)
-            self.dismissViewControllerAnimated(false, completion: nil)
+            self.delegate?.returnOk("true")
+            let OrederStoryBoard = UIStoryboard(name: "MyOrderStoryBoard", bundle: nil)
+            let orderVC = OrederStoryBoard.instantiateViewControllerWithIdentifier("OrderView") as? OrderViewController
+            orderVC!.ispush = false
+            self.navigationController!.pushViewController(orderVC!, animated: true)
         }
 
         let payFromAddressAction = UIAlertAction(title: payFromAddress, style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
@@ -88,7 +97,7 @@ class PayViewController: UIViewController {
 
 extension PayViewController {
     func didTappedBackButton() {
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     func didTappedAddButton() {
         self.navigationController?.popToRootViewControllerAnimated(true)
@@ -119,12 +128,33 @@ extension PayViewController {
         dict.setObject(itemList, forKey: "itemList")
         return dict
     }
+    func returnbranchInfo() -> NSMutableDictionary{
+        let dict: NSMutableDictionary = NSMutableDictionary()
+        let barcodes: NSMutableArray = NSMutableArray()
+        for var i=0; i<self.payModel.count; i++ {
+            barcodes.addObject(payModel[i].barcode!)
+        }
+        dict.setObject(barcodes, forKey: "barcodes")
+        dict.setObject(payModel[0].custNo!, forKey: "custNo")
+        return dict
+    }
     func sentOrderInformation() -> Bool{
         let manager = AFHTTPRequestOperationManager()
         manager.responseSerializer = AFJSONResponseSerializer()
         manager.requestSerializer = AFJSONRequestSerializer()
         let parameters = modelChangeDict()
-        
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+//            //这里写需要大量时间的代码
+//            print("这里写需要大量时间的代码")
+//            dispatch_async(dispatch_get_main_queue(), {
+//                manager.POST("http://192.168.199.134:8080/BSMD/order/insert", parameters: parameters, success: { (oper, data) -> Void in
+//                    }) { (opeation, error) -> Void in
+//                        SVProgressHUD.showErrorWithStatus("数据加载失败，请检查网络连接", maskType: SVProgressHUDMaskType.Black)
+//                        print(error)
+//                }
+//            })
+//        })
+
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             //这里写需要大量时间的代码
             print("这里写需要大量时间的代码")
@@ -183,7 +213,6 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate {
         if(indexPath.section == 0){
             if UserAddress.userIsAddress() == false {
                 cellId = "NoAddressCell"
-                print(1)
             }
             else {
                 cellId = mineTitles[indexPath.section + indexPath.row] as! String

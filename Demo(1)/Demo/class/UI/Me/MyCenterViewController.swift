@@ -26,7 +26,7 @@ class MyCenterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-         self.tabBarController!.tabBar.hidden = true
+        self.tabBarController!.tabBar.hidden = true
         let tap = UITapGestureRecognizer(target: self, action: "alterPwdViewClick")
         alterPwdView.userInteractionEnabled = true
         alterPwdView.addGestureRecognizer(tap)

@@ -10,6 +10,8 @@ import UIKit
 
 class GoodDetail: NSObject {
     
+    var barcode: String?
+    
     var eshopIntegral:Int!
     var itemBynum1: String!
     var itemName: String!
@@ -25,12 +27,12 @@ class GoodDetail: NSObject {
 class ItemStock: NSObject {
     
     var shopName: String?
-    var stockQty: String?
+    var stockQty: Int?
     
-    convenience init(name: String?, qty: String?){
+    convenience init(name: String?, qty: Int?){
         self.init()
         self.shopName = name == nil ? "无" : name
-        self.stockQty = qty == nil ? "无" : qty
+        self.stockQty = qty == nil ? 0 : qty
     }
 }
 

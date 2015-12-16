@@ -14,12 +14,15 @@ class OrderViewController: UIViewController{
     @IBOutlet var tableView: UITableView!
     private var orderArray: [OrderModel] = []
     private var orderStatu: String = "-1"
+    var ispush = true
     override func viewDidLoad() {
         super.viewDidLoad()
         loadDataModel(orderStatu)
         title = "我的订单"
         view.backgroundColor = theme.SDBackgroundColor
+        if ispush {
         self.tabBarController!.tabBar.hidden = true
+        }
         self.tableView.dataSource = self
         self.tableView.delegate = self
     }
@@ -37,7 +40,7 @@ extension OrderViewController {
         let manager = AFHTTPRequestOperationManager()
         manager.responseSerializer = AFJSONResponseSerializer()
         manager.requestSerializer = AFJSONRequestSerializer()
-        let parameters = ["custNo":"cu001","pageIndex":1,"pageCount":5,"orderStatu":orderStatu]
+        let parameters = ["custNo":"cust01","pageIndex":1,"pageCount":5,"orderStatu":orderStatu]
         // manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/html") as Set<NSObject>
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             //这里写需要大量时间的代码
@@ -139,7 +142,9 @@ extension OrderViewController: UITableViewDataSource,UITableViewDelegate {
         }
         if(cellId == "title"){
             let dingDanHao = cell?.viewWithTag(10001) as! UILabel
+            let dingDanZhuangtai = cell?.viewWithTag(10002) as! UILabel
             dingDanHao.text = self.orderArray[0].listorder[indexPath.section].orderNo
+            dingDanZhuangtai.text = "正在配送"
             // cell取消选中效果
             cell!.selectionStyle = UITableViewCellSelectionStyle.None
         }

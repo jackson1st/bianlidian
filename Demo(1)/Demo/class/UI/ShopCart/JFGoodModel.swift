@@ -28,12 +28,13 @@ class JFGoodModels: NSObject,DictModelProtocol{
     static func customClassMapping() -> [String : String]? {
         return ["showCar" : "\(JFGoodModel.self)"]
     }
+    
 }
 
 
 
 //@objc(JFGoodModel)
-class JFGoodModel: NSObject,DictModelProtocol {
+class JFGoodModel: NSObject,DictModelProtocol,NSCoding {
     var addDate: Int?
     var barcode: String?
     var custNo: String?
@@ -70,6 +71,11 @@ class JFGoodModel: NSObject,DictModelProtocol {
     static func customClassMapping() -> [String : String]? {
         return ["shopNameList" : "\(ShopName.self)"]
     }
+    
+    
+    override init() {
+        super.init()
+    }
 ////     字典转模型
 //    init(dict: [String : AnyObject]) {
 //        super.init()
@@ -85,9 +91,68 @@ class JFGoodModel: NSObject,DictModelProtocol {
 //    // 防止对象属性和kvc时的dict的key不匹配而崩溃
 //    override func setValue(value: AnyObject?, forUndefinedKey key: String) {}
     
+    required init?(coder aDecoder: NSCoder) {
+        addDate = aDecoder.decodeIntegerForKey("addDate")
+        barcode = aDecoder.decodeObjectForKey("barcode") as? String
+        custNo = aDecoder.decodeObjectForKey("custNo") as? String
+        itemPack = aDecoder.decodeObjectForKey("itemPack") as? Int
+        shopNameList = aDecoder.decodeObjectForKey("shopNameList") as! [ShopName]
+        canChange = aDecoder.decodeBoolForKey("canChange")
+        alreadyAddShoppingCart = aDecoder.decodeBoolForKey("alreadyAddShoppingCart")
+        url = aDecoder.decodeObjectForKey("url") as? String
+        itemName = aDecoder.decodeObjectForKey("itemName") as? String
+        itemSize = aDecoder.decodeObjectForKey("itemSize") as? String
+        itemSalePrice = aDecoder.decodeObjectForKey("itemSalePrice") as? String
+        itemDistPrice = aDecoder.decodeObjectForKey("itemDistPrice") as? String
+        totalPrice = aDecoder.decodeDoubleForKey("totalPrice")
+        selected = aDecoder.decodeBoolForKey("selected")
+        
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeInteger((addDate ?? 0), forKey: "addDate")
+        aCoder.encodeObject((barcode ?? "无"), forKey: "barcode")
+        aCoder.encodeObject((custNo ?? "无"), forKey: "custNo")
+        aCoder.encodeObject((itemPack ?? 0), forKey: "itemPack")
+        aCoder.encodeObject(shopNameList, forKey: "shopNameList")
+        aCoder.encodeBool(canChange, forKey: "canChange")
+        aCoder.encodeBool(alreadyAddShoppingCart, forKey: "alreadyAddShoppingCart")
+        aCoder.encodeObject((url ?? "无"), forKey: "url")
+        aCoder.encodeObject((itemName ?? "无"), forKey: "itemName")
+        aCoder.encodeObject((itemSize ?? "无"), forKey: "itemSize")
+        aCoder.encodeObject((itemSalePrice ?? "无"), forKey: "itemSalePrice")
+        aCoder.encodeObject((itemDistPrice ?? "无"), forKey: "itemDistPrice")
+        aCoder.encodeDouble(totalPrice!, forKey: "totalPrice")
+        aCoder.encodeBool(selected, forKey: "selected")
+    }
+
+    
 }
-class ShopName: NSObject{
+class ShopName: NSObject,NSCoding{
     var stockQty: Int?
     var shopName: String?
     var onArea: Bool?
+    
+    convenience init (stockQty: Int?,shopName: String?,onArea: Bool = true){
+        self.init()
+        self.stockQty = stockQty
+        self.shopName = shopName
+        self.onArea = onArea
+    }
+    
+    override init() {
+        super.init()
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeInteger((stockQty ?? 0), forKey: "stockQty")
+        aCoder.encodeBool(onArea!, forKey: "onArea")
+        aCoder.encodeObject(shopName, forKey: "shopName")
+    }
+    required init?(coder aDecoder: NSCoder) {
+        
+        stockQty = aDecoder.decodeIntegerForKey("stockQty")
+        shopName = aDecoder.decodeObjectForKey("onArea") as? String
+        onArea = aDecoder.decodeBoolForKey("shopName")
+    }
 }

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="e0h-ny-eEa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="e0h-ny-eEa">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--体验-->
+        <!--分类-->
         <scene sceneID="tkR-Xy-ybb">
             <objects>
                 <viewController id="e0h-ny-eEa" customClass="SortViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
@@ -16,43 +15,9 @@
                     <view key="view" contentMode="scaleToFill" id="Toq-28-hQy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ErO-Mw-Odr">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="64"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="hIf-MY-5f2"/>
-                                </constraints>
-                                <items>
-                                    <navigationItem id="kZ4-DI-wVj">
-                                        <barButtonItem key="rightBarButtonItem" image="saoyisao2" id="Jpn-T1-pFy">
-                                            <inset key="imageInsets" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
-                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="搜索商品" translatesAutoresizingMaskIntoConstraints="NO" id="E96-IX-azL">
-                                <rect key="frame" x="-4" y="20" width="313" height="44"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="E8p-BY-Wbt"/>
-                                </constraints>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
-                        </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="ErO-Mw-Odr" secondAttribute="trailing" constant="-20" id="5nw-55-7EU"/>
-                            <constraint firstItem="E96-IX-azL" firstAttribute="leading" secondItem="Toq-28-hQy" secondAttribute="leadingMargin" constant="-20" id="7Ht-YZ-oKr"/>
-                            <constraint firstItem="ErO-Mw-Odr" firstAttribute="top" secondItem="Toq-28-hQy" secondAttribute="topMargin" id="P1Q-mM-lMm"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="E96-IX-azL" secondAttribute="trailing" constant="50" id="Pk5-Kz-awI"/>
-                            <constraint firstItem="E96-IX-azL" firstAttribute="top" secondItem="JYO-yE-T9K" secondAttribute="bottom" id="Xes-gu-Zt4"/>
-                            <constraint firstItem="ErO-Mw-Odr" firstAttribute="leading" secondItem="Toq-28-hQy" secondAttribute="leadingMargin" constant="-20" id="hWi-EY-n2t"/>
-                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="体验" image="broadwood_1" selectedImage="broadwood_1" id="orr-X3-65J"/>
+                    <tabBarItem key="tabBarItem" title="分类" image="broadwood_1" selectedImage="broadwood_1" id="orr-X3-65J"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
@@ -63,6 +28,5 @@
     </scenes>
     <resources>
         <image name="broadwood_1" width="27" height="27"/>
-        <image name="saoyisao2" width="35" height="49"/>
     </resources>
 </document>

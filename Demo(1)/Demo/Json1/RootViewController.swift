@@ -41,5 +41,10 @@ class RootViewController: UITabBarController {
     override func viewWillAppear(animated: Bool) {
     }
     
+    class func showTabBar(show: Bool){
+        if(show){
+        }
+    }
+    
 
 }

@@ -20,7 +20,7 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
     var secondScrollView: UIScrollView!
     
     var contentViewForEVAView: UIView!
-    
+    let userDefault = NSUserDefaults()
     var goodSizeView: UITableView!
     var prototypeCell: GoodSizeTableCell!
     var ContentViewForGoodSizeView: UIView!
@@ -31,9 +31,15 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
     var item: GoodDetail?{
         didSet{
             sumCountForSizeChoose = (item?.itemUnits.count)!
+             var arr = [String]()
+            arr.append("规格")
+            for var x in (item?.itemUnits)!{
+                arr.append(x.sizeName!)
+            }
+            data.append(arr)
         }
     }
-    var data = [["口味","甜的","辣的","咸的","苦的","酸的"],["口味","甜的","辣的","咸的","苦的","酸的"],["口味","甜的","辣的","咸的","苦的","酸的"],["版本","64G公开版","128G国行版","16G港版","64G公开版","128G国行版","16G港版","64G公开版","128G国行版","16G港版","64G公开版","128G国行版","16G港版"],["口味","甜的","辣的","咸的","苦的","酸的"],["口味","甜的","辣的","咸的","苦的","酸的"],["口味","甜的","辣的","咸的","苦的","酸的"],["颜色","红色","黑色","白色"]]
+    var data = [[String]]()
     
     //detail
     var needLoadSecondView = true
@@ -49,6 +55,10 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
         super.viewDidLoad()
         initAll()
     }
+    //购买数量
+    var viewAddNum: UIView!
+    var labelAddNum: UILabel!
+    var addNum: Int = 1
     
     //MARK: - 页面出现的事务
         override func viewWillAppear(animated: Bool) {
@@ -98,6 +108,41 @@ extension OtherViewController{
         default: break
         }
     }
+    @IBAction func ButtonGoToShopCartClicked(sender: AnyObject) {
+        
+        let vc = JFShoppingCartViewController()
+        vc.backButtonShow = true
+        self.navigationController?.navigationBarHidden = false
+        self.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    @IBAction func ButtonAddItemToShopCartClicked(sender: AnyObject) {
+        if(countForSizeChoose != 1){
+            SVProgressHUD.showErrorWithStatus("请选择商品规格")
+        }else{
+            SVProgressHUD.showSuccessWithStatus("成功添加到购物车")
+            let JFmodel = JFGoodModel()
+            JFmodel.url = item?.imageTop[0]
+            JFmodel.num = addNum
+            JFmodel.custNo = userDefault.objectForKey(SD_UserDefaults_Account) as? String
+            JFmodel.itemName = item?.itemName
+            JFmodel.itemSize = dictSizeChoose["规格"] as? String
+            JFmodel.barcode = item?.barcode
+            JFmodel.itemSalePrice = item?.itemSalePrice
+            JFmodel.itemDistPrice = item?.itemSalePrice
+     
+            JFmodel.totalPrice = 100
+            JFmodel.shopNameList = [ShopName]()
+            for var x in (item?.itemStocks)!{
+                print(x.stockQty)
+                print(x.shopName)
+                JFmodel.shopNameList.append(ShopName(stockQty: x.stockQty, shopName: x.shopName))
+            }
+            Model.defaultModel.shopCart.append(JFmodel)
+            print(Model.defaultModel.shopCart.count)
+        }
+    }
     
     //响应规格选择的通知
     func chooseSize(notification: NSNotification){
@@ -107,9 +152,26 @@ extension OtherViewController{
             //取消这个规格
             countForSizeChoose--
         }else{
-            
             countForSizeChoose++
+            dictSizeChoose["规格"] = data[0][flag%100]
         }
+    }
+    
+    //相应增加数量
+    func AddNum(sender: AnyObject){
+        switch(sender.tag){
+        case 101:
+            //减
+            if(addNum>0){
+                addNum--
+            }
+        default:
+            if(addNum<99){
+                addNum++
+            }
+        }
+        labelAddNum.text = "\(addNum)"
+        labelAddNum.sizeToFit()
     }
     
 }
@@ -123,11 +185,72 @@ extension OtherViewController{
         initPhotoScan()
         initDetailView()
         initSizeView()
+        initNot()
+        initViewAddNum()
     }
     
     //注册通知
     func initNot(){
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "chooseSize:", name: "ChooseSize", object: nil)
+    }
+    
+    //初始化数量修改视图
+    func initViewAddNum(){
+        viewAddNum = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 30))
+        viewAddNum.backgroundColor = UIColor.whiteColor()
+        var label1 = UILabel()
+        label1.textAlignment = .Center
+        label1.text = "数量"
+        viewAddNum.addSubview(label1)
+        label1.snp_makeConstraints { (make) -> Void in
+            make.width.equalTo(50)
+            make.left.equalTo(viewAddNum)
+            make.centerY.equalTo(viewAddNum)
+        }
+        var btn1 = UIButton()
+        btn1.setTitle("-", forState: .Normal)
+        btn1.setTitleColor(UIColor.blackColor() , forState: .Normal)
+        btn1.layer.cornerRadius = 10
+        btn1.layer.borderColor = UIColor.blackColor().CGColor
+        btn1.layer.borderWidth = 0.3
+        btn1.addTarget(self, action: "AddNum:", forControlEvents: .TouchUpInside)
+        btn1.tag = 101
+        viewAddNum.addSubview(btn1)
+        btn1.snp_makeConstraints { (make) -> Void in
+            make.width.equalTo(20)
+            make.height.equalTo(20)
+            make.left.equalTo(label1.snp_right)
+            make.centerY.equalTo(viewAddNum)
+        }
+        
+        labelAddNum = UILabel()
+        labelAddNum.textColor = UIColor.blackColor()
+        labelAddNum.textAlignment = .Center
+        labelAddNum.text = "1"
+        viewAddNum.addSubview(labelAddNum)
+        labelAddNum.snp_makeConstraints { (make) -> Void in
+            make.width.equalTo(30)
+            make.height.equalTo(20)
+            make.left.equalTo(btn1.snp_right)
+            make.centerY.equalTo(viewAddNum)
+        }
+        
+        var btn2 = UIButton()
+        
+        btn2.setTitle("+", forState: .Normal)
+        btn2.setTitleColor(UIColor.blackColor() , forState: .Normal)
+        btn2.layer.cornerRadius = 10
+        btn2.layer.borderColor = UIColor.blackColor().CGColor
+        btn2.layer.borderWidth = 0.3
+        btn2.addTarget(self, action: "AddNum:", forControlEvents: .TouchUpInside)
+        btn2.tag = 102
+        viewAddNum.addSubview(btn2)
+        btn2.snp_makeConstraints { (make) -> Void in
+            make.width.equalTo(20)
+            make.height.equalTo(20)
+            make.left.equalTo(labelAddNum.snp_right)
+            make.centerY.equalTo(viewAddNum)
+        }
     }
     
     //初始化scrollView
@@ -153,12 +276,13 @@ extension OtherViewController{
         firstScrollView.bounces = false
         
         //初始化第二个scrollView
-        secondScrollView = UIScrollView(frame: CGRect(x: self.view.width, y: 0, width: self.view.width, height: self.view.height - 49))
+        secondScrollView = UIScrollView(frame: CGRect(x: self.view.width, y: 0, width: self.view.width, height: self.view.height - 49-59))
         scrollView.addSubview(secondScrollView)
         secondScrollView.contentSize = CGSize(width: self.view.width, height: 0)
         secondScrollView.showsVerticalScrollIndicator = false
         secondScrollView.showsHorizontalScrollIndicator = false
         secondScrollView.bounces = false
+        secondScrollView.backgroundColor = UIColor.whiteColor()
     }
     
     //初始化轮播
@@ -234,7 +358,8 @@ extension OtherViewController{
             make.left.equalTo(contentViewForEVAView.snp_left).offset(0)
             make.width.equalTo(self.view.frame.width)
         }
-        firstScrollView.contentSize.height += height + 100
+        firstScrollView.contentSize.height += height + 150
+        print(firstScrollView.contentSize)
         // EVAVC?.view.frame.origin = CGPoint(x: 0, y: (sizeVC?.tableView.frame.origin.y)!  + (sizeVC?.tableViewHeight)! + 10)
     }
     
@@ -276,10 +401,11 @@ extension OtherViewController{
         var counts:CGFloat = 0
         let width = self.view.frame.width
         for var x in (item?.imageDetail)!{
-            let imgView = UIImageView(frame: CGRect(x: width , y: (width + 10) * counts , width: width, height: width))
+            let imgView = UIImageView(frame: CGRect(x: 0 , y: (width + 10) * counts , width: width, height: width))
             imgView.setImageWithURL(NSURL(string: x))
             imgView.clipsToBounds = true
             counts++
+            secondScrollView.contentSize.height += width + 10
             secondScrollView.addSubview(imgView)
         }
     }
@@ -323,10 +449,10 @@ extension OtherViewController: UITableViewDelegate,UITableViewDataSource{
             button.setTitle(data[indexPath.row][i], forState: .Normal)
             button.frame.size        = (data[indexPath.row][i] as NSString).sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(14.0)])
             button.setTitleColor(UIColor.blackColor() , forState: .Normal)
-            button.setTitleColor(UIColor.orangeColor(), forState: .Selected)
             button.titleLabel?.font  = UIFont.systemFontOfSize(14)
-            button.layer.borderColor = UIColor.blackColor().CGColor
-            button.layer.borderWidth = 0.3
+            button.frame.size.width += 15
+            button.frame.size.height += 5
+            button.setBackgroundImage(UIImage(named: "populartags"), forState: .Normal)
             buttons.append(button)
         }
         cell.sizeTag        = (indexPath.row+1)*100
@@ -337,12 +463,23 @@ extension OtherViewController: UITableViewDelegate,UITableViewDataSource{
         return cell
     }
     
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        return viewAddNum
+    }
+    
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         print("重绘了\(indexPath.row)的高度")
         if(viewDidApper){
             print("yes")
             if(indexPath.row == data.count-1){
                 firstScrollView.contentSize.height += tableView.height
+                print(firstScrollView.contentSize)
                 initEVAView()
                 ContentViewForGoodSizeView.snp_makeConstraints(closure: { (make) -> Void in
                     make.height.equalTo(tableView.contentSize.height)

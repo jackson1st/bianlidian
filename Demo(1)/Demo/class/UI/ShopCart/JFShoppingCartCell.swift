@@ -137,7 +137,7 @@ class JFShoppingCartCell: UITableViewCell {
         let selectButton = UIButton(type: UIButtonType.Custom)
         selectButton.setImage(UIImage(named: "check_n"), forState: UIControlState.Normal)
         selectButton.setImage(UIImage(named: "check_y"), forState: UIControlState.Selected)
-        selectButton.setImage(UIImage(named: "check_no"), forState: UIControlState.Disabled)
+        selectButton.setImage(UIImage(named: "none"), forState: UIControlState.Disabled)
         selectButton.addTarget(self, action: "didSelectedButton:", forControlEvents: UIControlEvents.TouchUpInside)
         selectButton.sizeToFit()
         return selectButton

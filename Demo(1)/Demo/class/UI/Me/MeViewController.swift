@@ -44,25 +44,18 @@ class MeViewController: MainMeViewController {
         super.viewDidLoad()
         // 初始化导航条上的内容
         setNav()
-        //self.hidesBottomBarWhenPushed = true
+//        self.tabBarController!.tabBar.hidden = false
         // 设置tableView
         setTableView()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "doSomething", name: "finishAOrder2", object: nil)
+        self.hidesBottomBarWhenPushed = true
+        self.tabBarController!.tabBar.hidden = false
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(false)
-         self.tabBarController!.tabBar.hidden = false
+        self.tabBarController!.tabBar.hidden = false
     }
     
-    func doSomething(){
-        print("yes")
-        tableView.delegate!.tableView!(self.tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
-    }
-    
-    deinit{
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
     
     private func setNav() {
         navigationItem.title = "我的"

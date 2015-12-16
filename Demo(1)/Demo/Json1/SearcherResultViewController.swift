@@ -288,7 +288,7 @@ extension SearcherResultViewController: UITableViewDelegate,UITableViewDataSourc
             self.item?.itemStocks = [ItemStock]()
             for var x in arry!{
                 var xx = x as! [String: AnyObject]
-                self.item?.itemStocks.append(ItemStock(name: xx["shopName"] as? String, qty: (xx["stockQty"] as? String)))
+                self.item?.itemStocks.append(ItemStock(name: xx["shopName"] as? String, qty: (xx["stockQty"] as? Int)))
             }
             
             self.item?.itemUnits = dict["itemUnits"] as! [ItemUnit]

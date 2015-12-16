@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/OtherViewController.swift"
-            timestampString = "471875028.983326"
+            timestampString = "471945460.106284"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "490"
-            endingLineNumber = "490">
+            startingLineNumber = "627"
+            endingLineNumber = "627">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -40,11 +40,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/MainViewController.swift"
-            timestampString = "471875677.669106"
+            timestampString = "471940649.058934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "userContentController(_:didReceiveScriptMessage:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -56,11 +56,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/MainViewController.swift"
-            timestampString = "471875677.669106"
+            timestampString = "471940649.058934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
             landmarkName = "userContentController(_:didReceiveScriptMessage:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -72,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/OtherViewController.swift"
-            timestampString = "471875028.983326"
+            timestampString = "471945460.106284"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "410"
-            endingLineNumber = "410">
+            startingLineNumber = "547"
+            endingLineNumber = "547">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -181,11 +181,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/OtherViewController.swift"
-            timestampString = "471875028.983326"
+            timestampString = "471945460.106284"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "459"
-            endingLineNumber = "459">
+            startingLineNumber = "596"
+            endingLineNumber = "596">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -195,11 +195,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/OtherViewController.swift"
-            timestampString = "471875028.983326"
+            timestampString = "471945460.106284"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "669"
-            endingLineNumber = "669">
+            startingLineNumber = "806"
+            endingLineNumber = "806">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -209,11 +209,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/GoodSizeTableCell.swift"
-            timestampString = "471354663.316292"
+            timestampString = "471943734.993321"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "buttonClicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -225,11 +225,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/OtherViewController.swift"
-            timestampString = "471875028.983326"
+            timestampString = "471945460.106284"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "397"
-            endingLineNumber = "397">
+            startingLineNumber = "534"
+            endingLineNumber = "534">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -239,11 +239,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/MainViewController.swift"
-            timestampString = "471875677.669106"
+            timestampString = "471940649.058934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
             landmarkName = "prepareForSegue(_:sender:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -303,11 +303,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/MainViewController.swift"
-            timestampString = "471875677.669106"
+            timestampString = "471940649.058934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "userContentController(_:didReceiveScriptMessage:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -319,11 +319,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/MainViewController.swift"
-            timestampString = "471875677.669106"
+            timestampString = "471940649.058934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
+            startingLineNumber = "229"
+            endingLineNumber = "229"
             landmarkName = "userContentController(_:didReceiveScriptMessage:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -335,11 +335,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/OtherViewController.swift"
-            timestampString = "471875028.983326"
+            timestampString = "471945460.106284"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "278"
-            endingLineNumber = "278"
+            startingLineNumber = "403"
+            endingLineNumber = "403"
             landmarkName = "initSecondView()"
             landmarkType = "5">
          </BreakpointContent>
@@ -351,11 +351,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/MainViewController.swift"
-            timestampString = "471876369.610703"
+            timestampString = "471940649.058934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
             landmarkName = "textFieldDidBeginEditing(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -421,6 +421,134 @@
             startingLineNumber = "134"
             endingLineNumber = "134"
             landmarkName = "initViewChooseType()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Demo/Json1/MainViewController.swift"
+            timestampString = "471940649.058934"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "221"
+            endingLineNumber = "221"
+            landmarkName = "userContentController(_:didReceiveScriptMessage:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Demo/Json1/OtherViewController.swift"
+            timestampString = "471945460.106284"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "483"
+            endingLineNumber = "483"
+            landmarkName = "tableView(_:heightForRowAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Demo/Json1/OtherViewController.swift"
+            timestampString = "471945460.106284"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "ButtonAddItemToShopCartClicked(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Demo/Json1/OtherViewController.swift"
+            timestampString = "471945460.106284"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "chooseSize(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Demo/Json1/MainViewController.swift"
+            timestampString = "471940649.058934"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
+            landmarkName = "userContentController(_:didReceiveScriptMessage:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Demo/Json1/OtherViewController.swift"
+            timestampString = "471945460.106284"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "ButtonAddItemToShopCartClicked(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Demo/Json1/OtherViewController.swift"
+            timestampString = "471945460.106284"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "400"
+            endingLineNumber = "400"
+            landmarkName = "initSecondView()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Demo/class/UI/ShopCart/JFShoppingCartViewController.swift"
+            timestampString = "471945542.371724"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "366"
+            endingLineNumber = "366"
+            landmarkName = "didTappedBackButton()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

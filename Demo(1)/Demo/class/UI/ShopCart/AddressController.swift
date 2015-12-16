@@ -16,7 +16,7 @@ class AddressController: UITableViewController {
     @IBOutlet var address: UITextField!
     @IBOutlet var tele: UITextField!
     var ad: [String] = []
-    var delegate: OkDelegate?
+     var delegate: OkDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()

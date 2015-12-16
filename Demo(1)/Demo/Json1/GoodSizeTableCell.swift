@@ -55,7 +55,7 @@ class GoodSizeTableCell: UITableViewCell {
                 
             }
         }
-        NSNotificationCenter.defaultCenter().postNotificationName("ChooseSize", object: self, userInfo: ["SizeTag":buttonTag,"flag": flag])
+    NSNotificationCenter.defaultCenter().postNotificationName("ChooseSize", object: self, userInfo: ["SizeTag":buttonTag,"flag": flag])
     }
         
     override func awakeFromNib() {
