@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="473"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="jackson" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ww6-9P-z5H">
+                    <rect key="frame" x="49" y="55" width="178" height="64"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="53"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch" translatesAutoresizingMaskIntoConstraints="NO" id="wcM-Aw-EGA">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="473"/>
+                    <animations/>
+                </imageView>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="wcM-Aw-EGA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="P2h-6d-j2v"/>
+                <constraint firstItem="Ww6-9P-z5H" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="55" id="RqF-ip-o6M"/>
+                <constraint firstAttribute="bottom" secondItem="wcM-Aw-EGA" secondAttribute="bottom" id="WRD-Oc-cXH"/>
+                <constraint firstItem="Ww6-9P-z5H" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="49" id="a0j-HN-IlN"/>
+                <constraint firstAttribute="trailing" secondItem="wcM-Aw-EGA" secondAttribute="trailing" id="ciW-gV-pmz"/>
+                <constraint firstItem="wcM-Aw-EGA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dqe-bh-7mf"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="357" y="468.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="launch" width="375" height="667"/>
+    </resources>
+</document>
