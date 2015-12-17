@@ -19,7 +19,9 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
     var backScrollView: UIScrollView!
     var topView: UIView!
     var phoneTextField: UITextField!
+    var phoneImageView: UIImageView!
     var psdTextField: UITextField!
+    var psdImageView: UIImageView!
     var loginImageView: UIImageView!
     var quickLoginBtn: UIButton!
     var forgetPwdImageView: UIImageView!
@@ -46,7 +48,7 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         // 添加键盘通知
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillChangeFrameNotification:", name: UIKeyboardWillChangeFrameNotification, object: nil)
     }
-    
+
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
@@ -81,8 +83,10 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
     
     func addTextField() {
         let textH: CGFloat = 55
+        let leftDistance: CGFloat = 51
         let leftMargin: CGFloat = 10
         let alphaV: CGFloat = 0.2
+        let imageViewheigh: CGFloat = 35
         topView = UIView(frame: CGRectMake(0, 20, AppWidth, textH * 2))
         topView?.backgroundColor = UIColor.whiteColor()
         backScrollView.addSubview(topView!)
@@ -92,9 +96,11 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         line1.alpha = alphaV
         topView!.addSubview(line1)
         
+        phoneImageView = UIImageView()
         phoneTextField = UITextField()
         phoneTextField?.keyboardType = UIKeyboardType.NumberPad
-        addTextFieldToTopViewWiht(phoneTextField!, frame: CGRectMake(leftMargin, 1, AppWidth - leftMargin, textH - 1), placeholder: "请输入手机号")
+        addImageViewToTopViewWiht(phoneImageView, frame: CGRectMake(12, 11, imageViewheigh, imageViewheigh), imageName: "用户")
+        addTextFieldToTopViewWiht(phoneTextField!, frame: CGRectMake(leftDistance, 1, AppWidth - leftMargin, textH - 1), placeholder: "请输入手机号")
         
         let line2 = UIView(frame: CGRectMake(0, textH, AppWidth, 1))
         line2.backgroundColor = UIColor.grayColor()
@@ -102,7 +108,10 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         topView!.addSubview(line2)
         
         psdTextField = UITextField()
-        addTextFieldToTopViewWiht(psdTextField!, frame: CGRectMake(leftMargin, textH + 1, AppWidth - leftMargin, textH - 1), placeholder: "密码")
+        psdTextField.secureTextEntry = true
+        psdImageView = UIImageView()
+        addImageViewToTopViewWiht(psdImageView, frame: CGRectMake(12, textH + 11, imageViewheigh, imageViewheigh), imageName: "密码-1")
+        addTextFieldToTopViewWiht(psdTextField!, frame: CGRectMake(leftDistance, textH + 1, AppWidth - leftMargin, textH - 1), placeholder: "密码")
     }
     
     func addQuictLoginBtn() {
@@ -128,6 +137,13 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         textField.placeholder = placeholder
         topView!.addSubview(textField)
     }
+    
+    func addImageViewToTopViewWiht(imageView: UIImageView,frame: CGRect,imageName: String){
+        imageView.frame = frame
+        imageView.image = UIImage(named: imageName)
+        topView!.addSubview(imageView)
+    }
+    
     
     func addBottomView() {
         let forgetPwdImageViewH: CGFloat = 45
@@ -168,6 +184,10 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
             print("忘记密码", terminator: "")
         } else {                 // 注册
             print("注册", terminator: "")
+            
+            let sb = UIStoryboard.init(name: "My", bundle: nil)
+            let vc = sb.instantiateViewControllerWithIdentifier("ResignViewController")
+            self.navigationController?.pushViewController(vc, animated: true)
             SVProgressHUD.showErrorWithStatus("直接登录就行...没有注册功能", maskType: .Black)
         }
     }

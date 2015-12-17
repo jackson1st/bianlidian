@@ -376,9 +376,6 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L3B-6T-uSj">
                                 <rect key="frame" x="0.0" y="80" width="375" height="105"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="用户" translatesAutoresizingMaskIntoConstraints="NO" id="LkL-fd-NvG">
-                                        <rect key="frame" x="16" y="9" width="35" height="35"/>
-                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="密码-1" translatesAutoresizingMaskIntoConstraints="NO" id="Jus-eR-SUd">
                                         <rect key="frame" x="16" y="62" width="35" height="35"/>
                                     </imageView>
@@ -404,6 +401,9 @@
                                         <rect key="frame" x="15" y="52" width="345" height="1"/>
                                         <color key="backgroundColor" red="0.82972703969999995" green="0.82972703969999995" blue="0.82972703969999995" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="用户" translatesAutoresizingMaskIntoConstraints="NO" id="LkL-fd-NvG">
+                                        <rect key="frame" x="16" y="9" width="35" height="35"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -447,7 +447,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GKS-H0-8nN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3030.5" y="1208.5"/>
+            <point key="canvasLocation" x="-3029.5" y="1166.5"/>
         </scene>
         <!--我的订单-->
         <scene sceneID="gGP-GU-eV3">
@@ -874,12 +874,85 @@
             </objects>
             <point key="canvasLocation" x="-1577.5" y="1221.5"/>
         </scene>
+        <!--Resign View Controller-->
+        <scene sceneID="kJk-Di-FVx">
+            <objects>
+                <viewController storyboardIdentifier="ResignViewController" id="4A0-n9-aBh" customClass="ResignViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rdU-zB-ScU"/>
+                        <viewControllerLayoutGuide type="bottom" id="RMD-2Y-fpM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SRa-f5-UAP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="手机号" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" background="pricedescription" translatesAutoresizingMaskIntoConstraints="NO" id="YKe-Ue-M1u">
+                                <rect key="frame" x="60" y="104" width="255" height="30"/>
+                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="验证码" textAlignment="center" minimumFontSize="17" background="pricedescription" translatesAutoresizingMaskIntoConstraints="NO" id="RGs-2f-Ml6">
+                                <rect key="frame" x="60" y="154" width="149" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" textAlignment="center" minimumFontSize="17" background="pricedescription" translatesAutoresizingMaskIntoConstraints="NO" id="Obt-JN-RPm">
+                                <rect key="frame" x="60" y="214" width="255" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="确认密码" textAlignment="center" minimumFontSize="17" background="pricedescription" translatesAutoresizingMaskIntoConstraints="NO" id="0dM-YO-icw">
+                                <rect key="frame" x="60" y="264" width="255" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="邮箱(可选)" textAlignment="center" minimumFontSize="17" background="pricedescription" translatesAutoresizingMaskIntoConstraints="NO" id="6IO-oa-voY">
+                                <rect key="frame" x="60" y="314" width="255" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xkf-as-0fX">
+                                <rect key="frame" x="60" y="364" width="255" height="30"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.30196078430000001" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="验证并注册">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="resignAction:" destination="4A0-n9-aBh" eventType="touchUpInside" id="pJk-SS-nZF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="byC-1I-wlZ">
+                                <rect key="frame" x="225" y="154" width="90" height="30"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.30196078430000001" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="发送验证码">
+                                    <color key="titleColor" red="0.9815491798" green="0.97796029979999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="PhoneTextField" destination="YKe-Ue-M1u" id="WtB-ij-0qw"/>
+                        <outlet property="barcodeTextField" destination="RGs-2f-Ml6" id="xjs-gB-Ri4"/>
+                        <outlet property="emailTextField" destination="6IO-oa-voY" id="X6g-ie-mIY"/>
+                        <outlet property="psdTexField" destination="Obt-JN-RPm" id="Ikn-wG-aXI"/>
+                        <outlet property="rePsdTextField" destination="0dM-YO-icw" id="23b-eL-yXf"/>
+                        <outlet property="sendBarcode" destination="byC-1I-wlZ" id="RK8-vL-M8r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kia-uM-88J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3562.5" y="1100.5"/>
+        </scene>
     </scenes>
     <resources>
         <image name="backgroundcolor" width="351" height="114"/>
         <image name="login_avatar_default" width="80" height="80"/>
         <image name="my_1" width="27" height="27"/>
         <image name="my_2" width="27" height="27"/>
+        <image name="pricedescription" width="24" height="26"/>
         <image name="优惠券-1" width="60" height="60"/>
         <image name="密码-1" width="47" height="48"/>
         <image name="帮助" width="60" height="60"/>

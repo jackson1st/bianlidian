@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040F8C7B1C22C57D0027CDC1 /* ResignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F8C7A1C22C57D0027CDC1 /* ResignViewController.swift */; };
 		047A5F1F1C14519C004FA20F /* MainMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5F1E1C14519C004FA20F /* MainMeViewController.swift */; };
 		047A5F381C145424004FA20F /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 047A5F211C145424004FA20F /* Address.plist */; };
 		047A5F391C145424004FA20F /* cityData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 047A5F221C145424004FA20F /* cityData.plist */; };
@@ -273,6 +274,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		040F8C7A1C22C57D0027CDC1 /* ResignViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResignViewController.swift; sourceTree = "<group>"; };
 		047A5F1E1C14519C004FA20F /* MainMeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMeViewController.swift; sourceTree = "<group>"; };
 		047A5F211C145424004FA20F /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
 		047A5F221C145424004FA20F /* cityData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cityData.plist; sourceTree = "<group>"; };
@@ -712,6 +714,7 @@
 				04CF8D971C144FB400512979 /* SDRefreshHeader.swift */,
 				04CF8D981C144FB400512979 /* ShareView.swift */,
 				04CF8D991C144FB400512979 /* ShareView.xib */,
+				040F8C7A1C22C57D0027CDC1 /* ResignViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1472,7 +1475,7 @@
 				TargetAttributes = {
 					04CF8D531C144DAE00512979 = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = XY62SV3XGC;
+						DevelopmentTeam = KCE7SZBDA8;
 					};
 					04CF8D6A1C144DAE00512979 = {
 						CreatedOnToolsVersion = 7.0.1;
@@ -1649,6 +1652,7 @@
 				04CF8ED41C144FDB00512979 /* MJRefreshAutoGifFooter.m in Sources */,
 				04CF8DDC1C144FB400512979 /* PayViewController.swift in Sources */,
 				96C83E881C1975CA0075A204 /* JSONND.swift in Sources */,
+				040F8C7B1C22C57D0027CDC1 /* ResignViewController.swift in Sources */,
 				047A5F1F1C14519C004FA20F /* MainMeViewController.swift in Sources */,
 				04CF8DC41C144FB400512979 /* MainTableView.swift in Sources */,
 				96C83E871C1975CA0075A204 /* JSONND+DictionaryLiteralConvertible.swift in Sources */,
@@ -1928,6 +1932,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_HEADERS_RUN_UNIFDEF = NO;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Demo/Info.plist;
@@ -1940,6 +1945,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hrh.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = Header.h;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = Header.h;
 			};
@@ -1950,6 +1956,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_HEADERS_RUN_UNIFDEF = NO;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Demo/Info.plist;
@@ -1962,6 +1969,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hrh.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = Header.h;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = Header.h;
 			};
