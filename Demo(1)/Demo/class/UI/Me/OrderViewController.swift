@@ -21,7 +21,7 @@ class OrderViewController: UIViewController{
         title = "我的订单"
         view.backgroundColor = theme.SDBackgroundColor
         if ispush {
-        self.tabBarController!.tabBar.hidden = true
+//        self.tabBarController!.tabBar.hidden = true
         }
         self.tableView.dataSource = self
         self.tableView.delegate = self

@@ -19,7 +19,7 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         // 设置导航条上的内容
         setNav()
-        self.tabBarController!.tabBar.hidden = true
+//        self.tabBarController!.tabBar.hidden = true
         view.backgroundColor = theme.SDWebViewBacagroundColor
         // 设置留言框和联系框
         setFeedbackTextViewAndContactTextField()

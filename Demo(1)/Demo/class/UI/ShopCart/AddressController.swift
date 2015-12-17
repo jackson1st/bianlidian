@@ -20,6 +20,7 @@ class AddressController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
+        
     }
     func setNv() {
         navigationItem.title = "地址信息"

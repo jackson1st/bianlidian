@@ -32,7 +32,7 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         
         navigationItem.title = "登录"
         view.backgroundColor = theme.SDWebViewBacagroundColor
-        self.tabBarController!.tabBar.hidden = true
+//        self.tabBarController!.tabBar.hidden = true
         //添加scrollView
         addScrollView()
         // 添加手机文本框和密码文本框

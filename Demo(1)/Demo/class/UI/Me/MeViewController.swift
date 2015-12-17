@@ -24,7 +24,7 @@ enum SDMineCellType: Int {
     case RecommendApp = 4
 }
 
-class MeViewController: MainMeViewController {
+class MeViewController: UIViewController,UINavigationControllerDelegate {
     private var loginLabel: UILabel!
     private var tableView: UITableView!
     private lazy var pickVC: UIImagePickerController = {
@@ -44,11 +44,10 @@ class MeViewController: MainMeViewController {
         super.viewDidLoad()
         // 初始化导航条上的内容
         setNav()
-//        self.tabBarController!.tabBar.hidden = false
         // 设置tableView
         setTableView()
-        self.hidesBottomBarWhenPushed = true
-        self.tabBarController!.tabBar.hidden = false
+//        self.hidesBottomBarWhenPushed = true
+//        self.tabBarController!.tabBar.hidden = false
     }
     
     override func viewWillDisappear(animated: Bool) {

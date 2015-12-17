@@ -23,7 +23,7 @@ class RecommendViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController!.tabBar.hidden = true
+//        self.tabBarController!.tabBar.hidden = true
         self.title = "应用推荐"
         view.backgroundColor = theme.SDWebViewBacagroundColor
         view.addSubview(webView)

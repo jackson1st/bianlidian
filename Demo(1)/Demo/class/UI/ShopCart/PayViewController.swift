@@ -187,7 +187,7 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate {
         }
     }
     internal func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 20
+        return 10
     }
     internal func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if(indexPath.section == 0) {
@@ -239,6 +239,9 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate {
            name?.text = ad[0]
            tele?.text = ad[1]
            address?.text = ad[2]
+//           let viewLine = UIView(frame: CGRectMake(0, self.view.height - 1, self.view.frame.size.width, 1/((UIScreen.mainScreen()).scale)))
+//           viewLine.backgroundColor = UIColor.redColor()
+//           self.view.addSubview(viewLine)
            
         } else if indexPath.section == 3 {
            let name = cell?.viewWithTag(20011) as? UILabel

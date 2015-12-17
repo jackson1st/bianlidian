@@ -40,7 +40,7 @@ class MainNavigationController: UINavigationController {
             let vc = self.childViewControllers[0]
             
             if self.childViewControllers.count == 1 {
-                backBtn.setTitle(vc.tabBarItem.title!, forState: .Normal)
+                backBtn.setTitle("我的", forState: .Normal)
             } else {
                 backBtn.setTitle("返回", forState: .Normal)
             }

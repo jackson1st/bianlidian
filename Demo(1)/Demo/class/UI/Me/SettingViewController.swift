@@ -24,7 +24,7 @@ class SettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         self.tabBarController!.tabBar.hidden = true
+//         self.tabBarController!.tabBar.hidden = true
         // 设置tableView
         setTableView()
     }
