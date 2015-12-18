@@ -25,6 +25,7 @@ enum SDMineCellType: Int {
 }
 
 class MeViewController: UIViewController,UINavigationControllerDelegate {
+    private var manageMent: UIButton!
     private var loginLabel: UILabel!
     private var tableView: UITableView!
     private lazy var pickVC: UIImagePickerController = {
@@ -46,8 +47,7 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
         setNav()
         // 设置tableView
         setTableView()
-//        self.hidesBottomBarWhenPushed = true
-//        self.tabBarController!.tabBar.hidden = false
+
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -89,6 +89,12 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
         loginLabel.textColor = UIColor.colorWith(80, green: 80, blue: 80, alpha: 1)
         iconImageView.addSubview(loginLabel)
         
+        // 进入管理员模式的按钮
+        manageMent = UIButton(frame: CGRectMake(0, iconImageViewHeight - loginLabelHeight, AppWidth, loginLabelHeight))
+        manageMent.setTitle("管理员页面", forState: .Normal)
+        manageMent.addTarget(self, action: "enterManageView", forControlEvents: .TouchDown)
+        iconImageView.addSubview(manageMent)
+        
         // 添加iconImageView
         iconView = IconView(frame: CGRectMake(0, 0, 100, 100))
         iconView!.delegate = self
@@ -106,7 +112,8 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController!.tabBar.hidden = false
+        
+        manageMent.hidden = !UserAccountTool.userIsLogin()
         loginLabel.hidden = UserAccountTool.userIsLogin()
         if UserAccountTool.userIsLogin() {
             if let data = NSData(contentsOfFile: SD_UserIconData_Path) {
@@ -117,6 +124,11 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
         } else {
             iconView!.iconButton.setImage(UIImage(named: "my"), forState: .Normal)
         }
+    }
+    func enterManageView() {
+        let sb = UIStoryboard(name: "Center", bundle: nil)
+        let vc = sb.instantiateViewControllerWithIdentifier("CenterController")
+        self.presentViewController(vc, animated: true, completion: nil)
     }
 }
 

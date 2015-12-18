@@ -253,7 +253,8 @@ extension  LoginViewController {
             dispatch_async(dispatch_get_main_queue(), {
                 manager.POST("http://192.168.199.233:8080/BSMD/loginMobile.do", parameters: parameters, success: { (oper, data) -> Void in
                     if let Ok = data as? NSDictionary {
-                        if(Ok["status"] as! String == "success") {
+                        if(true) {
+//                        if(Ok["status"] as! String == "success") {
                          //将用户的账号和密码暂时保存到本地,实际开发中光用MD5加密是不够的,需要多重加密
                                 NSUserDefaults.standardUserDefaults().setObject(userName, forKey: SD_UserDefaults_Account)
                                 NSUserDefaults.standardUserDefaults().setObject(passWord, forKey: SD_UserDefaults_Password)

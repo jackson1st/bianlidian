@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		040F8C7B1C22C57D0027CDC1 /* ResignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F8C7A1C22C57D0027CDC1 /* ResignViewController.swift */; };
+		040F8C801C242FAE0027CDC1 /* CenterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F8C7D1C242FAE0027CDC1 /* CenterController.swift */; };
+		040F8C811C242FAE0027CDC1 /* OrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F8C7E1C242FAE0027CDC1 /* OrderController.swift */; };
+		040F8C841C242FF70027CDC1 /* Center.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040F8C831C242FF70027CDC1 /* Center.storyboard */; };
 		047A5F1F1C14519C004FA20F /* MainMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5F1E1C14519C004FA20F /* MainMeViewController.swift */; };
 		047A5F381C145424004FA20F /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 047A5F211C145424004FA20F /* Address.plist */; };
 		047A5F391C145424004FA20F /* cityData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 047A5F221C145424004FA20F /* cityData.plist */; };
@@ -278,6 +281,9 @@
 
 /* Begin PBXFileReference section */
 		040F8C7A1C22C57D0027CDC1 /* ResignViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResignViewController.swift; sourceTree = "<group>"; };
+		040F8C7D1C242FAE0027CDC1 /* CenterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterController.swift; sourceTree = "<group>"; };
+		040F8C7E1C242FAE0027CDC1 /* OrderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderController.swift; sourceTree = "<group>"; };
+		040F8C831C242FF70027CDC1 /* Center.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Center.storyboard; sourceTree = "<group>"; };
 		047A5F1E1C14519C004FA20F /* MainMeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMeViewController.swift; sourceTree = "<group>"; };
 		047A5F211C145424004FA20F /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
 		047A5F221C145424004FA20F /* cityData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cityData.plist; sourceTree = "<group>"; };
@@ -593,6 +599,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		040F8C7C1C242FAE0027CDC1 /* Manage */ = {
+			isa = PBXGroup;
+			children = (
+				040F8C831C242FF70027CDC1 /* Center.storyboard */,
+				040F8C7D1C242FAE0027CDC1 /* CenterController.swift */,
+				040F8C7E1C242FAE0027CDC1 /* OrderController.swift */,
+			);
+			path = Manage;
+			sourceTree = "<group>";
+		};
 		047A5F201C145424004FA20F /* Json1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -698,6 +714,7 @@
 		04CF8D8B1C144FB400512979 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				040F8C7C1C242FAE0027CDC1 /* Manage */,
 				04CF8D8C1C144FB400512979 /* Main */,
 				04CF8D9A1C144FB400512979 /* Me */,
 				04CF8DAA1C144FB400512979 /* ShopCart */,
@@ -1611,6 +1628,7 @@
 				04CF8F171C144FDB00512979 /* UMSCommentInputControlleriPad.xib in Resources */,
 				04CF8F161C144FDB00512979 /* UMSCommentInputController.xib in Resources */,
 				04CF8F1B1C144FDB00512979 /* UMSnsAccountViewController.xib in Resources */,
+				040F8C841C242FF70027CDC1 /* Center.storyboard in Resources */,
 				04CF8F041C144FDB00512979 /* SVProgressHUD.bundle in Resources */,
 				961B16A01C2436AB0034C463 /* smallClassCell.xib in Resources */,
 				04CF8F281C14507A00512979 /* Home.storyboard in Resources */,
@@ -1706,6 +1724,7 @@
 				04CF8EF51C144FDB00512979 /* ConstraintDescription.swift in Sources */,
 				04CF8EFA1C144FDB00512979 /* EdgeInsets.swift in Sources */,
 				96E82A081C17043900247660 /* ViewPagerIndicator.swift in Sources */,
+				040F8C801C242FAE0027CDC1 /* CenterController.swift in Sources */,
 				04CF8F0F1C144FDB00512979 /* UIProgressView+AFNetworking.m in Sources */,
 				96090E581C2025B8004FB3DC /* UserAddress.swift in Sources */,
 				04CF8DE11C144FB400512979 /* String+Hash.swift in Sources */,
@@ -1756,6 +1775,7 @@
 				04CF8EC71C144FDB00512979 /* AFURLRequestSerialization.m in Sources */,
 				04CF8DDD1C144FB400512979 /* FileTool.swift in Sources */,
 				04CF8DBA1C144FB400512979 /* ShareModel.swift in Sources */,
+				040F8C811C242FAE0027CDC1 /* OrderController.swift in Sources */,
 				04CF8EE01C144FDB00512979 /* UIScrollView+MJRefresh.m in Sources */,
 				04CF8ED21C144FDB00512979 /* MJRefreshFooter.m in Sources */,
 				04CF8DE41C144FB400512979 /* UserAccountTool.swift in Sources */,

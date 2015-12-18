@@ -61,7 +61,7 @@ extension OrderViewController {
                                     listorder.orderNo = oinfo["orderNo"] as? String
                                     listorder.totalAmt = oinfo["totalAmt"] as? Double
                                     listorder.freeAmt = oinfo["freeAmt"] as? Double
-                                    listorder.payDate = oinfo["createDate"] as! Int
+                                    listorder.payDate = oinfo["createDateString"] as! String
                                     listorder.itemNum  = oinfo["itemNum"] as! Int
                                     if let receiveAddress = list[i]["receiveAddress"] as? NSDictionary {
                                         listorder.address = receiveAddress["address"] as?
