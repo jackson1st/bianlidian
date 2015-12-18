@@ -886,42 +886,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="手机号" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" background="pricedescription" translatesAutoresizingMaskIntoConstraints="NO" id="YKe-Ue-M1u">
-                                <rect key="frame" x="60" y="104" width="255" height="30"/>
-                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="验证码" textAlignment="center" minimumFontSize="17" background="pricedescription" translatesAutoresizingMaskIntoConstraints="NO" id="RGs-2f-Ml6">
+                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="验证码" textAlignment="center" minimumFontSize="17" background="pricedescription" translatesAutoresizingMaskIntoConstraints="NO" id="RGs-2f-Ml6">
                                 <rect key="frame" x="60" y="154" width="149" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" textAlignment="center" minimumFontSize="17" background="pricedescription" translatesAutoresizingMaskIntoConstraints="NO" id="Obt-JN-RPm">
+                            <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" textAlignment="center" minimumFontSize="17" background="pricedescription" translatesAutoresizingMaskIntoConstraints="NO" id="Obt-JN-RPm">
                                 <rect key="frame" x="60" y="214" width="255" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="确认密码" textAlignment="center" minimumFontSize="17" background="pricedescription" translatesAutoresizingMaskIntoConstraints="NO" id="0dM-YO-icw">
-                                <rect key="frame" x="60" y="264" width="255" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="邮箱(可选)" textAlignment="center" minimumFontSize="17" background="pricedescription" translatesAutoresizingMaskIntoConstraints="NO" id="6IO-oa-voY">
-                                <rect key="frame" x="60" y="314" width="255" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xkf-as-0fX">
-                                <rect key="frame" x="60" y="364" width="255" height="30"/>
-                                <color key="backgroundColor" red="0.96078431369999995" green="0.30196078430000001" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="验证并注册">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="resignAction:" destination="4A0-n9-aBh" eventType="touchUpInside" id="pJk-SS-nZF"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="byC-1I-wlZ">
                                 <rect key="frame" x="225" y="154" width="90" height="30"/>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.30196078430000001" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -929,8 +903,34 @@
                                     <color key="titleColor" red="0.9815491798" green="0.97796029979999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="邮箱(可选)" textAlignment="center" minimumFontSize="17" background="pricedescription" translatesAutoresizingMaskIntoConstraints="NO" id="6IO-oa-voY">
+                                <rect key="frame" x="60" y="264" width="255" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xkf-as-0fX">
+                                <rect key="frame" x="60" y="314" width="255" height="30"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.30196078430000001" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="验证并注册">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="resignAction:" destination="4A0-n9-aBh" eventType="touchUpInside" id="pJk-SS-nZF"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="手机号" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" background="pricedescription" translatesAutoresizingMaskIntoConstraints="NO" id="YKe-Ue-M1u">
+                                <rect key="frame" x="60" y="104" width="255" height="30"/>
+                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
@@ -938,7 +938,6 @@
                         <outlet property="barcodeTextField" destination="RGs-2f-Ml6" id="xjs-gB-Ri4"/>
                         <outlet property="emailTextField" destination="6IO-oa-voY" id="X6g-ie-mIY"/>
                         <outlet property="psdTexField" destination="Obt-JN-RPm" id="Ikn-wG-aXI"/>
-                        <outlet property="rePsdTextField" destination="0dM-YO-icw" id="23b-eL-yXf"/>
                         <outlet property="sendBarcode" destination="byC-1I-wlZ" id="RK8-vL-M8r"/>
                     </connections>
                 </viewController>

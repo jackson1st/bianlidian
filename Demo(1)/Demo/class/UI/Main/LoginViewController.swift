@@ -188,7 +188,7 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
             let sb = UIStoryboard.init(name: "My", bundle: nil)
             let vc = sb.instantiateViewControllerWithIdentifier("ResignViewController")
             self.navigationController?.pushViewController(vc, animated: true)
-            SVProgressHUD.showErrorWithStatus("直接登录就行...没有注册功能", maskType: .Black)
+
         }
     }
     

@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 public let SD_RefreshImage_Height: CGFloat = 40
 public let SD_RefreshImage_Width: CGFloat = 35
 
@@ -35,14 +34,12 @@ class JFShoppingCartViewController: UIViewController{
         
         //dloadmodel()
         prepareUI()
-        //        tableView.header.beginRefreshing()
         if(Model.defaultModel.shopCart.count > 0){
             self.canSelectShop.append(Model.defaultModel.shopCart[0].shopNameList[0].shopName!)
         }
         self.showMySelect()
         self.tableView.reloadData()
         
-        //        self.hidesBottomBarWhenPushed = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -101,8 +98,11 @@ class JFShoppingCartViewController: UIViewController{
         tableView.registerClass(JFShoppingCartCell.self, forCellReuseIdentifier: shoppingCarCellIdentifier)
         
         // 设置TableViewHeader
-        //        setTableViewHeader(self, refreshingAction: "pullLoadDayData", imageFrame: CGRectMake((AppWidth - SD_RefreshImage_Width) * 0.5, 17, SD_RefreshImage_Width, SD_RefreshImage_Height), tableView: tableView)
-        
+        self.tableView.header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            self.tableView.reloadData()
+            self.reCalculateTotalPrice()
+            self.tableView.header.endRefreshing()
+        })
         //配置toolbar
         configureToolbar()
         
@@ -240,11 +240,11 @@ class JFShoppingCartViewController: UIViewController{
     }()
     
     /// 设置TableViewTitle
-    func setTableViewHeader(refreshingTarget: AnyObject, refreshingAction: Selector, imageFrame: CGRect, tableView: UITableView) {
-        let header = SDRefreshHeader(refreshingTarget: refreshingTarget, refreshingAction: refreshingAction)
-        header.gifView!.frame = imageFrame
-        tableView.header = header
-    }
+//    func setTableViewHeader(refreshingTarget: AnyObject, refreshingAction: Selector, imageFrame: CGRect, tableView: UITableView) {
+//        let header = SDRefreshHeader(refreshingTarget: refreshingTarget, refreshingAction: refreshingAction)
+//        header.gifView!.frame = imageFrame
+//        tableView.header = header
+//    }
     //配置tool bar Item 函数
     func configureToolbar(){
         let toolbarButtonItem = [addButtonItem,
@@ -392,7 +392,7 @@ extension JFShoppingCartViewController {
             next.disprice = "0"
             next.discount = "已优惠 ¥0"
             for var i = 0; i<Model.defaultModel.shopCart.count; i++ {
-                if(Model.defaultModel.shopCart[i].selected == true) {
+                if(Model.defaultModel.shopCart[i].selected == true ) {
                     next.payModel.append(Model.defaultModel.shopCart[i])
                 }
             }
@@ -413,6 +413,7 @@ extension JFShoppingCartViewController {
             
             // 只计算选中的商品
             if model.selected == true && model.canChange == true {
+                print("\(price) \(model.itemSalePrice)")
                 price += Float(model.num) * (model.itemSalePrice! as NSString).floatValue
             }
         }
@@ -460,7 +461,6 @@ extension JFShoppingCartViewController {
     func showMySelect(){
         // self.Model.defaultModel.shopCart = self.staticGoodModels
         //获得所有店名
-        // print(self.addGoodArray.count)
         if(self.canSelectShop.isEmpty == false) {
             self.selectBrunch.text = self.canSelectShop[0]
             canChange(self.selectBrunch.text!)
