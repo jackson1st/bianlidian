@@ -10,11 +10,12 @@ import UIKit
 
 let documentPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .AllDomainsMask, true)[0]
 let filePath = documentPath + "/shopCart.data"
-
+let shopFilePath = documentPath + "/shop.data"
 
 class Model: NSObject {
     
     static let defaultModel = Model()
+    var userID: String!
     let userDefault = NSUserDefaults()
     lazy var shopCart: [JFGoodModel] = {
         var modes = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? [JFGoodModel]
@@ -23,7 +24,14 @@ class Model: NSObject {
         }
         return modes!
     }()
-
+    lazy var shopLists:[Shop] = {
+        var modes = NSKeyedUnarchiver.unarchiveObjectWithFile(shopFilePath) as? [Shop]
+        if(modes == nil){
+            modes = [Shop]()
+        }
+        return modes!
+    }()
+    
     private override init(){
         super.init()
         loadDataForNetWork()
@@ -33,12 +41,20 @@ class Model: NSObject {
     func loadDataForNetWork(){
         let address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
         //获取用户id
-        let userID = "xx"
-        let json: JSONND = ["cust":userID,
-            "areaName":address]
+        userID = userDefault.objectForKey(SD_UserDefaults_Account) as! String
+        let json: JSONND = ["cust":userID,"areaName":address]
         Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.241:8080/BSMD/car/showCar.do").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
             if let showCar = json.data as? NSDictionary{
-                if let jfModellist = showCar["showcar"] as? NSArray {
+                if let shopList = showCar["allShop"] as? NSArray{
+                    for var x in shopList{
+                        let model = Shop()
+                        model.shopNo = x["shopNo"] as? String
+                        model.shopName = x["shopName"] as? String
+                        self.shopLists.append(model)
+                    }
+                }
+                if let jfModellist = showCar["cartList"] as? NSArray {
+                    print(jfModellist)
                     for var i=0 ; i<jfModellist.count ; i++ {
                         if let jfModel = jfModellist[i] as? NSDictionary{
                             let JFmodel = JFGoodModel()
@@ -50,7 +66,7 @@ class Model: NSObject {
                             let itemDistPrice = jfModel["itemDistPrice"] as? Double
                             JFmodel.itemSalePrice = "\(itemSalePrice! - itemDistPrice!)"
                             JFmodel.itemDistPrice = "\(itemSalePrice!)"
-                            print(JFmodel.itemDistPrice)
+                            print(JFmodel.itemSalePrice)
                             if let shopnamelist = jfModel["shopNameList"] as? NSArray{
                                 var arr: [ShopName] = []
                                 for var j=0 ; j<shopnamelist.count ; j++ {
@@ -63,9 +79,11 @@ class Model: NSObject {
                                     }
                                     JFmodel.shopNameList = arr
                                 }
+                                JFmodel.needUp = false
                                 self.shopCart.append(JFmodel)
                             }
                         }
+                        NSNotificationCenter.defaultCenter().postNotificationName("finishLoadDataFromNetwork", object: self)
                     }
                 }
             }
@@ -73,35 +91,31 @@ class Model: NSObject {
     }
     
     func uploadData(){
+        var str = NSMutableString(string: "{\"itemlist\":[")
+        var cur = 0
+        var count = 0
+        for var x in shopCart{
+            if(x.needUp == false){
+                continue
+            }
+            count++
+            let json:JSONND = ["custNo":userID,"itemNo": x.itemNo!,"num":"\(x.num)","itemSize":x.itemSize!]
+            if(cur == 0){
+                str.appendString(json.RAWValue)
+            }else{
+                str.appendString("," + json.RAWValue)
+            }
+            cur++
+        }
         
+        str.appendString("]}")
+        if(count == 0){
+            return
+        }
+        
+        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.241:8080/BSMD/car/addToCar.do").setHTTPBodyRaw(str as String, isJSON: true).responseJSON { (json, response) -> Void in
+            print(json.data)
+        }
     }
-    
-    //从本地加载数据
-//
-//    var addDate: Int?
-//    var barcode: String?
-//    var custNo: String?
-//    var itemNo: String?
-//    var itemPack: Int?
-//    var shopNameList: [ShopName]!
-//    var canChange: Bool = false
-//    var alreadyAddShoppingCart: Bool = false
-//    var url: String?
-//    var itemName: String?
-//    var itemSize: String?
-//    var num: Int = 1
-//    var  itemSalePrice: String?
-//    var itemDistPrice: String?
-//    var totalPrice: Int?
-//    var selected: Bool = true
-//    static func customClassMapping() -> [String : String]? {
-//        return ["shopNameList" : "\(ShopName.self)"]
-//    }
-//}
-//class ShopName: NSObject{
-//    var stockQty: Int?
-//    var shopName: String?
-//    var onArea: Bool?
-//}
     
 }

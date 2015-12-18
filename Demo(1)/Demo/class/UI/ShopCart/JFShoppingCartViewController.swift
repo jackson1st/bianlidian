@@ -33,6 +33,7 @@ class JFShoppingCartViewController: UIViewController{
         super.viewDidLoad()
         
         //dloadmodel()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTable", name: "finishLoadDataFromNetwork", object: nil)
         prepareUI()
         if(Model.defaultModel.shopCart.count > 0){
             self.canSelectShop.append(Model.defaultModel.shopCart[0].shopNameList[0].shopName!)
@@ -40,6 +41,15 @@ class JFShoppingCartViewController: UIViewController{
         self.showMySelect()
         self.tableView.reloadData()
         
+    }
+    
+    deinit{
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func reloadTable(){
+        tableView.reloadData()
     }
     
     override func viewWillAppear(animated: Bool) {

@@ -30,7 +30,24 @@ class JFGoodModels: NSObject,DictModelProtocol{
     }
     
 }
-
+class Shop:NSObject, NSCoding{
+    var shopName: String?
+    var shopNo: String?
+    
+    override init(){
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        shopName = aDecoder.decodeObjectForKey("shopName") as? String
+        shopNo = aDecoder.decodeObjectForKey("shopNo") as? String
+    }
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(shopName, forKey: "shopName")
+        aCoder.encodeObject(shopNo, forKey: "shopNo")
+    }
+    
+}
 
 
 //@objc(JFGoodModel)
@@ -42,6 +59,7 @@ class JFGoodModel: NSObject,DictModelProtocol,NSCoding {
     var itemPack: Int?
     var shopNameList: [ShopName]!
     
+    var needUp: Bool = true
     // 是否可以选择
     var canChange: Bool = false
     

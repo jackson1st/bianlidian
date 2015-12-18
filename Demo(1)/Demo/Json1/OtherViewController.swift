@@ -127,11 +127,11 @@ extension OtherViewController{
             JFmodel.num = addNum
             JFmodel.custNo = userDefault.objectForKey(SD_UserDefaults_Account) as? String
             JFmodel.itemName = item?.itemName
+            JFmodel.itemNo = item?.itemNo
             JFmodel.itemSize = dictSizeChoose["规格"] as? String
             JFmodel.barcode = item?.barcode
             JFmodel.itemSalePrice = item?.itemSalePrice
             JFmodel.itemDistPrice = item?.itemSalePrice
-     
             JFmodel.totalPrice = 100
             JFmodel.shopNameList = [ShopName]()
             for var x in (item?.itemStocks)!{
