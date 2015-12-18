@@ -182,6 +182,9 @@
 		960FC0F51C14943900F0580D /* GoodDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FC0F21C14943900F0580D /* GoodDetail.swift */; };
 		960FC0FD1C1560E100F0580D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FC0FC1C1560E100F0580D /* ContentView.swift */; };
 		960FC1001C15D12800F0580D /* EVAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FC0FF1C15D12800F0580D /* EVAViewController.swift */; };
+		961B169B1C242AAB0034C463 /* SortModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961B169A1C242AAB0034C463 /* SortModel.swift */; };
+		961B169F1C2436AB0034C463 /* smallClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961B169D1C2436AB0034C463 /* smallClassCell.swift */; };
+		961B16A01C2436AB0034C463 /* smallClassCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 961B169E1C2436AB0034C463 /* smallClassCell.xib */; };
 		964F47CE1C21158400C4435D /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964F47CD1C21158400C4435D /* Model.swift */; };
 		965B38881C1959AB006594BE /* IitemSearchResultViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965B38861C1959AB006594BE /* IitemSearchResultViewCell.swift */; };
 		965B38891C1959AB006594BE /* IitemSearchResultViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 965B38871C1959AB006594BE /* IitemSearchResultViewCell.xib */; };
@@ -532,6 +535,9 @@
 		960FC0F21C14943900F0580D /* GoodDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodDetail.swift; sourceTree = "<group>"; };
 		960FC0FC1C1560E100F0580D /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		960FC0FF1C15D12800F0580D /* EVAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EVAViewController.swift; path = "评论/EVAViewController.swift"; sourceTree = "<group>"; };
+		961B169A1C242AAB0034C463 /* SortModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SortModel.swift; path = SortModel/SortModel.swift; sourceTree = "<group>"; };
+		961B169D1C2436AB0034C463 /* smallClassCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = smallClassCell.swift; sourceTree = "<group>"; };
+		961B169E1C2436AB0034C463 /* smallClassCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = smallClassCell.xib; sourceTree = "<group>"; };
 		964F47CD1C21158400C4435D /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		965B38861C1959AB006594BE /* IitemSearchResultViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IitemSearchResultViewCell.swift; sourceTree = "<group>"; };
 		965B38871C1959AB006594BE /* IitemSearchResultViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IitemSearchResultViewCell.xib; sourceTree = "<group>"; };
@@ -608,6 +614,9 @@
 				047A5F341C145424004FA20F /* RootViewController.swift */,
 				047A5F351C145424004FA20F /* Sort.storyboard */,
 				047A5F361C145424004FA20F /* SortViewController.swift */,
+				961B169D1C2436AB0034C463 /* smallClassCell.swift */,
+				961B169E1C2436AB0034C463 /* smallClassCell.xib */,
+				961B16991C242A840034C463 /* sortModel */,
 				047A5F371C145424004FA20F /* TestSeague.swift */,
 				047A5F2C1C145424004FA20F /* Info.plist */,
 			);
@@ -1354,6 +1363,14 @@
 			name = "评论";
 			sourceTree = "<group>";
 		};
+		961B16991C242A840034C463 /* sortModel */ = {
+			isa = PBXGroup;
+			children = (
+				961B169A1C242AAB0034C463 /* SortModel.swift */,
+			);
+			name = sortModel;
+			sourceTree = "<group>";
+		};
 		9678C8D81C190456008C814A /* 搜索 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1595,6 +1612,7 @@
 				04CF8F161C144FDB00512979 /* UMSCommentInputController.xib in Resources */,
 				04CF8F1B1C144FDB00512979 /* UMSnsAccountViewController.xib in Resources */,
 				04CF8F041C144FDB00512979 /* SVProgressHUD.bundle in Resources */,
+				961B16A01C2436AB0034C463 /* smallClassCell.xib in Resources */,
 				04CF8F281C14507A00512979 /* Home.storyboard in Resources */,
 				04CF8F1D1C144FDB00512979 /* UMSocialSDKResourcesNew.bundle in Resources */,
 				04CF8EDD1C144FDB00512979 /* MJRefresh.bundle in Resources */,
@@ -1637,6 +1655,7 @@
 				04CF8EE51C144FDB00512979 /* SDImageCache.m in Sources */,
 				04CF8EC61C144FDB00512979 /* AFURLConnectionOperation.m in Sources */,
 				04CF8EE31C144FDB00512979 /* MKAnnotationView+WebCache.m in Sources */,
+				961B169F1C2436AB0034C463 /* smallClassCell.swift in Sources */,
 				96C83E851C1975CA0075A204 /* HTTPMethod.swift in Sources */,
 				04CF8F0C1C144FDB00512979 /* UIAlertView+AFNetworking.m in Sources */,
 				96E82A021C15AF6500247660 /* EVAView.swift in Sources */,
@@ -1645,6 +1664,7 @@
 				04CF8DC61C144FB400512979 /* ShareView.swift in Sources */,
 				04CF8F081C144FDB00512979 /* UIImage+wnxImage.swift in Sources */,
 				9678C8D71C19044D008C814A /* SearcherViewController.swift in Sources */,
+				961B169B1C242AAB0034C463 /* SortModel.swift in Sources */,
 				04CF8F0A1C144FDB00512979 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				04CF8ED31C144FDB00512979 /* MJRefreshHeader.m in Sources */,
 				04CF8F121C144FDB00512979 /* UIView+wnxView.swift in Sources */,
