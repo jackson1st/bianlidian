@@ -16,6 +16,7 @@
 #import "UMSocialWechatHandler.h"
 #import <UIKit/UIKit.h>
 #import <CommonCrypto/CommonCrypto.h>
+#import <JMessage/JMessage.h>
 //#import "THSegmentedPager.h"
 
 //! Project version number for ViewPagerIndicator.
