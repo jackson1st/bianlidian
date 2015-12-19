@@ -8,7 +8,7 @@
 
 import UIKit
 import WebKit
-class SortViewController: UIViewController,WKNavigationDelegate{
+class SortViewController: UIViewController{
 
     var TextFieldSearchBar: UITextField!
     var ViewSearch: UIView!
@@ -16,14 +16,37 @@ class SortViewController: UIViewController,WKNavigationDelegate{
     var collectionViewRight: UICollectionView!
     lazy var bigClass = [String]()
     var smallCalsses = [smallClass]()
+    
+    var address: String!
+    var userDefault = NSUserDefaults()
     override func viewDidLoad() {
         super.viewDidLoad()
+        address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
         initAll()
     }
+    
+    lazy var searchVC:SearcherViewController = {
+        var story = UIStoryboard(name: "Home", bundle: nil)
+        let vc = story.instantiateViewControllerWithIdentifier("searchView") as! SearcherViewController
+        return vc
+    }()
 
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tabBarController?.tabBar.hidden = false
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        endingEditing()
+    }
+    
+    func endingEditing(){
+        TextFieldSearchBar.resignFirstResponder()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
 //MARK:-一些初始化
@@ -34,6 +57,13 @@ extension SortViewController{
         initTableview()
         initCollectionView()
         initData()
+        let item = UIBarButtonItem(title: "", style: .Plain, target: self, action: nil)
+        self.navigationItem.backBarButtonItem = item;
+        self.hidesBottomBarWhenPushed = true
+        
+        var gesture = UITapGestureRecognizer(target: self, action: "endingEditing")
+        gesture.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(gesture)
     }
     
     func initData(){
@@ -45,7 +75,6 @@ extension SortViewController{
                 if tg {
                     let properties = x["property"] as? [NSDictionary]
                     for var y in properties!{
-                       print(y)
                         self.smallCalsses.append(smallClass(name: y["propertyName"] as? String, url: y["url"] as? String,id: y["propertyId"] as? String))
                     }
                     tg = false
@@ -67,13 +96,17 @@ extension SortViewController{
         TextFieldSearchBar.placeholder = "输入便利店或商品名称"
         TextFieldSearchBar.layer.cornerRadius = 4
         TextFieldSearchBar.textAlignment = .Center
-        ViewSearch.addSubview(TextFieldSearchBar)
+        if(navigationController == nil){
+            print("yes")
+        }
+        self.navigationController?.navigationBar.addSubview(TextFieldSearchBar)
         TextFieldSearchBar.snp_makeConstraints { (make) -> Void in
-            make.center.equalTo(ViewSearch)
-            make.left.equalTo(ViewSearch).offset(20)
+            make.right.equalTo((navigationController?.navigationBar.snp_right)!).offset(-10)
+            make.left.equalTo((navigationController?.navigationBar.snp_left)!).offset(30)
+            make.centerY.equalTo((navigationController?.navigationBar.snp_centerY)!)
             make.height.equalTo(26)
         }
-        // TextFieldSearchBar.delegate = self
+        TextFieldSearchBar.delegate = self
     }
     
     func initTableview(){
@@ -90,7 +123,12 @@ extension SortViewController{
     }
     
     func initCollectionView(){
-        collectionViewRight = UICollectionView(frame: self.view.frame, collectionViewLayout: UICollectionViewLayout())
+        let flowLayout =  UICollectionViewFlowLayout()
+        
+        //        flowLayout.itemSize = self.frame.size
+        flowLayout.minimumLineSpacing = 0
+        flowLayout.scrollDirection = .Vertical
+        collectionViewRight = UICollectionView(frame: self.view.frame, collectionViewLayout: flowLayout)
         collectionViewRight.delegate = self
         collectionViewRight.dataSource = self
         collectionViewRight.backgroundColor = UIColor.whiteColor()
@@ -101,7 +139,7 @@ extension SortViewController{
             make.right.equalTo(ViewSearch.snp_right)
             make.bottom.equalTo(view.snp_bottom)
         }
-        var nib = UINib(nibName: "smallClassCell", bundle: NSBundle.mainBundle())
+        var nib = UINib(nibName: "smallClassCell", bundle: nil)
         collectionViewRight.registerNib(nib, forCellWithReuseIdentifier: "cell")
     }
     
@@ -118,6 +156,7 @@ extension SortViewController: UITableViewDelegate,UITableViewDataSource{
         var cell = tableViewLeft.dequeueReusableCellWithIdentifier("cellLeft")
         if cell == nil{
             cell = UITableViewCell(style: .Default, reuseIdentifier: "cell")
+            cell?.selectionStyle = .None
         }
         cell?.textLabel?.text = bigClass[indexPath.row]
         return cell!
@@ -127,12 +166,29 @@ extension SortViewController: UITableViewDelegate,UITableViewDataSource{
         return 1
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        smallCalsses.removeAll()
+        let json: JSONND = ["name": bigClass[indexPath.row]]
+        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.242:8080/BSMD222/item/getclass.do").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
+            let properties = json.data["property"] as! [NSDictionary]
+            for var y in properties{
+                self.smallCalsses.append(smallClass(name: y["propertyName"] as? String, url: y["url"] as? String,id: y["propertyId"] as? String))
+            }
+            self.collectionViewRight.reloadData()
+        }
+    }
+    
 }
 
 // MARK: - UICollectionViewDelegate,UICollectionViewDataSource
 extension SortViewController: UICollectionViewDelegate,UICollectionViewDataSource{
     
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print(smallCalsses.count)
         return smallCalsses.count
     }
     
@@ -141,5 +197,21 @@ extension SortViewController: UICollectionViewDelegate,UICollectionViewDataSourc
         cell.imgView.setImageWithURL(NSURL(string: smallCalsses[indexPath.row].url!))
         cell.textLabel.text = smallCalsses[indexPath.row].name
         return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let vc = SearcherResultViewController()
+        vc.address = address
+        vc.keyForSearchResult = smallCalsses[indexPath.row].name
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension SortViewController: UITextFieldDelegate{
+    func textFieldDidBeginEditing(textField: UITextField) {
+        self.navigationController?.pushViewController(searchVC, animated: true)
+        TextFieldSearchBar.resignFirstResponder()
     }
 }

@@ -18,7 +18,7 @@ class GoodDetail: NSObject {
     var itemNo: String!
     var itemSalePrice: String!
     var itemStocks: [ItemStock]!
-    var itemUnits: [ItemUnit]!
+    var itemUnits: Array<ItemUnit>!
     var imageDetail: [String]!
     var imageTop: [String]!
     var comments: [Comment]?

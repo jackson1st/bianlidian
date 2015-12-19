@@ -21,12 +21,13 @@ class smallClassCell: UICollectionViewCell {
         imgView.snp_makeConstraints { (make) -> Void in
             make.centerX.equalTo(contentView)
             make.centerY.equalTo(contentView).offset(-10)
-            make.height.equalTo(25)
+            make.height.equalTo(20)
             make.width.equalTo(height)
         }
         
         //初始化textLabel
         textLabel = UILabel()
+        textLabel.font = UIFont.systemFontOfSize(14)
         self.contentView.addSubview(textLabel)
         textLabel.snp_makeConstraints { (make) -> Void in
             make.centerX.equalTo(contentView)

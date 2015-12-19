@@ -277,7 +277,7 @@ extension MainViewController{
         textField.resignFirstResponder()
         self.navigationController?.navigationBarHidden = false
         self.performSegueWithIdentifier("showSearcher", sender: nil)
-        
+
     }
 }
 

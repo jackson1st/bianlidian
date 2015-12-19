@@ -405,7 +405,7 @@
         <!--Searcher View Controller-->
         <scene sceneID="k4t-01-6yz">
             <objects>
-                <viewController id="FyD-K1-TAz" customClass="SearcherViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="searchView" id="FyD-K1-TAz" customClass="SearcherViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yPt-vj-lKl"/>
                         <viewControllerLayoutGuide type="bottom" id="zyy-HZ-cqf"/>

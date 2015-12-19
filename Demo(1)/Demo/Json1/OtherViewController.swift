@@ -33,8 +33,9 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
             sumCountForSizeChoose = (item?.itemUnits.count)!
              var arr = [String]()
             arr.append("规格")
-            for var x in (item?.itemUnits)!{
-                arr.append(x.sizeName!)
+            for var i = 0 ; i < item?.itemUnits.count; i++ {
+                print(item?.itemUnits[i].sizeName)
+                arr.append((item?.itemUnits[i].sizeName)!)
             }
             data.append(arr)
         }

@@ -291,8 +291,13 @@ extension SearcherResultViewController: UITableViewDelegate,UITableViewDataSourc
                 self.item?.itemStocks.append(ItemStock(name: xx["shopName"] as? String, qty: (xx["stockQty"] as? Int)))
             }
             
-            self.item?.itemUnits = dict["itemUnits"] as! [ItemUnit]
-            
+            arry = dict["itemUnits"] as! NSArray
+            print(arry)
+            self.item?.itemUnits = [ItemUnit]()
+            for var x in arry!{
+                var xx = x as! [String: AnyObject]
+                self.item?.itemUnits.append(ItemUnit(salePrice: xx["itemSalePrice"] as? String , sizeName: xx["itemSize"] as? String))
+            }            
             self.item?.imageDetail = json.data["imageDetail"] as! [String]
             self.item?.imageTop = json.data["imageTop"] as! [String]
             

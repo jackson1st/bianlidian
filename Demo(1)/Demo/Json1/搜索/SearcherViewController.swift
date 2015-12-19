@@ -74,11 +74,17 @@ class SearcherViewController: UIViewController {
             make.centerY.equalTo(navVC.navigationBar.snp_centerY)
             make.height.equalTo(26)
         }
+        
         TextFieldSearch.becomeFirstResponder()
     }
     
     override func viewWillDisappear(animated: Bool) {
         endingEditing()
+    }
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        TextFieldSearch.snp_removeConstraints()
+        TextFieldSearch.removeFromSuperview()
     }
     
     
