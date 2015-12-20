@@ -424,7 +424,12 @@ extension JFShoppingCartViewController {
             // 只计算选中的商品
             if model.selected == true && model.canChange == true {
                 print("\(price) \(model.itemSalePrice)")
-                price += Float(model.num) * (model.itemSalePrice! as NSString).floatValue
+                var str = model.itemSalePrice! as NSString
+                let isPerfix = str.hasPrefix("￥")
+                if !isPerfix {
+                    str = str.substringFromIndex(2)
+                }
+                price += Float(model.num) * (str).floatValue
             }
         }
         
@@ -470,7 +475,15 @@ extension JFShoppingCartViewController {
     // 创造可操作数据
     func showMySelect(){
         // self.Model.defaultModel.shopCart = self.staticGoodModels
+        canSelectShop.removeAll()
         //获得所有店名
+        for var i = 0; i<Model.defaultModel.shopCart.count; i++ {
+            for var j = 0; j<Model.defaultModel.shopCart[i].shopNameList.count; j++ {
+                if !canSelectShop.contains(Model.defaultModel.shopCart[i].shopNameList[j].shopName!) {
+                    canSelectShop.append(Model.defaultModel.shopCart[i].shopNameList[j].shopName!)
+                }
+            }
+        }
         if(self.canSelectShop.isEmpty == false) {
             self.selectBrunch.text = self.canSelectShop[0]
             canChange(self.selectBrunch.text!)

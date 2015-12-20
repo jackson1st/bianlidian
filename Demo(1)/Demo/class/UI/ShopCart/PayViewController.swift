@@ -113,6 +113,8 @@ extension PayViewController {
         orderInfo.setObject(self.payModel[0].custNo!, forKey: "custNo")
         orderInfo.setObject(self.sumprice, forKey: "totalAmt")
         orderInfo.setObject(self.disprice, forKey: "freeAmt")
+        orderInfo.setObject("202",forKey: "shopNo")
+        orderInfo.setObject("1", forKey: "addrNo")
         orderInfo.setObject(receiveAddress, forKey: "receiveAddress")
         //封装itemList
         let itemList: NSMutableArray = NSMutableArray()

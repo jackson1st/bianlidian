@@ -16,16 +16,16 @@ class CenterController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
-        timer = NSTimer.scheduledTimerWithTimeInterval(30,
-            target:self,selector:Selector("tickDown"),
-            userInfo:nil,repeats:true)
+//        timer = NSTimer.scheduledTimerWithTimeInterval(30,
+//            target:self,selector:Selector("tickDown"),
+//            userInfo:nil,repeats:true)
     }
     
-    func tickDown()
-    {
-        print("进行了一次")
-        loadDataModel("-1")
-    }
+//    func tickDown()
+//    {
+//        print("进行了一次")
+//        loadDataModel("-1")
+//    }
 // MARK: -准备UI
     func prepareUI(){
         tableView.dataSource = self

@@ -21,7 +21,6 @@ class OrderViewController: UIViewController{
         title = "我的订单"
         view.backgroundColor = theme.SDBackgroundColor
         if ispush {
-//        self.tabBarController!.tabBar.hidden = true
         }
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -32,15 +31,16 @@ class OrderViewController: UIViewController{
 extension OrderViewController {
 
     @IBAction func changeSegment(sender: AnyObject) {
-        orderStatu = "\(seg.selectedSegmentIndex)"
+        orderStatu = "\(seg.selectedSegmentIndex - 1)"
         loadDataModel(orderStatu)
     }
     //从服务器上载入数据并封装成对象
     func loadDataModel(orderStatu: String) {
+        let custNo: String = UserAccountTool.userAccount()!
         let manager = AFHTTPRequestOperationManager()
         manager.responseSerializer = AFJSONResponseSerializer()
         manager.requestSerializer = AFJSONRequestSerializer()
-        let parameters = ["custNo":"cust01","pageIndex":1,"pageCount":5,"orderStatu":orderStatu]
+        let parameters = ["No":custNo,"pageIndex":1,"pageCount":5,"orderStatu":orderStatu]
         // manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/html") as Set<NSObject>
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             //这里写需要大量时间的代码
@@ -123,6 +123,9 @@ extension OrderViewController: UITableViewDataSource,UITableViewDelegate {
         return 10
     }
     internal func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if seg.selectedSegmentIndex == 1 {
+            return 4
+        }
         return 3
     }
     internal func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -133,8 +136,11 @@ extension OrderViewController: UITableViewDataSource,UITableViewDelegate {
         else if(indexPath.row == 1){
             cellId = "store"
         }
-        else {
+        else if(indexPath.row == 2){
             cellId = "foot"
+        }
+        else if (self.seg.selectedSegmentIndex == 1) {
+            cellId = "buttonCell"
         }
         var cell : UITableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellId)
         if(cell == nil) {
@@ -178,6 +184,14 @@ extension OrderViewController: UITableViewDataSource,UITableViewDelegate {
             zongjia.attributedText = attributeText
             // cell取消选中效果
             cell!.selectionStyle = UITableViewCellSelectionStyle.None
+        }
+        if(cellId == "buttonCell"){
+            let quxiao = cell?.viewWithTag(40001) as! UIButton
+            let fukuan = cell?.viewWithTag(40002) as! UIButton
+            quxiao.layer.borderWidth = 0.5
+            fukuan.layer.borderWidth = 0.5
+            quxiao.addTarget(self, action: "deleteOrderAction", forControlEvents: UIControlEvents.TouchDown)
+            fukuan.addTarget(self, action: "spendOrderAction", forControlEvents: UIControlEvents.TouchDown)
         }
         return cell!
 

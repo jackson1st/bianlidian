@@ -20,11 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         // Required - 初始化  
         
-        
         JMessage.setupJMessage(launchOptions, appKey: JMSSAGE_APPKEY, channel: CHANNEL, apsForProduction: false, category: nil)
          // Required - 注册 APNs 通知
         JPUSHService.registerForRemoteNotificationTypes(UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Alert.rawValue , categories: nil)
-
+       registerJPushStatusNotification()
         return true
     }
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
@@ -35,6 +34,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         JPUSHService.handleRemoteNotification(userInfo)
     }
+    func registerJPushStatusNotification () {
+        
+        
+    let defaultCenter = NSNotificationCenter.defaultCenter()
+    defaultCenter.addObserver(self, selector: "networkDidSetup:", name: kJPFNetworkDidSetupNotification, object: nil)
+    defaultCenter.addObserver(self, selector: "networkIsConnecting:", name: kJPFNetworkIsConnectingNotification, object: nil)
+    defaultCenter.addObserver(self, selector: "networkDidClose:", name: kJPFNetworkDidCloseNotification, object: nil)
+    defaultCenter.addObserver(self, selector: "networkDidRegister:", name: kJPFNetworkDidRegisterNotification, object: nil)
+    defaultCenter.addObserver(self, selector: "networkDidLogin:", name: kJPFNetworkDidLoginNotification, object: nil)
+    defaultCenter.addObserver(self, selector: "receivePushMessage:", name: kJPFNetworkDidReceiveMessageNotification, object: nil)
+    
+    }
+    // notification from JPush
+    func networkDidSetup(notification: NSNotification ){
+
+    }
+    
+    // notification from JPush
+    func networkIsConnecting(notification: NSNotification ){
+        
+    }
+    
+    // notification from JPush
+    func networkDidClose(notification: NSNotification ){
+        
+    }
+
+    // notification from JPush
+    func networkDidRegister(notification: NSNotification ){
+        
+    }
+    // notification from JPush
+    func networkDidLogin(notification: NSNotification ){
+        
+    }
+    // notification from JPush
+    func receivePushMessage(notification: NSNotification ){
+        let userInfo = notification.userInfo
+        let alert = UIAlertView(title: "收到推送消息", message: "\(userInfo!["aps"]!["alert"])", delegate: nil, cancelButtonTitle: "取消", otherButtonTitles: "确定")
+        alert.show()
+    }
+
+
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

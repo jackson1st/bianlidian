@@ -41,6 +41,7 @@ class Model: NSObject {
     func loadDataForNetWork(){
         let address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
         //获取用户id
+        if UserAccountTool.userIsLogin() {
         userID = userDefault.objectForKey(SD_UserDefaults_Account) as! String
         let json: JSONND = ["cust":userID,"areaName":address]
         Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.241:8080/BSMD/car/showCar.do").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
@@ -87,7 +88,8 @@ class Model: NSObject {
                     }
                 }
             }
-        }
+         }
+       }
     }
     
     func uploadData(){
