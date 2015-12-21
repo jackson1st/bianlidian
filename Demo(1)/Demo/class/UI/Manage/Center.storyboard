@@ -11,11 +11,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2ya-sX-Aj2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.96078431369999995" green="0.30196078430000001" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.9815491798" green="0.97796029979999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="textShadowColor" red="0.9815491798" green="0.97796029979999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="UUH-1w-shQ"/>
@@ -136,13 +131,19 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PtC-7d-WKY">
                                 <rect key="frame" x="0.0" y="615" width="375" height="52"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rDe-Vs-fEo">
-                                        <rect key="frame" x="287" y="8" width="80" height="30"/>
-                                        <state key="normal" title="接受订单"/>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZP2-x0-sva">
-                                        <rect key="frame" x="8" y="8" width="60" height="30"/>
+                                        <rect key="frame" x="8" y="14" width="60" height="30"/>
                                         <state key="normal" title="取消订单"/>
+                                        <connections>
+                                            <action selector="deleteOrder:" destination="dup-5c-ek1" eventType="touchUpInside" id="xii-Rp-k0B"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rDe-Vs-fEo">
+                                        <rect key="frame" x="287" y="14" width="80" height="30"/>
+                                        <state key="normal" title="接受订单"/>
+                                        <connections>
+                                            <action selector="agreeOrder:" destination="dup-5c-ek1" eventType="touchUpInside" id="hYo-cN-MFE"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.88105071191019657" alpha="1" colorSpace="calibratedWhite"/>
@@ -323,12 +324,13 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="agreebutton" destination="rDe-Vs-fEo" id="Iwq-8m-uQ9"/>
                         <outlet property="tableView" destination="mkT-Xz-nD3" id="Ykz-Po-U9X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lEL-gN-dL0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="449.5" y="497.5"/>
+            <point key="canvasLocation" x="182.5" y="481.5"/>
         </scene>
     </scenes>
     <resources>

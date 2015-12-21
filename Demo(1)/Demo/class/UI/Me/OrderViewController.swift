@@ -207,5 +207,12 @@ extension OrderViewController: UITableViewDataSource,UITableViewDelegate {
             return 40.0
         }
     }
-
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let story = UIStoryboard(name: "Center", bundle: nil)
+        let vc = story.instantiateViewControllerWithIdentifier("orderInformation") as? OrderController
+        vc?.order = self.orderArray[0].listorder[indexPath.section]
+        vc?.user = 2
+        self.navigationController?.pushViewController(vc!, animated: true)
+        
+    }
 }

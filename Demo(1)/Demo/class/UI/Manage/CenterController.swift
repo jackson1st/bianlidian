@@ -16,21 +16,25 @@ class CenterController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
-//        timer = NSTimer.scheduledTimerWithTimeInterval(30,
-//            target:self,selector:Selector("tickDown"),
-//            userInfo:nil,repeats:true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(10,
+            target:self,selector:Selector("tickDown"),
+            userInfo:nil,repeats:true)
     }
     
-//    func tickDown()
-//    {
-//        print("进行了一次")
-//        loadDataModel("-1")
-//    }
+    func tickDown()
+    {
+        print("进行了一次")
+        loadDataModel("-1")
+    }
 // MARK: -准备UI
     func prepareUI(){
         tableView.dataSource = self
         tableView.delegate = self
         loadDataModel("-1")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Plain, target: self, action: "didTappedBackButton")
+    }
+    func didTappedBackButton(){
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     func loadDataModel(orderStatu: String) {
         let manager = AFHTTPRequestOperationManager()
@@ -129,13 +133,13 @@ extension CenterController {
         //通知重复次数
         //        notification.repeatInterval = NSCalendarUnit.Calendar
         //notification.repeatCalendar=[NSCalendar currentCalendar];//当前日历，使用前最好设置时区等信息以便能够自动同步时间
-        notification.alertBody = "您有新的订单了!" //通知主体
-        notification.applicationIconBadgeNumber = 1//应用程序图标右上角显示的消息数
-        notification.alertAction = "打开应用"//待机界面的滑动动作提示
-        notification.alertLaunchImage = "quesheng"//通过点击通知打开应用时的启动图片,这里使用程序启动图片
+//        notification.alertBody = "您有新的订单了!" //通知主体
+//        notification.applicationIconBadgeNumber = 1//应用程序图标右上角显示的消息数
+//        notification.alertAction = "打开应用"//待机界面的滑动动作提示
+//        notification.alertLaunchImage = "quesheng"//通过点击通知打开应用时的启动图片,这里使用程序启动图片
         notification.soundName = UILocalNotificationDefaultSoundName
         //        notification.soundName = ""//通知声音（需要真机才能听到声音）
-        notification.userInfo = ["id": 1,"user":"Kenshin Cui"]
+//        notification.userInfo = ["id": 1,"user":"Kenshin Cui"]
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }
     func removeNotification (){
@@ -173,6 +177,7 @@ extension CenterController: UITableViewDataSource,UITableViewDelegate {
         let story = UIStoryboard(name: "Center", bundle: nil)
         let vc = story.instantiateViewControllerWithIdentifier("orderInformation") as? OrderController
         vc?.order = self.orderArray[0].listorder[indexPath.row]
+        vc?.user = 2
         self.navigationController?.pushViewController(vc!, animated: true)
         
     }

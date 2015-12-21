@@ -10,16 +10,76 @@ import UIKit
 
 class OrderController: UIViewController {
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var agreebutton: UIButton!
     var order: orderInfo!
+    var user: Int = 1
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = theme.SDBackgroundColor
+        self.navigationItem.title = "订单详情"
+        if user == 1 {
+            agreebutton.setTitle("去付款", forState: UIControlState.Normal)
+        }
+        else {
+            agreebutton.setTitle("接受订单", forState: UIControlState.Normal)
+        }
     }
 
 }
 extension OrderController {
+
+    @IBAction func deleteOrder(sender: AnyObject) {
+        let ispay = UIAlertController(title: "确认取消？", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        let cancelAction = UIAlertAction(title: "返回", style: UIAlertActionStyle.Cancel) { (UIAlertAction) -> Void in
+            print("取消了订单")
+        }
+        let addAction = UIAlertAction(title: "确认", style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
+            let manager = AFHTTPRequestOperationManager()
+            manager.responseSerializer = AFJSONResponseSerializer()
+            manager.requestSerializer = AFJSONRequestSerializer()
+            let parameters = ["No":"101","orderNo":"\(self.order.orderNo)","orderStatu":"4"]
+            // manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/html") as Set<NSObject>
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                //这里写需要大量时间的代码
+                print("这里写需要大量时间的代码")
+                dispatch_async(dispatch_get_main_queue(), {
+                    manager.POST("http://192.168.199.134:8080/BSMD/order/update", parameters: parameters, success: { (oper, data) -> Void in
+                        
+                        }) { (opeation, error) -> Void in
+                            print(error)
+                    }
+                })
+            })
+            self.tableView.reloadData()
+        
+        }
+        ispay.addAction(cancelAction)
+        ispay.addAction(addAction)
+        self.presentViewController(ispay, animated: true, completion: nil)
+    }
+    @IBAction func agreeOrder(sender: AnyObject) {
+        
+        let manager = AFHTTPRequestOperationManager()
+        manager.responseSerializer = AFJSONResponseSerializer()
+        manager.requestSerializer = AFJSONRequestSerializer()
+        let parameters = ["No":"101","orderNo":"\(self.order.orderNo)","orderStatu":"1"]
+        // manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/html") as Set<NSObject>
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            //这里写需要大量时间的代码
+            print("这里写需要大量时间的代码")
+            dispatch_async(dispatch_get_main_queue(), {
+                manager.POST("http://192.168.199.134:8080/BSMD/order/update", parameters: parameters, success: { (oper, data) -> Void in
+                    
+                    }) { (opeation, error) -> Void in
+                        print(error)
+                }
+            })
+        })
+    self.tableView.reloadData()
+    }
+    
 }
 
 
