@@ -61,29 +61,6 @@ class JFShoppingCartViewController: UIViewController{
         // 重新计算价格
         reCalculateGoodCount()
     }
-    private func  prpareUI2() {
-        // 标题
-        navigationItem.title = "购物车列表"
-        self.tabBarController!.tabBar.hidden = true;
-        // 导航栏左边返回
-        if(backButtonShow){
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Plain, target: self, action: "didTappedBackButton")
-            self.tabBarController!.tabBar.hidden = true
-        }
-        // view背景颜色
-        view.backgroundColor = UIColor.whiteColor()
-        view.addSubview(bottomView)
-        bottomView.addSubview(selectButton)
-        bottomView.addSubview(totalPriceLabel)
-        bottomView.addSubview(buyButton)
-        for model in Model.defaultModel.shopCart {
-            if model.selected != true && model.canChange == true{
-                // 只要有一个不等于就不全选
-                selectButton.selected = false
-                break
-            }
-        }
-    }
     /**
      准备UI
      */
