@@ -201,6 +201,9 @@
 		96090E541C202457004FB3DC /* GoodSizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96090E531C202457004FB3DC /* GoodSizeViewController.swift */; };
 		96090E561C2024B5004FB3DC /* AddressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96090E551C2024B5004FB3DC /* AddressController.swift */; };
 		96090E581C2025B8004FB3DC /* UserAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96090E571C2025B8004FB3DC /* UserAddress.swift */; };
+		960929711C4CDC84006BE59E /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960929701C4CDC84006BE59E /* HTTPManager.swift */; };
+		960929731C4CDCFA006BE59E /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960929721C4CDCFA006BE59E /* ContentType.swift */; };
+		960929751C4CDD68006BE59E /* something'.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960929741C4CDD68006BE59E /* something'.swift */; };
 		960FC0F51C14943900F0580D /* GoodDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FC0F21C14943900F0580D /* GoodDetail.swift */; };
 		960FC0FD1C1560E100F0580D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FC0FC1C1560E100F0580D /* ContentView.swift */; };
 		960FC1001C15D12800F0580D /* EVAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FC0FF1C15D12800F0580D /* EVAViewController.swift */; };
@@ -529,6 +532,9 @@
 		96090E531C202457004FB3DC /* GoodSizeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodSizeViewController.swift; sourceTree = "<group>"; };
 		96090E551C2024B5004FB3DC /* AddressController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressController.swift; sourceTree = "<group>"; };
 		96090E571C2025B8004FB3DC /* UserAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAddress.swift; sourceTree = "<group>"; };
+		960929701C4CDC84006BE59E /* HTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPManager.swift; sourceTree = "<group>"; };
+		960929721C4CDCFA006BE59E /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
+		960929741C4CDD68006BE59E /* something'.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "something'.swift"; sourceTree = "<group>"; };
 		960FC0F21C14943900F0580D /* GoodDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodDetail.swift; sourceTree = "<group>"; };
 		960FC0FC1C1560E100F0580D /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		960FC0FF1C15D12800F0580D /* EVAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EVAViewController.swift; path = "评论/EVAViewController.swift"; sourceTree = "<group>"; };
@@ -687,6 +693,7 @@
 		04CF8D561C144DAE00512979 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				9609296F1C4CDC3C006BE59E /* NetWork */,
 				040F8CA11C25434A0027CDC1 /* FrameWork */,
 				04CF8F241C14507A00512979 /* storyBoard */,
 				04CF8DE51C144FDB00512979 /* extension */,
@@ -1392,6 +1399,16 @@
 			path = Demo/extension/HRHDatePickerView;
 			sourceTree = SOURCE_ROOT;
 		};
+		9609296F1C4CDC3C006BE59E /* NetWork */ = {
+			isa = PBXGroup;
+			children = (
+				960929701C4CDC84006BE59E /* HTTPManager.swift */,
+				960929721C4CDCFA006BE59E /* ContentType.swift */,
+				960929741C4CDD68006BE59E /* something'.swift */,
+			);
+			path = NetWork;
+			sourceTree = "<group>";
+		};
 		960FC0F11C14943900F0580D /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1653,6 +1670,7 @@
 				04CF8F081C144FDB00512979 /* UIImage+wnxImage.swift in Sources */,
 				9678C8D71C19044D008C814A /* SearcherViewController.swift in Sources */,
 				961B169B1C242AAB0034C463 /* SortModel.swift in Sources */,
+				960929711C4CDC84006BE59E /* HTTPManager.swift in Sources */,
 				04CF8F0A1C144FDB00512979 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				04CF8ED31C144FDB00512979 /* MJRefreshHeader.m in Sources */,
 				04CF8F121C144FDB00512979 /* UIView+wnxView.swift in Sources */,
@@ -1707,6 +1725,7 @@
 				04CF8EFC1C144FDB00512979 /* SnapKit.swift in Sources */,
 				04CF8DE01C144FB400512979 /* SimpleNetwork.swift in Sources */,
 				96090E561C2024B5004FB3DC /* AddressController.swift in Sources */,
+				960929731C4CDCFA006BE59E /* ContentType.swift in Sources */,
 				04CF8DC21C144FB400512979 /* MainNavigationController.swift in Sources */,
 				04CF8DBE1C144FB400512979 /* CustomCalloutView.swift in Sources */,
 				965B38881C1959AB006594BE /* IitemSearchResultViewCell.swift in Sources */,
@@ -1780,6 +1799,7 @@
 				96C83E8E1C1975CA0075A204 /* String+Base64.swift in Sources */,
 				96C83E8F1C1975CA0075A204 /* String+NSData.swift in Sources */,
 				04CF8EC91C144FDB00512979 /* AFURLSessionManager.m in Sources */,
+				960929751C4CDD68006BE59E /* something'.swift in Sources */,
 				04CF8EF11C144FDB00512979 /* UIImageView+WebCache.m in Sources */,
 				04CF8EC31C144FDB00512979 /* AFHTTPSessionManager.m in Sources */,
 				04CF8EE61C144FDB00512979 /* SDWebImageCompat.m in Sources */,

@@ -23,9 +23,6 @@ class SearcherViewController: UIViewController {
         var texts:[String] = ["机械键盘","超级泡面","烧鸡","鸡肉配豆浆","抗战茶叶蛋","建国大饼"]
         return texts
     }()
-    
-
-    
     lazy var Labelhot: UILabel = {
         let label = UILabel(frame: CGRectMake(10, 59, 200, 50))
         label.textAlignment = NSTextAlignment.Left
