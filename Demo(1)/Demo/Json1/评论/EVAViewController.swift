@@ -28,7 +28,7 @@ class EVAViewController: UITableViewController {
     }
     
     func loadData(){
-        httpManager.POST("http://192.168.199.242:8080/BSMD/item/comment.do", parameters: ["itemno":itemId], success: { (operation, response) -> Void in
+        httpManager.POST("http://192.168.43.185:8080/BSMD/item/comment.do", parameters: ["itemno":itemId], success: { (operation, response) -> Void in
             let arry = response.objectForKey("comments") as? NSArray
             print(arry)
             if(arry?.count != 0){

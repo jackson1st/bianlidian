@@ -116,7 +116,7 @@ extension MainViewController{
     }
     
     func initWebView(){
-        let url = "http://192.168.199.242:8080/BSMD/main.do"
+        let url = "http://192.168.43.185:8080/BSMD/main.do"
         let config = WKWebViewConfiguration()
         config.userContentController.addScriptMessageHandler(self, name: "gan")
         webView = WKWebView(frame: CGRect(x: 0, y:49, width: self.view.frame.width, height: self.view.frame.height-58),configuration: config)
@@ -190,12 +190,15 @@ extension MainViewController{
     
     func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
         //MARK:接收到点击了哪个商品
-        httpManager.POST("http://192.168.199.242:8080/BSMD/item/detail.do", parameters: ["itemno":message.body,"address":address!], success: { (opreation, response) -> Void in
+        httpManager.POST("http://192.168.43.185:8080/BSMD/item/detail.do", parameters: ["itemno":message.body,"address":address!], success: { (opreation, response) -> Void in
+            print("wo shi response")
             print(response)
             let dict = response.objectForKey("detail") as! [String: AnyObject]
+            print("wo shi dict")
             print(dict)
             self.item = GoodDetail()
             var arry = response.objectForKey("comment") as? NSArray
+            
             self.item?.comments = [Comment]()
             for var x in arry!{
                 var xx = x as! [String: AnyObject]

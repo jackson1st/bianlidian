@@ -1,10 +1,7 @@
 //
 //  LoginViewController.swift
 //  SmallDay
-//  项目GitHub地址:         https://github.com/ZhongTaoTian/SmallDay
-//  项目思路和架构讲解博客:    http://www.jianshu.com/p/bcc297e19a94
-//  Created by MacBook on 15/8/20.
-//  Copyright (c) 2015年 维尼的小熊. All rights reserved.
+
 //  登陆控制器
 
 import UIKit
@@ -205,18 +202,17 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         }
         let account = phoneTextField.text
         let psdMD5 = psdTextField.text
-        lgoin(account!,passWord: psdMD5!)
+//        lgoin(account!,passWord: psdMD5!)
 //        //将用户的账号和密码暂时保存到本地,实际开发中光用MD5加密是不够的,需要多重加密
-//        NSUserDefaults.standardUserDefaults().setObject(account, forKey: SD_UserDefaults_Account)
-//        NSUserDefaults.standardUserDefaults().setObject(psdMD5, forKey: SD_UserDefaults_Password)
-//        if NSUserDefaults.standardUserDefaults().synchronize() {
-//            navigationController?.popViewControllerAnimated(true)
-//        }
-//        }
-//        else{
-//            SVProgressHUD.showErrorWithStatus("登录失败，请检查账号密码", maskType: SVProgressHUDMaskType.Black)
-//        }
-        
+        NSUserDefaults.standardUserDefaults().setObject(account, forKey: SD_UserDefaults_Account)
+        NSUserDefaults.standardUserDefaults().setObject(psdMD5, forKey: SD_UserDefaults_Password)
+        if NSUserDefaults.standardUserDefaults().synchronize() {
+            navigationController?.popViewControllerAnimated(true)
+           }
+        else{
+            SVProgressHUD.showErrorWithStatus("登录失败，请检查账号密码", maskType: SVProgressHUDMaskType.Black)
+        }
+    
     }
     
     /// 快捷登录点击

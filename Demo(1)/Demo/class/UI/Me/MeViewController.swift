@@ -92,6 +92,7 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
         // 进入管理员模式的按钮
         manageMent = UIButton(frame: CGRectMake(0, iconImageViewHeight - loginLabelHeight, AppWidth, loginLabelHeight))
         manageMent.setTitle("管理员页面", forState: .Normal)
+        manageMent.tintColor = UIColor.blackColor()
         manageMent.addTarget(self, action: "enterManageView", forControlEvents: .TouchDown)
         iconImageView.addSubview(manageMent)
         

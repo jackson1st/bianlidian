@@ -44,7 +44,7 @@ class Model: NSObject {
         if UserAccountTool.userIsLogin() {
         userID = userDefault.objectForKey(SD_UserDefaults_Account) as! String
         let json: JSONND = ["cust":userID,"areaName":address]
-        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.241:8080/BSMD/car/showCar.do").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
+        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.149:8080/BSMD/car/showCar.do").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
             if let showCar = json.data as? NSDictionary{
                 if let shopList = showCar["allShop"] as? NSArray{
                     for var x in shopList{
@@ -115,7 +115,7 @@ class Model: NSObject {
             return
         }
         
-        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.241:8080/BSMD/car/addToCar.do").setHTTPBodyRaw(str as String, isJSON: true).responseJSON { (json, response) -> Void in
+        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.149:8080/BSMD/car/addToCar.do").setHTTPBodyRaw(str as String, isJSON: true).responseJSON { (json, response) -> Void in
             print(json.data)
         }
     }

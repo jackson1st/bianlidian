@@ -84,7 +84,6 @@
 		04CF8DD81C144FB400512979 /* JFOldPriceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8DAC1C144FB400512979 /* JFOldPriceLabel.swift */; };
 		04CF8DD91C144FB400512979 /* JFShoppingCartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8DAD1C144FB400512979 /* JFShoppingCartCell.swift */; };
 		04CF8DDA1C144FB400512979 /* JFShoppingCartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8DAE1C144FB400512979 /* JFShoppingCartViewController.swift */; };
-		04CF8DDB1C144FB400512979 /* PayStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04CF8DAF1C144FB400512979 /* PayStoryboard.storyboard */; };
 		04CF8DDC1C144FB400512979 /* PayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8DB01C144FB400512979 /* PayViewController.swift */; };
 		04CF8DDD1C144FB400512979 /* FileTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8DB21C144FB400512979 /* FileTool.swift */; };
 		04CF8DDE1C144FB400512979 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8DB31C144FB400512979 /* NetworkManager.swift */; };
@@ -194,6 +193,11 @@
 		04CF8F281C14507A00512979 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04CF8F251C14507A00512979 /* Home.storyboard */; };
 		04CF8F291C14507A00512979 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04CF8F261C14507A00512979 /* Main.storyboard */; };
 		04CF8F2A1C14507A00512979 /* My.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04CF8F271C14507A00512979 /* My.storyboard */; };
+		32D7AF221C2F16D100EF48D0 /* HRHDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D7AF1E1C2F16D100EF48D0 /* HRHDatePickerView.m */; };
+		32D7AF231C2F16D100EF48D0 /* HRHDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32D7AF1F1C2F16D100EF48D0 /* HRHDatePickerView.xib */; };
+		32D7AF241C2F16D100EF48D0 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D7AF211C2F16D100EF48D0 /* UIColor+HexString.m */; };
+		32D7AF261C2F871C00EF48D0 /* PayStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32D7AF251C2F871C00EF48D0 /* PayStoryboard.storyboard */; };
+		32D7AF281C30617C00EF48D0 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D7AF271C30617C00EF48D0 /* NoteViewController.swift */; };
 		96090E541C202457004FB3DC /* GoodSizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96090E531C202457004FB3DC /* GoodSizeViewController.swift */; };
 		96090E561C2024B5004FB3DC /* AddressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96090E551C2024B5004FB3DC /* AddressController.swift */; };
 		96090E581C2025B8004FB3DC /* UserAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96090E571C2025B8004FB3DC /* UserAddress.swift */; };
@@ -329,7 +333,6 @@
 		04CF8DAC1C144FB400512979 /* JFOldPriceLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFOldPriceLabel.swift; sourceTree = "<group>"; };
 		04CF8DAD1C144FB400512979 /* JFShoppingCartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFShoppingCartCell.swift; sourceTree = "<group>"; };
 		04CF8DAE1C144FB400512979 /* JFShoppingCartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFShoppingCartViewController.swift; sourceTree = "<group>"; };
-		04CF8DAF1C144FB400512979 /* PayStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PayStoryboard.storyboard; sourceTree = "<group>"; };
 		04CF8DB01C144FB400512979 /* PayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayViewController.swift; sourceTree = "<group>"; };
 		04CF8DB21C144FB400512979 /* FileTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTool.swift; sourceTree = "<group>"; };
 		04CF8DB31C144FB400512979 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -516,6 +519,13 @@
 		04CF8F251C14507A00512979 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		04CF8F261C14507A00512979 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		04CF8F271C14507A00512979 /* My.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = My.storyboard; sourceTree = "<group>"; };
+		32D7AF1D1C2F16D100EF48D0 /* HRHDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRHDatePickerView.h; sourceTree = "<group>"; };
+		32D7AF1E1C2F16D100EF48D0 /* HRHDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRHDatePickerView.m; sourceTree = "<group>"; };
+		32D7AF1F1C2F16D100EF48D0 /* HRHDatePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HRHDatePickerView.xib; sourceTree = "<group>"; };
+		32D7AF201C2F16D100EF48D0 /* UIColor+HexString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexString.h"; sourceTree = "<group>"; };
+		32D7AF211C2F16D100EF48D0 /* UIColor+HexString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexString.m"; sourceTree = "<group>"; };
+		32D7AF251C2F871C00EF48D0 /* PayStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PayStoryboard.storyboard; sourceTree = "<group>"; };
+		32D7AF271C30617C00EF48D0 /* NoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		96090E531C202457004FB3DC /* GoodSizeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodSizeViewController.swift; sourceTree = "<group>"; };
 		96090E551C2024B5004FB3DC /* AddressController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressController.swift; sourceTree = "<group>"; };
 		96090E571C2025B8004FB3DC /* UserAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAddress.swift; sourceTree = "<group>"; };
@@ -789,13 +799,14 @@
 		04CF8DAA1C144FB400512979 /* ShopCart */ = {
 			isa = PBXGroup;
 			children = (
+				32D7AF251C2F871C00EF48D0 /* PayStoryboard.storyboard */,
 				96090E551C2024B5004FB3DC /* AddressController.swift */,
 				04CF8DAB1C144FB400512979 /* JFGoodModel.swift */,
 				04CF8DAC1C144FB400512979 /* JFOldPriceLabel.swift */,
 				04CF8DAD1C144FB400512979 /* JFShoppingCartCell.swift */,
 				04CF8DAE1C144FB400512979 /* JFShoppingCartViewController.swift */,
-				04CF8DAF1C144FB400512979 /* PayStoryboard.storyboard */,
 				04CF8DB01C144FB400512979 /* PayViewController.swift */,
+				32D7AF271C30617C00EF48D0 /* NoteViewController.swift */,
 			);
 			path = ShopCart;
 			sourceTree = "<group>";
@@ -819,6 +830,7 @@
 		04CF8DE51C144FDB00512979 /* extension */ = {
 			isa = PBXGroup;
 			children = (
+				32D7AF1C1C2F16D100EF48D0 /* HRHDatePickerView */,
 				96C83E751C1975CA0075A204 /* pitaty */,
 				96E82A071C17043900247660 /* ViewPagerIndicator.swift */,
 				04CF8DE61C144FDB00512979 /* AFNetworking */,
@@ -1367,6 +1379,19 @@
 			path = storyBoard;
 			sourceTree = "<group>";
 		};
+		32D7AF1C1C2F16D100EF48D0 /* HRHDatePickerView */ = {
+			isa = PBXGroup;
+			children = (
+				32D7AF1D1C2F16D100EF48D0 /* HRHDatePickerView.h */,
+				32D7AF1E1C2F16D100EF48D0 /* HRHDatePickerView.m */,
+				32D7AF1F1C2F16D100EF48D0 /* HRHDatePickerView.xib */,
+				32D7AF201C2F16D100EF48D0 /* UIColor+HexString.h */,
+				32D7AF211C2F16D100EF48D0 /* UIColor+HexString.m */,
+			);
+			name = HRHDatePickerView;
+			path = Demo/extension/HRHDatePickerView;
+			sourceTree = SOURCE_ROOT;
+		};
 		960FC0F11C14943900F0580D /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1574,6 +1599,7 @@
 				04CF8F1B1C144FDB00512979 /* UMSnsAccountViewController.xib in Resources */,
 				040F8C841C242FF70027CDC1 /* Center.storyboard in Resources */,
 				04CF8F041C144FDB00512979 /* SVProgressHUD.bundle in Resources */,
+				32D7AF231C2F16D100EF48D0 /* HRHDatePickerView.xib in Resources */,
 				961B16A01C2436AB0034C463 /* smallClassCell.xib in Resources */,
 				04CF8F281C14507A00512979 /* Home.storyboard in Resources */,
 				04CF8F1D1C144FDB00512979 /* UMSocialSDKResourcesNew.bundle in Resources */,
@@ -1581,10 +1607,10 @@
 				04CF8F191C144FDB00512979 /* UMShareEditViewControlleriPad.xib in Resources */,
 				04CF8F181C144FDB00512979 /* UMShareEditViewController.xib in Resources */,
 				047A5F391C145424004FA20F /* cityData.plist in Resources */,
-				04CF8DDB1C144FB400512979 /* PayStoryboard.storyboard in Resources */,
 				04CF8F1C1C144FDB00512979 /* UMSShareListController.xib in Resources */,
 				04CF8D621C144DAE00512979 /* Assets.xcassets in Resources */,
 				04CF8DC71C144FB400512979 /* ShareView.xib in Resources */,
+				32D7AF261C2F871C00EF48D0 /* PayStoryboard.storyboard in Resources */,
 				047A5F451C145424004FA20F /* Main2.storyboard in Resources */,
 				96E82A0A1C17053500247660 /* MyOrderStoryBoard.storyboard in Resources */,
 				047A5F431C145424004FA20F /* Info.plist in Resources */,
@@ -1670,6 +1696,7 @@
 				96E82A081C17043900247660 /* ViewPagerIndicator.swift in Sources */,
 				040F8C801C242FAE0027CDC1 /* CenterController.swift in Sources */,
 				04CF8F0F1C144FDB00512979 /* UIProgressView+AFNetworking.m in Sources */,
+				32D7AF281C30617C00EF48D0 /* NoteViewController.swift in Sources */,
 				96090E581C2025B8004FB3DC /* UserAddress.swift in Sources */,
 				04CF8DE11C144FB400512979 /* String+Hash.swift in Sources */,
 				047A5F421C145424004FA20F /* HomeNavViewController.swift in Sources */,
@@ -1742,6 +1769,7 @@
 				04CF8D581C144DAE00512979 /* AppDelegate.swift in Sources */,
 				964F47CE1C21158400C4435D /* Model.swift in Sources */,
 				04CF8EEE1C144FDB00512979 /* UIImage+MultiFormat.m in Sources */,
+				32D7AF241C2F16D100EF48D0 /* UIColor+HexString.m in Sources */,
 				047A5F4D1C145424004FA20F /* SortViewController.swift in Sources */,
 				04CF8EE41C144FDB00512979 /* NSData+ImageContentType.m in Sources */,
 				047A5F441C145424004FA20F /* LocationViewController.swift in Sources */,
@@ -1764,6 +1792,7 @@
 				04CF8ED01C144FDB00512979 /* MJRefreshBackFooter.m in Sources */,
 				04CF8EF41C144FDB00512979 /* ConstraintAttributes.swift in Sources */,
 				04CF8EF91C144FDB00512979 /* Debugging.swift in Sources */,
+				32D7AF221C2F16D100EF48D0 /* HRHDatePickerView.m in Sources */,
 				04CF8DC11C144FB400512979 /* LoginViewController.swift in Sources */,
 				04CF8ECC1C144FDB00512979 /* CyclePictureView.swift in Sources */,
 				04CF8F051C144FDB00512979 /* SVProgressHUD.m in Sources */,

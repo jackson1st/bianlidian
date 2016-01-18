@@ -110,7 +110,7 @@ extension SearcherViewController{
     func getSearchKey(str:String){
         
         let json: JSONND = ["address": address, "name": str]
-        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.242:8080/BSMD/item/findlist").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
+        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.43.185:8080/BSMD/item/findlist").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
             
             self.data = json.data["name"] as! [String]
 

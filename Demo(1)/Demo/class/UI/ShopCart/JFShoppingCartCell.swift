@@ -3,7 +3,6 @@
 //  shoppingCart
 //
 //  Created by jianfeng on 15/11/18.
-//  Copyright © 2015年 六阿哥. All rights reserved.
 //
 
 import UIKit

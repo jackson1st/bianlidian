@@ -40,13 +40,13 @@ extension OrderViewController {
         let manager = AFHTTPRequestOperationManager()
         manager.responseSerializer = AFJSONResponseSerializer()
         manager.requestSerializer = AFJSONRequestSerializer()
-        let parameters = ["No":custNo,"pageIndex":1,"pageCount":5,"orderStatu":orderStatu]
+        let parameters = ["No":"cust01","pageIndex":1,"pageCount":5,"orderStatu":orderStatu]
         // manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/html") as Set<NSObject>
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             //这里写需要大量时间的代码
             print("这里写需要大量时间的代码")
             dispatch_async(dispatch_get_main_queue(), {
-                manager.POST("http://192.168.199.134:8080/BSMD/order/select/list", parameters: parameters, success: { (oper, data) -> Void in
+                manager.POST("http://192.168.43.185:8080/BSMD/order/select/list", parameters: parameters, success: { (oper, data) -> Void in
                     print(data)
                     var expArray: [OrderModel] = []
                     if let orderpage = data as? NSDictionary {

@@ -19,7 +19,7 @@ class SearcherResultViewController: UIViewController {
     var keyForSearchResult: String!{
         didSet{
             let json: JSONND = ["address": address, "name": keyForSearchResult]
-            Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.242:8080/BSMD/item/search").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
+            Pitaya.build(HTTPMethod: .POST, url: "http://192.168.43.185:8080/BSMD/item/search").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
                 let arr = json.data["itemlist"] as! [NSDictionary]
                 print(json.data)
                 for var x in arr{

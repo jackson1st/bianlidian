@@ -12,23 +12,26 @@ public let SD_UserDefaults_Name = "SD_UserDefaults_Name"
 public let SD_UserAddress_Notification = "SD_UserAddress_Notification"
 public let SD_UserDefaults_Telephone = "SD_UserDefaults_Telephone"
 public let SD_UserDefaults_Address = "SD_UserDefaults_Address"
+public let SD_OrderInfo_Note = "SD_OrderInfo_Note"
 
 protocol payDelegate: NSObjectProtocol {
     func returnOk(ok: String)
 }
 class PayViewController: UIViewController {
     
-    
     @IBOutlet var tableView: UITableView!
     var delegate: payDelegate?
     var payModel: [JFGoodModel] = []
     var sumprice: String!
     var disprice: String!
+    var sendTime: String = "尽快送达"
+    var noteInfo: String?
     @IBOutlet var sumPrice: UILabel!
     @IBOutlet var discountPrice: UILabel!
-    @IBAction func canback(sender: AnyObject) {
+    @IBAction func canBack(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
+
     @IBAction func okSelect(sender: AnyObject) {
         print("我点了确认下单")
         let title = "选择付款方式"
@@ -56,7 +59,7 @@ class PayViewController: UIViewController {
             print("使用了货到付款")
             self.sentOrderInformation()
             let titleInfo = "订单确认"
-            let message = "订单已经成功生成，商家正在准备配送，3小时后确认收货"
+            let message = "订单已经成功生成，商家正在准备配送，3小时后自动确认收货"
             let isOk = UIAlertController(title: titleInfo, message: message, preferredStyle: UIAlertControllerStyle.Alert)
             isOk.addAction(okPayFromAddressAction)
             isOk.addAction(lookPayFromAddressAction)
@@ -81,6 +84,8 @@ class PayViewController: UIViewController {
         discountPrice.text = discount
         tableView.delegate = self
         tableView.dataSource = self
+        let frame = CGRectMake(0, 0, 0, -0.0001)
+        self.tableView.tableHeaderView = UIView.init(frame: frame)
         self.navigationItem.title = "确认订单"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Plain, target: self, action: "didTappedBackButton")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "快速登录", style: UIBarButtonItemStyle.Plain, target: self, action: "didTappedAddButton")
@@ -161,7 +166,7 @@ extension PayViewController {
             //这里写需要大量时间的代码
             print("这里写需要大量时间的代码")
             dispatch_async(dispatch_get_main_queue(), {
-                manager.POST("http://192.168.199.134:8080/BSMD/order/insert", parameters: parameters, success: { (oper, data) -> Void in
+                manager.POST("http://192.168.43.185:8080/BSMD/order/insert", parameters: parameters, success: { (oper, data) -> Void in
                     }) { (opeation, error) -> Void in
                         SVProgressHUD.showErrorWithStatus("数据加载失败，请检查网络连接", maskType: SVProgressHUDMaskType.Black)
                         print(error)
@@ -173,7 +178,7 @@ extension PayViewController {
 }
     // MARK: - tableview 的datasource 和 delegate
 
-extension PayViewController: UITableViewDataSource,UITableViewDelegate {
+extension PayViewController: UITableViewDataSource,UITableViewDelegate{
     internal func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(section == 0) {
             return 1
@@ -189,7 +194,7 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate {
         }
     }
     internal func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 10
+        return 5
     }
     internal func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if(indexPath.section == 0) {
@@ -197,7 +202,7 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate {
                 return 52
             }
             else {
-                return 70
+                return 80
             }
         }
         else if(indexPath.section == 1 || indexPath.section == 2) {
@@ -245,7 +250,23 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate {
 //           viewLine.backgroundColor = UIColor.redColor()
 //           self.view.addSubview(viewLine)
            
-        } else if indexPath.section == 3 {
+        }
+        else if indexPath.section == 1 {
+            if indexPath.row == 0 {
+                cell?.detailTextLabel?.text = sendTime
+            }
+            if indexPath.row == 1 {
+                noteInfo = OrderInfo.orderInfoNote()
+                if noteInfo != "" {
+                cell?.detailTextLabel?.text = noteInfo
+                    print("noteinfo is \(noteInfo)")
+                }
+                else {
+                    cell?.detailTextLabel?.text = "点击添加备注"
+                }
+            }
+        }
+        else if indexPath.section == 3 {
            let name = cell?.viewWithTag(20011) as? UILabel
            let remark = cell?.viewWithTag(20012) as? UILabel
            let many = cell?.viewWithTag(20013) as? UILabel
@@ -258,12 +279,33 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate {
         cell!.selectionStyle = UITableViewCellSelectionStyle.None
         return cell!
     }
-    internal func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    
+     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let addstroy = UIStoryboard(name: "PayStoryboard", bundle: nil)
         if indexPath.section == 0 {
-            let addstroy = UIStoryboard(name: "PayStoryboard", bundle: nil)
             let vc = addstroy.instantiateViewControllerWithIdentifier("AddVc") as! AddressController
             vc.delegate = self
             self.navigationController?.pushViewController(vc, animated: true)
+        }
+        if indexPath.section == 1 {
+            if indexPath.row == 0 {
+              let  pickView = HRHDatePickerView.instanceDatePickerView()
+                pickView!.frame = CGRectMake(0, 0, AppWidth, AppHeight + 20);
+                pickView!.backgroundColor = UIColor.clearColor()
+                pickView!.delegate = self
+                var type = DateType.init(0)
+                pickView!.type = type
+                pickView.datePickerView?.datePickerMode = UIDatePickerMode.DateAndTime
+                pickView.datePickerView?.minuteInterval = 15
+                pickView.datePickerView?.minimumDate = NSDate()
+                pickView!.datePickerView?.setDate(NSDate(), animated: true)
+                self.view.addSubview(pickView!)
+            }
+            if indexPath.row == 1 {
+                let vc = addstroy.instantiateViewControllerWithIdentifier("NoteView") as? NoteViewController
+                vc?.delegate = self
+                self.navigationController?.pushViewController(vc!, animated: true)
+            }
         }
     }
 }
@@ -272,7 +314,23 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate {
 extension PayViewController: OkDelegate {
     func returnOk(ok: String){
         if(ok == "true"){
+            print("我接受了 true")
             self.tableView.reloadData()
         }
+    }
+}
+
+extension PayViewController: HRHDatePickerViewDelegate {
+    func getSelectDate(date: String!, type: DateType) {
+        switch (type) {
+        case DateTypeOfStart :
+            sendTime = "\(date)"
+            self.tableView.reloadData()
+            break
+        default:
+            self.tableView.reloadData()
+            break
+        }
+        
     }
 }

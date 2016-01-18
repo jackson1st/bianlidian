@@ -131,15 +131,15 @@ extension CenterController {
         //通知触发的时间，10s以后
         notification.fireDate = NSDate(timeIntervalSinceNow: 1.0)
         //通知重复次数
-        //        notification.repeatInterval = NSCalendarUnit.Calendar
-        //notification.repeatCalendar=[NSCalendar currentCalendar];//当前日历，使用前最好设置时区等信息以便能够自动同步时间
-//        notification.alertBody = "您有新的订单了!" //通知主体
-//        notification.applicationIconBadgeNumber = 1//应用程序图标右上角显示的消息数
-//        notification.alertAction = "打开应用"//待机界面的滑动动作提示
-//        notification.alertLaunchImage = "quesheng"//通过点击通知打开应用时的启动图片,这里使用程序启动图片
+                notification.repeatInterval = NSCalendarUnit.Calendar
+//        notification.repeatCalendar=[NSCalendar currentCalendar];//当前日历，使用前最好设置时区等信息以便能够自动同步时间
+        notification.alertBody = "您有新的订单了!" //通知主体
+        notification.applicationIconBadgeNumber = 1//应用程序图标右上角显示的消息数
+        notification.alertAction = "打开应用"//待机界面的滑动动作提示
+        notification.alertLaunchImage = "quesheng"//通过点击通知打开应用时的启动图片,这里使用程序启动图片
         notification.soundName = UILocalNotificationDefaultSoundName
         //        notification.soundName = ""//通知声音（需要真机才能听到声音）
-//        notification.userInfo = ["id": 1,"user":"Kenshin Cui"]
+        notification.userInfo = ["id": 1,"user":"Kenshin Cui"]
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }
     func removeNotification (){

@@ -46,7 +46,7 @@ class LocationViewController: UIViewController,UITableViewDelegate,UITableViewDa
     func initArr(){
         //manager2.responseSerializer.acceptableContentTypes = NSSet(object: "appliaction/json") as Set<NSObject>
         let parameter = ["city":"Null","county":"Null"]
-        httpManager.POST("http://192.168.199.242:8080/BSMD/locate/city.do", parameters: parameter, success: { (operation, response) -> Void in
+        httpManager.POST("http://192.168.43.185:8080/BSMD/locate/city.do", parameters: parameter, success: { (operation, response) -> Void in
             print(response)
             self.firstArry = response.objectForKey("citys") as! NSArray
             //print(self.firstArry?.count)
@@ -125,7 +125,7 @@ class LocationViewController: UIViewController,UITableViewDelegate,UITableViewDa
         if(cur == 1){
             //manager2.responseSerializer.acceptableContentTypes = NSSet(object: "appliaction/json") as Set<NSObject>
             let parameter = ["city":firstArry![indexPath.row],"county":"Null"]
-            httpManager.POST("http://192.168.199.242:8080/BSMD/locate/city.do", parameters: parameter, success: { (operation, response) -> Void in
+            httpManager.POST("http://192.168.43.185:8080/BSMD/locate/city.do", parameters: parameter, success: { (operation, response) -> Void in
                 //print(response)
                 self.secondArry = response.objectForKey("countys") as! NSArray
                 //print(self.firstArry?.count)
@@ -140,7 +140,7 @@ class LocationViewController: UIViewController,UITableViewDelegate,UITableViewDa
             //manager2.responseSerializer.acceptableContentTypes = NSSet(object: "appliaction/json") as Set<NSObject>
             let parameter = ["city":first!,"county":secondArry![indexPath.row]]
             print(parameter)
-            httpManager.POST("http://192.168.199.242:8080/BSMD/locate/city.do", parameters: parameter, success: { (operation, response) -> Void in
+            httpManager.POST("http://192.168.43.185:8080/BSMD/locate/city.do", parameters: parameter, success: { (operation, response) -> Void in
                 //print(response)
                 self.thirdArry = response.objectForKey("shops") as! NSArray
                 print(self.thirdArry)

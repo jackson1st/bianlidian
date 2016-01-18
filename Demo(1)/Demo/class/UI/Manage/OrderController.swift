@@ -39,13 +39,14 @@ extension OrderController {
             let manager = AFHTTPRequestOperationManager()
             manager.responseSerializer = AFJSONResponseSerializer()
             manager.requestSerializer = AFJSONRequestSerializer()
-            let parameters = ["No":"101","orderNo":"\(self.order.orderNo)","orderStatu":"4"]
+            let str = self.order!.orderNo!
+            let parameters = ["No":"101","orderNo":str,"orderStatu":"4"]
             // manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/html") as Set<NSObject>
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 //这里写需要大量时间的代码
                 print("这里写需要大量时间的代码")
                 dispatch_async(dispatch_get_main_queue(), {
-                    manager.POST("http://192.168.199.134:8080/BSMD/order/update", parameters: parameters, success: { (oper, data) -> Void in
+                    manager.POST("http://192.168.199.149:8080/BSMD/order/update", parameters: parameters, success: { (oper, data) -> Void in
                         
                         }) { (opeation, error) -> Void in
                             print(error)
@@ -60,26 +61,36 @@ extension OrderController {
         self.presentViewController(ispay, animated: true, completion: nil)
     }
     @IBAction func agreeOrder(sender: AnyObject) {
-        
-        let manager = AFHTTPRequestOperationManager()
-        manager.responseSerializer = AFJSONResponseSerializer()
-        manager.requestSerializer = AFJSONRequestSerializer()
-        let parameters = ["No":"101","orderNo":"\(self.order.orderNo)","orderStatu":"1"]
-        // manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/html") as Set<NSObject>
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            //这里写需要大量时间的代码
-            print("这里写需要大量时间的代码")
-            dispatch_async(dispatch_get_main_queue(), {
-                manager.POST("http://192.168.199.134:8080/BSMD/order/update", parameters: parameters, success: { (oper, data) -> Void in
-                    
-                    }) { (opeation, error) -> Void in
-                        print(error)
-                }
+        let ispay = UIAlertController(title: "确认接受？", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        let cancelAction = UIAlertAction(title: "返回", style: UIAlertActionStyle.Cancel) { (UIAlertAction) -> Void in
+            print("取消了订单")
+        }
+        let addAction = UIAlertAction(title: "确认", style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
+            let manager = AFHTTPRequestOperationManager()
+            manager.responseSerializer = AFJSONResponseSerializer()
+            manager.requestSerializer = AFJSONRequestSerializer()
+            let str = self.order!.orderNo!
+            let parameters = ["No":"101","orderNo":str,"orderStatu":"1"]
+            // manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/html") as Set<NSObject>
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                //这里写需要大量时间的代码
+                print("这里写需要大量时间的代码")
+                dispatch_async(dispatch_get_main_queue(), {
+                    manager.POST("http://192.168.199.149:8080/BSMD/order/update", parameters: parameters, success: { (oper, data) -> Void in
+                        
+                        }) { (opeation, error) -> Void in
+                            print(error)
+                    }
+                })
             })
-        })
-    self.tableView.reloadData()
+            self.navigationController?.popViewControllerAnimated(true)
+            self.tableView.reloadData()
+            
+        }
+        ispay.addAction(cancelAction)
+        ispay.addAction(addAction)
+        self.presentViewController(ispay, animated: true, completion: nil)
     }
-    
 }
 
 

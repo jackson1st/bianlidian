@@ -67,7 +67,8 @@ extension SortViewController{
     }
     
     func initData(){
-        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.242:8080/BSMD222/item/classlist.do").responseJSON({ (json, response) -> Void in
+        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.43.185:8080/BSMD/item/classlist.do").responseJSON({ (json, response) -> Void in
+            print(json)
             let bigclass = json.data["bigclass"] as? [NSDictionary]
             var tg = true
             for var x in bigclass!{
@@ -169,7 +170,7 @@ extension SortViewController: UITableViewDelegate,UITableViewDataSource{
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         smallCalsses.removeAll()
         let json: JSONND = ["name": bigClass[indexPath.row]]
-        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.242:8080/BSMD222/item/getclass.do").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
+        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.43.185:8080/BSMD222/item/getclass.do").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
             let properties = json.data["property"] as! [NSDictionary]
             for var y in properties{
                 self.smallCalsses.append(smallClass(name: y["propertyName"] as? String, url: y["url"] as? String,id: y["propertyId"] as? String))

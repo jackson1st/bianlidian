@@ -36,4 +36,21 @@ class UserAddress: NSObject {
         return information
     }
 }
- 
+class OrderInfo: NSObject {
+    class func isNote() -> Bool{
+        let info = NSUserDefaults.standardUserDefaults()
+        let note = info.objectForKey(SD_OrderInfo_Note)
+        if note != nil {
+            return true
+        }
+        return false
+    }
+    class func orderInfoNote() -> String? {
+        if !isNote() {
+            return nil
+        }
+        let info = NSUserDefaults.standardUserDefaults()
+        let note = info.objectForKey(SD_OrderInfo_Note) as? String
+        return note
+    }
+}

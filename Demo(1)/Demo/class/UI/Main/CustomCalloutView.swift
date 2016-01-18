@@ -4,7 +4,7 @@
 //  项目GitHub地址:         https://github.com/ZhongTaoTian/SmallDay
 //  项目思路和架构讲解博客:    http://www.jianshu.com/p/bcc297e19a94
 //  Created by MacBook on 15/9/19.
-//  Copyright © 2015年 维尼的小熊. All rights reserved.
+//  Copyright © 2015年 黄人煌. All rights reserved.
 //  自定义气泡
 
 import UIKit
