@@ -207,31 +207,3 @@ class JFShoppingCartCell: UITableViewCell {
     }()
     
 }
-
-// shoppingCartSelectShopCell
-
-class shoppingCartSelectShopCell: UITableViewCell {
-    var shopList: [String]! {
-        didSet{
-            for var i=0;i<shopList?.count;i++ {
-//                ContentView.addSubview(creatButton(shopList[i],flag: i,sumFlag: (shopList?.count)!))
-            }
-        }
-    }
-    func creatButton(buttonLabel: String,flag: Int,sumFlag: Int) -> UIButton {
-        let button = UIButton(frame: CGRect(x: AppWidth * CGFloat(flag) / CGFloat(sumFlag), y: 0, width: AppWidth/CGFloat(sumFlag), height: 30))
-        button.setTitle(buttonLabel, forState: UIControlState.Normal)
-        button.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        button.titleLabel?.font = UIFont.systemFontOfSize(14)
-        return button
-    }
-    // MARK: - 构造方法
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-    }
-}
