@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<<<<<<< Updated upstream
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Myi-DI-zLB">
-=======
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Myi-DI-zLB">
->>>>>>> Stashed changes
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
@@ -23,7 +19,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tYl-0w-Fnq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-245.5" y="546.5"/>
+            <point key="canvasLocation" x="9" y="543"/>
         </scene>
         <!--我的订单-->
         <scene sceneID="owv-3C-ucx">
@@ -189,7 +185,6 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="edy-vD-9kt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-<<<<<<< Updated upstream
             <point key="canvasLocation" x="600.5" y="347.5"/>
         </scene>
         <!--View Controller-->
@@ -528,40 +523,15 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
-=======
-            <point key="canvasLocation" x="280.5" y="460.5"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="xLL-D0-Y6d">
-            <objects>
-                <viewController id="1Ck-GI-j2p" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="GUC-WX-5Tp"/>
-                        <viewControllerLayoutGuide type="bottom" id="I63-c7-1W7"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Dag-p4-cFV">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t3Q-Dl-Wz0">
-                                <rect key="frame" x="0.0" y="64" width="375" height="560"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
->>>>>>> Stashed changes
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
-<<<<<<< Updated upstream
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1sS-i0-tzI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1275.5" y="341.5"/>
-=======
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HeN-lE-s6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="802.5" y="452.5"/>
->>>>>>> Stashed changes
         </scene>
     </scenes>
 </document>

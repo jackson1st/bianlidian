@@ -132,11 +132,7 @@
                                 <rect key="frame" x="0.0" y="615" width="375" height="52"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZP2-x0-sva">
-<<<<<<< Updated upstream
                                         <rect key="frame" x="8" y="14" width="60" height="30"/>
-=======
-                                        <rect key="frame" x="11" y="11" width="60" height="30"/>
->>>>>>> Stashed changes
                                         <state key="normal" title="取消订单"/>
                                         <connections>
                                             <action selector="deleteOrder:" destination="dup-5c-ek1" eventType="touchUpInside" id="xii-Rp-k0B"/>
@@ -148,10 +144,6 @@
                                         <connections>
                                             <action selector="agreeOrder:" destination="dup-5c-ek1" eventType="touchUpInside" id="hYo-cN-MFE"/>
                                         </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rDe-Vs-fEo">
-                                        <rect key="frame" x="286" y="11" width="80" height="30"/>
-                                        <state key="normal" title="接受订单"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.88105071191019657" alpha="1" colorSpace="calibratedWhite"/>
