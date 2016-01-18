@@ -88,8 +88,6 @@ class JFShoppingCartViewController: UIViewController{
             self.reCalculateTotalPrice()
             self.tableView.header.endRefreshing()
         })
-        //配置toolbar
-        configureToolbar()
         
         // 添加子控件
         view.addSubview(tableView)
@@ -97,7 +95,6 @@ class JFShoppingCartViewController: UIViewController{
         bottomView.addSubview(selectButton)
         bottomView.addSubview(totalPriceLabel)
         bottomView.addSubview(buyButton)
-        bottomView.addSubview(selectBrunch)
         // 判断是否需要全选
         
         for model in Model.defaultModel.shopCart {
@@ -135,33 +132,17 @@ class JFShoppingCartViewController: UIViewController{
         }
         
         totalPriceLabel.snp_makeConstraints { (make) -> Void in
-            make.left.equalTo(170)
+            make.centerX.equalTo(bottomView.snp_centerX)
             make.centerY.equalTo(bottomView.snp_centerY)
         }
         
-        selectBrunch.snp_makeConstraints { (make) -> Void in
-            make.left.equalTo(100)
-            make.centerY.equalTo(bottomView.snp_centerY)
-        }
         
     }
     
     // MARK: - 懒加载
     
     
-    /// pickView
-    lazy var pickView: UIPickerView = {
-        let pickView = UIPickerView()
-        pickView.delegate = self
-        pickView.dataSource = self
-        return pickView
-    }()
     
-    /// accView
-    lazy var accView: UIToolbar = {
-        let accView = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 38))
-        return accView
-    }()
     /// tableView
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -217,45 +198,13 @@ class JFShoppingCartViewController: UIViewController{
         return buyButton
     }()
     
-    /// 底部选择店铺按钮
-    lazy var selectBrunch: UITextField = {
-        let selectBrunch = UITextField()
-        selectBrunch.font = UIFont.systemFontOfSize(12)
-        return selectBrunch
-    }()
-    
     /// 设置TableViewTitle
 //    func setTableViewHeader(refreshingTarget: AnyObject, refreshingAction: Selector, imageFrame: CGRect, tableView: UITableView) {
 //        let header = SDRefreshHeader(refreshingTarget: refreshingTarget, refreshingAction: refreshingAction)
 //        header.gifView!.frame = imageFrame
 //        tableView.header = header
 //    }
-    //配置tool bar Item 函数
-    func configureToolbar(){
-        let toolbarButtonItem = [addButtonItem,
-            flexibleSpaceBarButtonItem,
-            cameraButtonItem]
-        accView.setItems(toolbarButtonItem, animated: true);
-        self.selectBrunch.inputView = pickView
-        self.selectBrunch.inputAccessoryView = accView
-    }
     
-    //tool bar 关闭toolbar按钮 item
-    var addButtonItem:UIBarButtonItem{
-        
-        return UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "backAction:")
-    }
-    
-    //tool bar 确认选择按钮 item
-    var cameraButtonItem:UIBarButtonItem{
-        
-        return UIBarButtonItem(barButtonSystemItem: .Done, target:self, action: "selectAction:")
-    }
-    
-    //tool bar 中间的弹簧
-    var flexibleSpaceBarButtonItem: UIBarButtonItem {
-        return UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
-    }
 }
 // MARK: - UITableViewDataSource, UITableViewDelegate数据、代理
 extension JFShoppingCartViewController: UITableViewDataSource, UITableViewDelegate {
@@ -302,22 +251,6 @@ extension JFShoppingCartViewController: UITableViewDataSource, UITableViewDelega
         reCalculateGoodCount()
     }
 }
-//// MARK: - pickView的代理设置和处理
-extension JFShoppingCartViewController: UIPickerViewDataSource,UIPickerViewDelegate{
-    internal func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
-        return 1
-    }
-    internal func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
-        return self.canSelectShop.count
-    }
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
-        return self.canSelectShop[row]
-    }
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectShop = self.canSelectShop[row]
-    }
-}
 
 // MARK: - view上的一些事件处理
 extension JFShoppingCartViewController {
@@ -329,20 +262,6 @@ extension JFShoppingCartViewController {
     //停止刷新
     func stopRefreshView(){
         loadAnimatIV.stopLoadAnimatImageView()
-    }
-    //添加按钮事件
-    func backAction(barButtonItem:UIBarButtonItem ){
-        
-        self.selectBrunch.resignFirstResponder()
-    }
-    //确认按钮事件
-    func selectAction(barButtonItem:UIBarButtonItem ){
-        
-        self.selectBrunch.text = self.selectShop
-        canChange(self.selectBrunch.text!)
-        self.selectBrunch.resignFirstResponder()
-        self.tableView.reloadData()
-        reCalculateGoodCount()
     }
     /**
      返回按钮
@@ -460,11 +379,10 @@ extension JFShoppingCartViewController {
             }
         }
         if(self.canSelectShop.isEmpty == false) {
-            self.selectBrunch.text = self.canSelectShop[0]
-            canChange(self.selectBrunch.text!)
+//            self.selectBrunch.text = self.canSelectShop[0]
+//            canChange(self.selectBrunch.text!)
         }
         reCalculateGoodCount()
-        pickView.reloadAllComponents()
     }
     
     // 下拉加载刷新数据
@@ -506,6 +424,12 @@ extension JFShoppingCartViewController {
                 Model.defaultModel.shopCart[i].selected = false
             }
         }
+    }
+    
+    // 清空所有数据
+    func cleanAllData(){
+        canSelectShop.removeAll()
+        Model.defaultModel.shopCart.removeAll()
     }
 }
 

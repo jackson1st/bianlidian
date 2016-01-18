@@ -10,7 +10,6 @@
 		040F8C7B1C22C57D0027CDC1 /* ResignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F8C7A1C22C57D0027CDC1 /* ResignViewController.swift */; };
 		040F8C801C242FAE0027CDC1 /* CenterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F8C7D1C242FAE0027CDC1 /* CenterController.swift */; };
 		040F8C811C242FAE0027CDC1 /* OrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F8C7E1C242FAE0027CDC1 /* OrderController.swift */; };
-		040F8C841C242FF70027CDC1 /* Center.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040F8C831C242FF70027CDC1 /* Center.storyboard */; };
 		040F8C8A1C2542CE0027CDC1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040F8C891C2542CE0027CDC1 /* CFNetwork.framework */; };
 		040F8C8C1C2542D40027CDC1 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040F8C8B1C2542D40027CDC1 /* CoreFoundation.framework */; };
 		040F8C8E1C2542E80027CDC1 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040F8C8D1C2542E80027CDC1 /* CoreTelephony.framework */; };
@@ -26,6 +25,7 @@
 		040F8CA31C2548620027CDC1 /* JMessage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040F8CA21C2548620027CDC1 /* JMessage.framework */; };
 		040F8CA51C2549020027CDC1 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 040F8CA41C2549010027CDC1 /* libc++.tbd */; };
 		040F8CA91C25762C0027CDC1 /* HYBJPushHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F8CA81C25762C0027CDC1 /* HYBJPushHelper.swift */; };
+		043B85C71C4CC909009EAB79 /* Center.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043B85C61C4CC909009EAB79 /* Center.storyboard */; };
 		047A5F1F1C14519C004FA20F /* MainMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5F1E1C14519C004FA20F /* MainMeViewController.swift */; };
 		047A5F381C145424004FA20F /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 047A5F211C145424004FA20F /* Address.plist */; };
 		047A5F391C145424004FA20F /* cityData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 047A5F221C145424004FA20F /* cityData.plist */; };
@@ -87,7 +87,6 @@
 		04CF8DDC1C144FB400512979 /* PayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8DB01C144FB400512979 /* PayViewController.swift */; };
 		04CF8DDD1C144FB400512979 /* FileTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8DB21C144FB400512979 /* FileTool.swift */; };
 		04CF8DDE1C144FB400512979 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8DB31C144FB400512979 /* NetworkManager.swift */; };
-		04CF8DDF1C144FB400512979 /* ShareTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8DB41C144FB400512979 /* ShareTool.swift */; };
 		04CF8DE01C144FB400512979 /* SimpleNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8DB51C144FB400512979 /* SimpleNetwork.swift */; };
 		04CF8DE11C144FB400512979 /* String+Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8DB61C144FB400512979 /* String+Hash.swift */; };
 		04CF8DE21C144FB400512979 /* SwiftDictModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8DB71C144FB400512979 /* SwiftDictModel.swift */; };
@@ -256,7 +255,6 @@
 		040F8C7A1C22C57D0027CDC1 /* ResignViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResignViewController.swift; sourceTree = "<group>"; };
 		040F8C7D1C242FAE0027CDC1 /* CenterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterController.swift; sourceTree = "<group>"; };
 		040F8C7E1C242FAE0027CDC1 /* OrderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderController.swift; sourceTree = "<group>"; };
-		040F8C831C242FF70027CDC1 /* Center.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Center.storyboard; sourceTree = "<group>"; };
 		040F8C891C2542CE0027CDC1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		040F8C8B1C2542D40027CDC1 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		040F8C8D1C2542E80027CDC1 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -272,6 +270,7 @@
 		040F8CA21C2548620027CDC1 /* JMessage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JMessage.framework; sourceTree = "<group>"; };
 		040F8CA41C2549010027CDC1 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		040F8CA81C25762C0027CDC1 /* HYBJPushHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HYBJPushHelper.swift; sourceTree = "<group>"; };
+		043B85C61C4CC909009EAB79 /* Center.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Center.storyboard; sourceTree = "<group>"; };
 		047A5F1E1C14519C004FA20F /* MainMeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMeViewController.swift; sourceTree = "<group>"; };
 		047A5F211C145424004FA20F /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
 		047A5F221C145424004FA20F /* cityData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cityData.plist; sourceTree = "<group>"; };
@@ -339,7 +338,6 @@
 		04CF8DB01C144FB400512979 /* PayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayViewController.swift; sourceTree = "<group>"; };
 		04CF8DB21C144FB400512979 /* FileTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTool.swift; sourceTree = "<group>"; };
 		04CF8DB31C144FB400512979 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		04CF8DB41C144FB400512979 /* ShareTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareTool.swift; sourceTree = "<group>"; };
 		04CF8DB51C144FB400512979 /* SimpleNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleNetwork.swift; sourceTree = "<group>"; };
 		04CF8DB61C144FB400512979 /* String+Hash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Hash.swift"; sourceTree = "<group>"; };
 		04CF8DB71C144FB400512979 /* SwiftDictModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftDictModel.swift; sourceTree = "<group>"; };
@@ -612,7 +610,7 @@
 		040F8C7C1C242FAE0027CDC1 /* Manage */ = {
 			isa = PBXGroup;
 			children = (
-				040F8C831C242FF70027CDC1 /* Center.storyboard */,
+				043B85C61C4CC909009EAB79 /* Center.storyboard */,
 				040F8C7D1C242FAE0027CDC1 /* CenterController.swift */,
 				040F8C7E1C242FAE0027CDC1 /* OrderController.swift */,
 			);
@@ -824,7 +822,6 @@
 				96090E571C2025B8004FB3DC /* UserAddress.swift */,
 				04CF8DB21C144FB400512979 /* FileTool.swift */,
 				04CF8DB31C144FB400512979 /* NetworkManager.swift */,
-				04CF8DB41C144FB400512979 /* ShareTool.swift */,
 				04CF8DB51C144FB400512979 /* SimpleNetwork.swift */,
 				04CF8DB61C144FB400512979 /* String+Hash.swift */,
 				04CF8DB71C144FB400512979 /* SwiftDictModel.swift */,
@@ -1606,6 +1603,7 @@
 				04CF8F151C144FDB00512979 /* UMSCommentDetailController.xib in Resources */,
 				04CF8F131C144FDB00512979 /* UMSocialLocalizable.strings in Resources */,
 				965B38891C1959AB006594BE /* IitemSearchResultViewCell.xib in Resources */,
+				043B85C71C4CC909009EAB79 /* Center.storyboard in Resources */,
 				047A5F401C145424004FA20F /* GoodSizeTableCell.xib in Resources */,
 				04CF8F2A1C14507A00512979 /* My.storyboard in Resources */,
 				96E829FE1C15683800247660 /* ItemContentView.xib in Resources */,
@@ -1614,7 +1612,6 @@
 				04CF8F171C144FDB00512979 /* UMSCommentInputControlleriPad.xib in Resources */,
 				04CF8F161C144FDB00512979 /* UMSCommentInputController.xib in Resources */,
 				04CF8F1B1C144FDB00512979 /* UMSnsAccountViewController.xib in Resources */,
-				040F8C841C242FF70027CDC1 /* Center.storyboard in Resources */,
 				04CF8F041C144FDB00512979 /* SVProgressHUD.bundle in Resources */,
 				32D7AF231C2F16D100EF48D0 /* HRHDatePickerView.xib in Resources */,
 				961B16A01C2436AB0034C463 /* smallClassCell.xib in Resources */,
@@ -1757,7 +1754,6 @@
 				04CF8DD41C144FB400512979 /* SettingViewController.swift in Sources */,
 				04CF8DC01C144FB400512979 /* LoadAnimatImageView.swift in Sources */,
 				04CF8EC21C144FDB00512979 /* AFHTTPRequestOperationManager.m in Sources */,
-				04CF8DDF1C144FB400512979 /* ShareTool.swift in Sources */,
 				04CF8F101C144FDB00512979 /* UIRefreshControl+AFNetworking.m in Sources */,
 				96C83E861C1975CA0075A204 /* JSONND+ArrayLiteralConvertible.swift in Sources */,
 				04CF8F071C144FDB00512979 /* UIColor+wnxColor.swift in Sources */,

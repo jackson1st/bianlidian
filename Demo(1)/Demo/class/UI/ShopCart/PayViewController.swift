@@ -31,7 +31,7 @@ class PayViewController: UIViewController {
     @IBAction func canBack(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
-
+    
     @IBAction func okSelect(sender: AnyObject) {
         print("我点了确认下单")
         let title = "选择付款方式"
@@ -87,8 +87,9 @@ class PayViewController: UIViewController {
         let frame = CGRectMake(0, 0, 0, -0.0001)
         self.tableView.tableHeaderView = UIView.init(frame: frame)
         self.navigationItem.title = "确认订单"
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Plain, target: self, action: "didTappedBackButton")
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "快速登录", style: UIBarButtonItemStyle.Plain, target: self, action: "didTappedAddButton")
+//        backBtn.setImage(UIImage(named: "back_1"), forState: .Normal)
+//        backBtn.setImage(UIImage(named: "back_2"), forState: .Highlighted)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
     }
     
     override func viewWillAppear(animated: Bool){
@@ -98,14 +99,27 @@ class PayViewController: UIViewController {
     }
     // MARK: - 懒加载TabViewcellId
     private lazy var mineTitles: NSMutableArray = NSMutableArray(array: ["AddressCell", "TimeCell", "RemarksCell", "BillCell", "CouponCell","ShopCell","NoAddressCell"])
+    lazy var backBtn: UIButton = {
+        //设置返回按钮属性
+        let backBtn = UIButton(type: UIButtonType.Custom)
+        backBtn.titleLabel?.font = UIFont.systemFontOfSize(17)
+        backBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        backBtn.setTitleColor(UIColor.grayColor(), forState: .Highlighted)
+        backBtn.setImage(UIImage(named: "back_1"), forState: .Normal)
+        backBtn.setImage(UIImage(named: "back_2"), forState: .Highlighted)
+        backBtn.addTarget(self, action: "didTappedBackButton", forControlEvents: .TouchUpInside)
+        backBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        backBtn.contentEdgeInsets = UIEdgeInsetsMake(0, -25, 0, 0)
+        backBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
+        let btnW: CGFloat = AppWidth > 375.0 ? 50 : 44
+        backBtn.frame = CGRectMake(0, 0, btnW, 40)
+        return backBtn
+    }()
 }
 
 extension PayViewController {
     func didTappedBackButton() {
         self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    func didTappedAddButton() {
-        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     func modelChangeDict() -> NSMutableDictionary{
         //地址信息封装成dictitionary

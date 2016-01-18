@@ -36,7 +36,7 @@ class ShareView: UIView {
     
     @IBAction func sina(sender: AnyObject) {
         hideShareView()
-        ShareTool.shareToSina(self.shareModel!, viewController: shareVC)
+//        ShareTool.shareToSina(self.shareModel!, viewController: shareVC)
     }
     
     @IBAction func cancle(sender: AnyObject) {
