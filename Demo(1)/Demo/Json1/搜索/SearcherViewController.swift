@@ -114,6 +114,8 @@ extension SearcherViewController{
             self.tableView.hidden = false
             self.tableView.reloadData()
         }
+        
+        
     }
     
     func ButtonHotClicked(sender: AnyObject){
