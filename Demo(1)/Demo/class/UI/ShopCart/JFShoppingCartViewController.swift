@@ -107,6 +107,9 @@ class JFShoppingCartViewController: UIViewController{
         
         // 设置TableViewHeader
         self.tableView.header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            
+            Model.defaultModel.loadDataForNetWork()
+            
             self.tableView.reloadData()
             self.reCalculateTotalPrice()
             self.tableView.header.endRefreshing()
@@ -410,7 +413,6 @@ extension JFShoppingCartViewController {
                 }
             }
             self.presentViewController(UINavigationController(rootViewController: next), animated: false, completion: nil)
-            //            self.navigationController?.pushViewController(next, animated: true)
         }
         ispay.addAction(cancelAction)
         ispay.addAction(addAction)
@@ -495,27 +497,6 @@ extension JFShoppingCartViewController {
         pickView.reloadAllComponents()
     }
     
-    // 下拉加载刷新数据
-    func pullLoadDayData() {
-        weak var tmpSelf = self
-        
-        
-        // 模拟延时加载
-        let time = dispatch_time(DISPATCH_TIME_NOW,Int64(0.6 * Double(NSEC_PER_SEC)))
-        dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
-            JFGoodModels.loadEventsData { (data, error) -> () in
-                //  if error != nil {
-                //  SVProgressHUD.showErrorWithStatus("数据加载失败")
-                //  tmpSelf!.tableView.header.endRefreshing()
-                //  return
-                //  }
-                //  tmpSelf!.jfGoodModels = data!
-                tmpSelf!.tableView.reloadData()
-                tmpSelf!.reCalculateGoodCount()
-                tmpSelf!.tableView.header.endRefreshing()
-            }
-        }
-    }
     
     // 根据店铺名判断商品是否可送
     func canChange(selectShopName: String){

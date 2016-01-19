@@ -160,33 +160,18 @@ extension PayViewController {
         return dict
     }
     func sentOrderInformation() -> Bool{
-        let manager = AFHTTPRequestOperationManager()
-        manager.responseSerializer = AFJSONResponseSerializer()
-        manager.requestSerializer = AFJSONRequestSerializer()
-        let parameters = modelChangeDict()
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-//            //这里写需要大量时间的代码
-//            print("这里写需要大量时间的代码")
-//            dispatch_async(dispatch_get_main_queue(), {
-//                manager.POST("http://192.168.199.134:8080/BSMD/order/insert", parameters: parameters, success: { (oper, data) -> Void in
-//                    }) { (opeation, error) -> Void in
+        let userDefault = NSUserDefaults()
+        var userID: String?
+        if UserAccountTool.userIsLogin() {
+         userID = userDefault.objectForKey(SD_UserDefaults_Account) as? String
+        }
+        let parameters: [String : AnyObject] = [ userID! : modelChangeDict()]
+        
+        HTTPManager.POST(ContentType.OrderAdd, params: parameters).responseJSON { (json, response) -> Void in
+            
+            
+        }
 //                        SVProgressHUD.showErrorWithStatus("数据加载失败，请检查网络连接", maskType: SVProgressHUDMaskType.Black)
-//                        print(error)
-//                }
-//            })
-//        })
-
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            //这里写需要大量时间的代码
-            print("这里写需要大量时间的代码")
-            dispatch_async(dispatch_get_main_queue(), {
-                manager.POST("http://192.168.43.185:8080/BSMD/order/insert", parameters: parameters, success: { (oper, data) -> Void in
-                    }) { (opeation, error) -> Void in
-                        SVProgressHUD.showErrorWithStatus("数据加载失败，请检查网络连接", maskType: SVProgressHUDMaskType.Black)
-                        print(error)
-                }
-            })
-        })
         return true
     }
 }
