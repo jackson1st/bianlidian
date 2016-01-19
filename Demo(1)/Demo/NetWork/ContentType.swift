@@ -9,5 +9,5 @@
 import Foundation
 
 public enum ContentType: String{
-    case 
+    case
 }

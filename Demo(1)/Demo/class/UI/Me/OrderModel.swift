@@ -22,6 +22,8 @@ class orderInfo: NSObject {
     //订单日期
     var payDate: String?
     var lodat: Int!
+    //收货人姓名
+    var name: String?
     //地址
     var address: String?
     //电话

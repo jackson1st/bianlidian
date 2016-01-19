@@ -111,16 +111,17 @@ class JFShoppingCartViewController: UIViewController{
             self.reCalculateTotalPrice()
             self.tableView.header.endRefreshing()
         })
+        
         //配置toolbar
         configureToolbar()
         
         // 添加子控件
         view.addSubview(tableView)
         view.addSubview(bottomView)
-        bottomView.addSubview(selectButton)
+        view.addSubview(topView)
+        topView.addSubview(selectBrunch)
         bottomView.addSubview(totalPriceLabel)
         bottomView.addSubview(buyButton)
-        bottomView.addSubview(selectBrunch)
         // 判断是否需要全选
         
         for model in Model.defaultModel.shopCart {
@@ -142,7 +143,7 @@ class JFShoppingCartViewController: UIViewController{
         
         // 约束子控件
         tableView.snp_makeConstraints { (make) -> Void in
-            make.top.equalTo(0)
+            make.top.equalTo(30)
             make.left.right.equalTo(0)
             make.bottom.equalTo(-49)
         }
@@ -152,6 +153,10 @@ class JFShoppingCartViewController: UIViewController{
             make.height.equalTo(49)
         }
         
+        topView.snp_makeConstraints { (make) -> Void in
+            make.left.top.right.equalTo(0)
+            make.height.equalTo(30)
+        }
         selectButton.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(12)
             make.centerY.equalTo(bottomView.snp_centerY)
@@ -163,7 +168,7 @@ class JFShoppingCartViewController: UIViewController{
         }
         
         selectBrunch.snp_makeConstraints { (make) -> Void in
-            make.left.equalTo(100)
+            make.center.equalTo(topView.snp_center)
             make.centerY.equalTo(bottomView.snp_centerY)
         }
         
@@ -201,6 +206,12 @@ class JFShoppingCartViewController: UIViewController{
         let bottomView = UIView()
         bottomView.backgroundColor = UIColor.whiteColor()
         return bottomView
+    }()
+    /// 顶部视图
+    lazy var topView: UIView = {
+        let topView = UIView()
+        topView.backgroundColor = UIColor.whiteColor()
+        return topView
     }()
     
     /// 底部多选、反选按钮
@@ -247,12 +258,6 @@ class JFShoppingCartViewController: UIViewController{
         return selectBrunch
     }()
     
-    /// 设置TableViewTitle
-    //    func setTableViewHeader(refreshingTarget: AnyObject, refreshingAction: Selector, imageFrame: CGRect, tableView: UITableView) {
-    //        let header = SDRefreshHeader(refreshingTarget: refreshingTarget, refreshingAction: refreshingAction)
-    //        header.gifView!.frame = imageFrame
-    //        tableView.header = header
-    //    }
     //配置tool bar Item 函数
     func configureToolbar(){
         let toolbarButtonItem = [addButtonItem,

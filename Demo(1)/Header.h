@@ -18,7 +18,7 @@
 #import <CommonCrypto/CommonCrypto.h>
 #import <JMessage/JMessage.h>
 #import "HRHDatePickerView.h"
-//#import "THSegmentedPager.h"
+#import "WebImage.h"
 
 //! Project version number for ViewPagerIndicator.
 FOUNDATION_EXPORT double ViewPagerIndicatorVersionNumber;

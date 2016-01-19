@@ -35,15 +35,19 @@ class AddressController: UITableViewController {
         let frame = CGRectMake(0, 0, 0, -0.000001)
         self.tableView.tableHeaderView = UIView.init(frame: frame)
         let userDefault = NSUserDefaults()
-        piAddress = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
-        piaddress.text = piAddress
         if (UserAddress.userIsAddress()) {
         ad = UserAddress.userAccount()!
             if(ad.count > 0) {
+            var addressArray = ad[2].componentsSeparatedByString(" ")
             name.text = ad[0]
-            address.text = ad[2]
+            piaddress.text = addressArray[0]
+            address.text = addressArray[1]
             tele.text = ad[1]
         }
+            else {
+                piAddress = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
+                piaddress.text = piAddress
+            }
         }
     }
 }
@@ -56,7 +60,7 @@ extension AddressController {
     func didTappedAddButton() {
         NSUserDefaults.standardUserDefaults().setObject(name.text, forKey: SD_UserDefaults_Name)
         NSUserDefaults.standardUserDefaults().setObject(tele.text, forKey: SD_UserDefaults_Telephone)
-        NSUserDefaults.standardUserDefaults().setObject("\(piaddress.text!)\(address.text!)", forKey: SD_UserDefaults_Address)
+        NSUserDefaults.standardUserDefaults().setObject("\(piaddress.text!) \(address.text!)", forKey: SD_UserDefaults_Address)
         delegate?.returnOk("true")
         self.navigationController?.popToRootViewControllerAnimated(true)
     }

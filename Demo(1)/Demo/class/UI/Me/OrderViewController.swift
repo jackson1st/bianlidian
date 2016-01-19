@@ -24,6 +24,17 @@ class OrderViewController: UIViewController{
         }
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        
+        // 设置TableViewHeader
+        self.tableView.header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            self.tableView.reloadData()
+            self.tableView.header.endRefreshing()
+        })
+        
+        self.tableView.footer = MJRefreshAutoNormalFooter(refreshingBlock: { () -> Void in
+            
+        })
+        
     }
     
 }
@@ -46,7 +57,7 @@ extension OrderViewController {
             //这里写需要大量时间的代码
             print("这里写需要大量时间的代码")
             dispatch_async(dispatch_get_main_queue(), {
-                manager.POST("http://192.168.43.185:8080/BSMD/order/select/list", parameters: parameters, success: { (oper, data) -> Void in
+                manager.POST("http://192.168.199.242:8080/BSMD/order/select/list", parameters: parameters, success: { (oper, data) -> Void in
                     print(data)
                     var expArray: [OrderModel] = []
                     if let orderpage = data as? NSDictionary {
@@ -160,7 +171,7 @@ extension OrderViewController: UITableViewDataSource,UITableViewDelegate {
             let danjia = cell?.viewWithTag(20003) as! UILabel
             let shuliang = cell?.viewWithTag(20004) as! UILabel
             let zongjia = cell?.viewWithTag(20005) as! UILabel
-            goodsimage.image = UIImage(data: NSData(contentsOfURL: NSURL(string: self.orderArray[0].listorder[indexPath.section].itemList[0].url!)!)!)
+            goodsimage.sd_setImageWithURL(NSURL(string: self.orderArray[0].listorder[indexPath.section].itemList[0].url!), placeholderImage: UIImage(named: "quesheng"))
             let attributeText1 = NSMutableAttributedString(string: "数量: \(self.orderArray[0].listorder[indexPath.section].itemList[0].subQty!)")
             attributeText1.setAttributes([NSForegroundColorAttributeName : UIColor.redColor()], range: NSMakeRange(3, attributeText1.length - 3))
             shuliang.attributedText = attributeText1
@@ -208,10 +219,9 @@ extension OrderViewController: UITableViewDataSource,UITableViewDelegate {
         }
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let story = UIStoryboard(name: "Center", bundle: nil)
-        let vc = story.instantiateViewControllerWithIdentifier("orderInformation") as? OrderController
+        let story = UIStoryboard(name: "MyOrderStoryBoard", bundle: nil)
+        let vc = story.instantiateViewControllerWithIdentifier("OrderInfoController") as? OrderController
         vc?.order = self.orderArray[0].listorder[indexPath.section]
-        vc?.user = 2
         self.navigationController?.pushViewController(vc!, animated: true)
         
     }

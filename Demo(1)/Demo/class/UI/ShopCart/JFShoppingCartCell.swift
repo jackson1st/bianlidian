@@ -27,11 +27,8 @@ class JFShoppingCartCell: UITableViewCell {
             selectButton.enabled = goodModel!.canChange
             goodCountLabel.text = "\(goodModel!.num)"
             
-            if let iconName = goodModel?.url {
-                let uRl = NSURL(string: (iconName))
-                let data = NSData(contentsOfURL: uRl!)
-                let image = UIImage(data: data!)
-                iconView.image = image
+            if let _ = goodModel?.url {
+                iconView.sd_setImageWithURL(NSURL(string: (goodModel?.url)!), placeholderImage: UIImage(named: "quesheng"))
             }
             
             if let title = goodModel?.itemName {

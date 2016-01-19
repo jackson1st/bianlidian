@@ -26,6 +26,8 @@
 		040F8CA51C2549020027CDC1 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 040F8CA41C2549010027CDC1 /* libc++.tbd */; };
 		040F8CA91C25762C0027CDC1 /* HYBJPushHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F8CA81C25762C0027CDC1 /* HYBJPushHelper.swift */; };
 		043B85C71C4CC909009EAB79 /* Center.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043B85C61C4CC909009EAB79 /* Center.storyboard */; };
+		043B85C91C4DD7F5009EAB79 /* OrderInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B85C81C4DD7F5009EAB79 /* OrderInfoController.swift */; };
+		043B85CF1C4E30DF009EAB79 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 043B85CD1C4E30DF009EAB79 /* Info.plist */; };
 		047A5F1F1C14519C004FA20F /* MainMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5F1E1C14519C004FA20F /* MainMeViewController.swift */; };
 		047A5F381C145424004FA20F /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 047A5F211C145424004FA20F /* Address.plist */; };
 		047A5F391C145424004FA20F /* cityData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 047A5F221C145424004FA20F /* cityData.plist */; };
@@ -271,6 +273,9 @@
 		040F8CA41C2549010027CDC1 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		040F8CA81C25762C0027CDC1 /* HYBJPushHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HYBJPushHelper.swift; sourceTree = "<group>"; };
 		043B85C61C4CC909009EAB79 /* Center.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Center.storyboard; sourceTree = "<group>"; };
+		043B85C81C4DD7F5009EAB79 /* OrderInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderInfoController.swift; sourceTree = "<group>"; };
+		043B85CD1C4E30DF009EAB79 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		043B85CE1C4E30DF009EAB79 /* WebImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebImage.h; sourceTree = "<group>"; };
 		047A5F1E1C14519C004FA20F /* MainMeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMeViewController.swift; sourceTree = "<group>"; };
 		047A5F211C145424004FA20F /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
 		047A5F221C145424004FA20F /* cityData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cityData.plist; sourceTree = "<group>"; };
@@ -638,6 +643,16 @@
 			name = FrameWork;
 			sourceTree = "<group>";
 		};
+		043B85CC1C4E30DF009EAB79 /* WebImage */ = {
+			isa = PBXGroup;
+			children = (
+				043B85CD1C4E30DF009EAB79 /* Info.plist */,
+				043B85CE1C4E30DF009EAB79 /* WebImage.h */,
+			);
+			name = WebImage;
+			path = Demo/extension/WebImage;
+			sourceTree = SOURCE_ROOT;
+		};
 		047A5F201C145424004FA20F /* Json1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -797,6 +812,7 @@
 				04CF8DA71C144FB400512979 /* SettingViewController.swift */,
 				04CF8DA81C144FB400512979 /* ShakeViewController.swift */,
 				04CF8DA91C144FB400512979 /* ShakeViewController.xib */,
+				043B85C81C4DD7F5009EAB79 /* OrderInfoController.swift */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -1193,6 +1209,7 @@
 		04CF8E491C144FDB00512979 /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
+				043B85CC1C4E30DF009EAB79 /* WebImage */,
 				04CF8E4A1C144FDB00512979 /* MKAnnotationView+WebCache.h */,
 				04CF8E4B1C144FDB00512979 /* MKAnnotationView+WebCache.m */,
 				04CF8E4C1C144FDB00512979 /* NSData+ImageContentType.h */,
@@ -1628,6 +1645,7 @@
 				047A5F451C145424004FA20F /* Main2.storyboard in Resources */,
 				96E82A0A1C17053500247660 /* MyOrderStoryBoard.storyboard in Resources */,
 				047A5F431C145424004FA20F /* Info.plist in Resources */,
+				043B85CF1C4E30DF009EAB79 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1804,6 +1822,7 @@
 				04CF8DCD1C144FB400512979 /* MyCenterViewController.swift in Sources */,
 				040F8CA91C25762C0027CDC1 /* HYBJPushHelper.swift in Sources */,
 				04CF8EFD1C144FDB00512979 /* SourceLocation.swift in Sources */,
+				043B85C91C4DD7F5009EAB79 /* OrderInfoController.swift in Sources */,
 				96C83E841C1975CA0075A204 /* Helper.swift in Sources */,
 				04CF8ED01C144FDB00512979 /* MJRefreshBackFooter.m in Sources */,
 				04CF8EF41C144FDB00512979 /* ConstraintAttributes.swift in Sources */,
