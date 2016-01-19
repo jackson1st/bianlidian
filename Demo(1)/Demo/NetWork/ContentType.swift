@@ -9,10 +9,7 @@
 import Foundation
 
 public enum ContentType: String{
-<<<<<<< HEAD
-    case
-=======
-    
+
     /**
      *  购物车相关
      */
@@ -150,9 +147,4 @@ public enum ContentType: String{
     //获取用户礼卷
     case StampGet = "/BSMD/getUserPosStamp.do"
     //
-
-    
-    
-    
->>>>>>> origin/master
 }
