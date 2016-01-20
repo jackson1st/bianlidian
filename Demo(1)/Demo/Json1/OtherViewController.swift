@@ -111,7 +111,8 @@ extension OtherViewController{
     }
     @IBAction func ButtonGoToShopCartClicked(sender: AnyObject) {
         
-        let vc = JFShoppingCartViewController()
+        let story = UIStoryboard(name: "Main", bundle: nil)
+        let vc = story.instantiateViewControllerWithIdentifier("shoppingCart") as! JFShoppingCartViewController
         vc.backButtonShow = true
         self.navigationController?.navigationBarHidden = false
         self.hidesBottomBarWhenPushed = true

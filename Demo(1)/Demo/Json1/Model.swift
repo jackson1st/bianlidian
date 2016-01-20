@@ -43,55 +43,57 @@ class Model: NSObject {
         //获取用户id
         if UserAccountTool.userIsLogin() {
         userID = userDefault.objectForKey(SD_UserDefaults_Account) as! String
-        let json: JSONND = ["cust":userID,"areaName":address]
-        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.149:8080/BSMD/car/showCar.do").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
-            if let showCar = json.data as? NSDictionary{
-                if let shopList = showCar["allShop"] as? NSArray{
-                    for var x in shopList{
-                        let model = Shop()
-                        model.shopNo = x["shopNo"] as? String
-                        model.shopName = x["shopName"] as? String
-                        self.shopLists.append(model)
-                    }
-                }
-                if let jfModellist = showCar["cartList"] as? NSArray {
-                    print(jfModellist)
-                    for var i=0 ; i<jfModellist.count ; i++ {
-                        if let jfModel = jfModellist[i] as? NSDictionary{
-                            let JFmodel = JFGoodModel()
-                            JFmodel.url = jfModel["url"] as? String
-                            JFmodel.num = jfModel["num"] as! Int
-                            JFmodel.itemName = jfModel["itemName"] as? String
-                            JFmodel.itemSize = jfModel["itemSize"] as? String
-                            let itemSalePrice = jfModel["itemSalePrice"] as? Double
-                            let itemDistPrice = jfModel["itemDistPrice"] as? Double
-                            JFmodel.itemSalePrice = "\(itemSalePrice! - itemDistPrice!)"
-                            JFmodel.itemDistPrice = "\(itemSalePrice!)"
-                            print(JFmodel.itemSalePrice)
-                            if let shopnamelist = jfModel["shopNameList"] as? NSArray{
-                                var arr: [ShopName] = []
-                                for var j=0 ; j<shopnamelist.count ; j++ {
-                                    if let shopname = shopnamelist[j] as? NSDictionary{
-                                        let spName = ShopName()
-                                        spName.shopName = shopname["shopName"] as? String
-                                        spName.stockQty = shopname["stockQty"] as? Int
-                                        spName.onArea = shopname["onArea"] as? Bool
-                                        arr.append(spName)
-                                    }
-                                    JFmodel.shopNameList = arr
-                                }
-                                JFmodel.needUp = false
-                                self.shopCart.append(JFmodel)
-                            }
+     
+            HTTPManager.POST(ContentType.ShowCarDetail, params: ["cust":userID,"areaName":address]).responseJSON({ (json) -> Void in
+                if let showCar = json as? NSDictionary{
+                    if let shopList = showCar["allShop"] as? NSArray{
+                        for var x in shopList{
+                            let model = Shop()
+                            model.shopNo = x["shopNo"] as? String
+                            model.shopName = x["shopName"] as? String
+                            self.shopLists.append(model)
                         }
-                        NSNotificationCenter.defaultCenter().postNotificationName("finishLoadDataFromNetwork", object: self)
+                    }
+                    if let jfModellist = showCar["cartList"] as? NSArray {
+                        print(jfModellist)
+                        for var i=0 ; i<jfModellist.count ; i++ {
+                            if let jfModel = jfModellist[i] as? NSDictionary{
+                                let JFmodel = JFGoodModel()
+                                JFmodel.url = jfModel["url"] as? String
+                                JFmodel.num = jfModel["num"] as! Int
+                                JFmodel.itemName = jfModel["itemName"] as? String
+                                JFmodel.itemSize = jfModel["itemSize"] as? String
+                                let itemSalePrice = jfModel["itemSalePrice"] as? Double
+                                let itemDistPrice = jfModel["itemDistPrice"] as? Double
+                                JFmodel.itemSalePrice = "\(itemSalePrice! - itemDistPrice!)"
+                                JFmodel.itemDistPrice = "\(itemSalePrice!)"
+                                print(JFmodel.itemSalePrice)
+                                if let shopnamelist = jfModel["shopNameList"] as? NSArray{
+                                    var arr: [ShopName] = []
+                                    for var j=0 ; j<shopnamelist.count ; j++ {
+                                        if let shopname = shopnamelist[j] as? NSDictionary{
+                                            let spName = ShopName()
+                                            spName.shopName = shopname["shopName"] as? String
+                                            spName.stockQty = shopname["stockQty"] as? Int
+                                            spName.onArea = shopname["onArea"] as? Bool
+                                            arr.append(spName)
+                                        }
+                                        JFmodel.shopNameList = arr
+                                    }
+                                    JFmodel.needUp = false
+                                    self.shopCart.append(JFmodel)
+                                }
+                            }
+                            NSNotificationCenter.defaultCenter().postNotificationName("finishLoadDataFromNetwork", object: self)
+                        }
                     }
                 }
-            }
-         }
-       }
+                }, error: { (error) -> Void in
+                    print("发生了错误: " + (error?.localizedDescription)!)
+            })
+        }
     }
-    
+
     func uploadData(){
         var str = NSMutableString(string: "{\"itemlist\":[")
         var cur = 0
