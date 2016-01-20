@@ -14,20 +14,22 @@ class SearcherResultViewController: UIViewController {
     var address: String!
     var ViewChooseType: UIView!
     
-    let httpManager = AFHTTPRequestOperationManager()
     
     var keyForSearchResult: String!{
         didSet{
-            let json: JSONND = ["address": address, "name": keyForSearchResult]
-            Pitaya.build(HTTPMethod: .POST, url: "http://192.168.43.185:8080/BSMD/item/search").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
-                let arr = json.data["itemlist"] as! [NSDictionary]
-                print(json.data)
+            
+            HTTPManager.POST(ContentType.SearchResultListByItemName, params: ["address": address, "itemname": keyForSearchResult]).responseJSON({ (json) -> Void in
+                print(json)
+                var Json = json["itemlist"] as! NSDictionary
+                let arr = Json["list"] as! [NSDictionary]
                 for var x in arr{
                     self.data.append(SearchItemResult(no: x["itemNo"] as? String,name: x["itemName"] as? String, itemByNum: x["itemBynum1"] as? String, price: x["itemSalePrice"] as? String, brandName: x["brandName"] as? String, eshopIntergral: x["eshopIntegral"] as? Double, url: x["url"] as? String))
                 }
                 self.tableView.reloadData()
+                }) { (error) -> Void in
+                    print("发生了错误: " + (error?.localizedDescription)!)
             }
-
+            
         }
     }
     var data = [SearchItemResult]()
@@ -41,9 +43,6 @@ class SearcherResultViewController: UIViewController {
     var pageindex = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-        httpManager.requestSerializer = AFJSONRequestSerializer()
-        httpManager.responseSerializer = AFJSONResponseSerializer()
-        httpManager.responseSerializer.acceptableContentTypes =  NSSet(object: "application/json") as Set<NSObject>
         initAll()
     }
     override func viewDidAppear(animated: Bool) {
@@ -95,27 +94,33 @@ extension SearcherResultViewController{
     
     func loadData(){
         if(ordercondition == "none"){
-            let json: JSONND = ["address": address, "name": keyForSearchResult]
-            Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.242:8080/BSMD/item/search").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
-                let arr = json.data["itemlist"] as! [NSDictionary]
+            
+            HTTPManager.POST(ContentType.SearchResultListByItemName, params: ["address": address, "itemname": keyForSearchResult]).responseJSON({ (json) -> Void in
+                print(json)
+                var Json = json["itemlist"] as! NSDictionary
+                let arr = Json["list"] as! [NSDictionary]
                 for var x in arr{
                     self.data.append(SearchItemResult(no: x["itemNo"] as? String,name: x["itemName"] as? String, itemByNum: x["itemBynum1"] as? String, price: x["itemSalePrice"] as? String, brandName: x["brandName"] as? String, eshopIntergral: x["eshopIntegral"] as? Double, url: x["url"] as? String))
                 }
                 self.tableView.reloadData()
+                }) { (error) -> Void in
+                    print("发生了错误: " + (error?.localizedDescription)!)
             }
+            
 
         }else{
-            let json: JSONND = ["address": address, "name": keyForSearchResult, "pageindex": "1","pagecount":"10","ordercondition": ordercondition!, "orderstyle": orderstyle == true ? "asc" : "desc"]
-            print(json)
-            Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.242:8080/BSMD222/item/search.do").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON({ (json, response) -> Void in
-                
-                let arr = (json.data["itemlist"] as! NSDictionary)["list"] as! [NSDictionary]
+            
+            HTTPManager.POST(ContentType.SearchResultListByItemName, params: ["address": address, "name": keyForSearchResult, "pageindex": "1","pagecount":"10","ordercondition": ordercondition!, "orderstyle": orderstyle == true ? "asc" : "desc"]).responseJSON({ (json) -> Void in
+                let arr = (json["itemlist"] as! NSDictionary)["list"] as! [NSDictionary]
                 print(arr)
                 for var x in arr{
                     self.data.append(SearchItemResult(no: x["itemNo"] as? String,name: x["itemName"] as? String, itemByNum: x["itemBynum1"] as? String, price: x["itemSalePrice"] as? String, brandName: x["brandName"] as? String, eshopIntergral: x["eshopIntegral"] as? Double, url: x["url"] as? String))
                 }
                 self.tableView.reloadData()
+                }, error: { (error) -> Void in
+                    print("发生了错误: " + (error?.localizedDescription)!)
             })
+            
         }
     }
 }
@@ -243,7 +248,7 @@ extension SearcherResultViewController{
     
 }
 
-//tableview's delegate
+// MARK: - UITableViewDelegate,UITableViewDataSource
 extension SearcherResultViewController: UITableViewDelegate,UITableViewDataSource{
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -268,12 +273,20 @@ extension SearcherResultViewController: UITableViewDelegate,UITableViewDataSourc
         let itemno = data[indexPath.row].No
         let json: JSONND = ["itemno":itemno!,"address":address!]
         
-        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.242:8080/BSMD/item/detail.do").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
-            print(json)
-            let dict = json.data["detail"] as! [String: AnyObject]
+        /**
+        *  获取商品详情
+        *
+        *  @param ContentType.ItemDetail 地址
+        *  @param
+        *  @param "address":address!]    json数组
+        *
+        *  @return 无
+        */
+        HTTPManager.POST(ContentType.ItemDetail, params: ["itemno":itemno!,"address":address!]).responseJSON({ (json) -> Void in
+            let dict = json["detail"] as! [String: AnyObject]
             print(dict)
             self.item = GoodDetail()
-            var arry = json.data["comment"] as? NSArray
+            var arry = json["comment"] as? NSArray
             self.item?.comments = [Comment]()
             for var x in arry!{
                 var xx = x as! [String: AnyObject]
@@ -284,7 +297,7 @@ extension SearcherResultViewController: UITableViewDelegate,UITableViewDataSourc
             self.item?.itemName = dict["itemName"] as! String
             self.item?.itemNo = dict["itemNo"] as! String
             self.item?.itemSalePrice = dict["itemSalePrice"] as! String
-            arry = json.data["stocks"] as! NSArray
+            arry = json["stocks"] as! NSArray
             self.item?.itemStocks = [ItemStock]()
             for var x in arry!{
                 var xx = x as! [String: AnyObject]
@@ -297,16 +310,18 @@ extension SearcherResultViewController: UITableViewDelegate,UITableViewDataSourc
             for var x in arry!{
                 var xx = x as! [String: AnyObject]
                 self.item?.itemUnits.append(ItemUnit(salePrice: xx["itemSalePrice"] as? String , sizeName: xx["itemSize"] as? String))
-            }            
-            self.item?.imageDetail = json.data["imageDetail"] as! [String]
-            self.item?.imageTop = json.data["imageTop"] as! [String]
+            }
+            self.item?.imageDetail = json["imageDetail"] as! [String]
+            self.item?.imageTop = json["imageTop"] as! [String]
             
             let vc = UIStoryboard(name: "Home", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("itemDetail") as! OtherViewController
             vc.item = self.item
             self.navigationController?.setNavigationBarHidden(true, animated: false)
             self.navigationController?.pushViewController(vc, animated: true)
-
+            }) { (error) -> Void in
+                print("发生了错误: " + (error?.localizedDescription)!)
         }
+        
     }
     
     

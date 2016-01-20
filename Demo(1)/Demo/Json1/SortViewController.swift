@@ -67,9 +67,9 @@ extension SortViewController{
     }
     
     func initData(){
-        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.43.185:8080/BSMD/item/classlist.do").responseJSON({ (json, response) -> Void in
-            print(json)
-            let bigclass = json.data["bigclass"] as? [NSDictionary]
+        
+        HTTPManager.POST(ContentType.ItemBigClass, params: nil).responseJSON({ (json) -> Void in
+            let bigclass = json["bigclass"] as? [NSDictionary]
             var tg = true
             for var x in bigclass!{
                 self.bigClass.append(x["name"] as! String)
@@ -83,7 +83,9 @@ extension SortViewController{
             }
             self.tableViewLeft.reloadData()
             self.collectionViewRight.reloadData()
-        })
+            }) { (error) -> Void in
+                print("发生了错误: " + (error?.localizedDescription)!)
+        }
     }
     
     func initViewSearch(){
@@ -169,14 +171,17 @@ extension SortViewController: UITableViewDelegate,UITableViewDataSource{
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         smallCalsses.removeAll()
-        let json: JSONND = ["name": bigClass[indexPath.row]]
-        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.43.185:8080/BSMD222/item/getclass.do").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
-            let properties = json.data["property"] as! [NSDictionary]
+        
+        HTTPManager.POST(ContentType.ItemSmallClass, params: ["name": bigClass[indexPath.row]]).responseJSON({ (json) -> Void in
+            let properties = json["property"] as! [NSDictionary]
             for var y in properties{
                 self.smallCalsses.append(smallClass(name: y["propertyName"] as? String, url: y["url"] as? String,id: y["propertyId"] as? String))
             }
             self.collectionViewRight.reloadData()
+            }) { (error) -> Void in
+                print("发生了错误: " + (error?.localizedDescription)!)
         }
+    
     }
     
 }

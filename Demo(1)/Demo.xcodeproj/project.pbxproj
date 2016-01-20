@@ -31,7 +31,6 @@
 		047A5F1F1C14519C004FA20F /* MainMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5F1E1C14519C004FA20F /* MainMeViewController.swift */; };
 		047A5F381C145424004FA20F /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 047A5F211C145424004FA20F /* Address.plist */; };
 		047A5F391C145424004FA20F /* cityData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 047A5F221C145424004FA20F /* cityData.plist */; };
-		047A5F3B1C145424004FA20F /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5F241C145424004FA20F /* DemoViewController.swift */; };
 		047A5F3F1C145424004FA20F /* GoodSizeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5F281C145424004FA20F /* GoodSizeTableCell.swift */; };
 		047A5F401C145424004FA20F /* GoodSizeTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047A5F291C145424004FA20F /* GoodSizeTableCell.xib */; };
 		047A5F421C145424004FA20F /* HomeNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5F2B1C145424004FA20F /* HomeNavViewController.swift */; };
@@ -40,8 +39,6 @@
 		047A5F451C145424004FA20F /* Main2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 047A5F2E1C145424004FA20F /* Main2.storyboard */; };
 		047A5F471C145424004FA20F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5F301C145424004FA20F /* MainViewController.swift */; };
 		047A5F481C145424004FA20F /* OtherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5F311C145424004FA20F /* OtherViewController.swift */; };
-		047A5F491C145424004FA20F /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5F321C145424004FA20F /* PhotoModel.swift */; };
-		047A5F4A1C145424004FA20F /* PhotoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5F331C145424004FA20F /* PhotoScrollView.swift */; };
 		047A5F4B1C145424004FA20F /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5F341C145424004FA20F /* RootViewController.swift */; };
 		047A5F4C1C145424004FA20F /* Sort.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 047A5F351C145424004FA20F /* Sort.storyboard */; };
 		047A5F4D1C145424004FA20F /* SortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5F361C145424004FA20F /* SortViewController.swift */; };
@@ -351,7 +348,6 @@
 		047A5F1E1C14519C004FA20F /* MainMeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMeViewController.swift; sourceTree = "<group>"; };
 		047A5F211C145424004FA20F /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
 		047A5F221C145424004FA20F /* cityData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cityData.plist; sourceTree = "<group>"; };
-		047A5F241C145424004FA20F /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 		047A5F281C145424004FA20F /* GoodSizeTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodSizeTableCell.swift; sourceTree = "<group>"; };
 		047A5F291C145424004FA20F /* GoodSizeTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodSizeTableCell.xib; sourceTree = "<group>"; };
 		047A5F2B1C145424004FA20F /* HomeNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeNavViewController.swift; sourceTree = "<group>"; };
@@ -360,8 +356,6 @@
 		047A5F2E1C145424004FA20F /* Main2.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main2.storyboard; sourceTree = "<group>"; };
 		047A5F301C145424004FA20F /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		047A5F311C145424004FA20F /* OtherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherViewController.swift; sourceTree = "<group>"; };
-		047A5F321C145424004FA20F /* PhotoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
-		047A5F331C145424004FA20F /* PhotoScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoScrollView.swift; sourceTree = "<group>"; };
 		047A5F341C145424004FA20F /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		047A5F351C145424004FA20F /* Sort.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Sort.storyboard; sourceTree = "<group>"; };
 		047A5F361C145424004FA20F /* SortViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortViewController.swift; sourceTree = "<group>"; };
@@ -732,7 +726,6 @@
 			children = (
 				047A5F211C145424004FA20F /* Address.plist */,
 				047A5F221C145424004FA20F /* cityData.plist */,
-				047A5F241C145424004FA20F /* DemoViewController.swift */,
 				047A5F281C145424004FA20F /* GoodSizeTableCell.swift */,
 				047A5F291C145424004FA20F /* GoodSizeTableCell.xib */,
 				047A5F2B1C145424004FA20F /* HomeNavViewController.swift */,
@@ -743,8 +736,6 @@
 				96090E531C202457004FB3DC /* GoodSizeViewController.swift */,
 				047A5F2E1C145424004FA20F /* Main2.storyboard */,
 				047A5F301C145424004FA20F /* MainViewController.swift */,
-				047A5F321C145424004FA20F /* PhotoModel.swift */,
-				047A5F331C145424004FA20F /* PhotoScrollView.swift */,
 				047A5F341C145424004FA20F /* RootViewController.swift */,
 				047A5F351C145424004FA20F /* Sort.storyboard */,
 				047A5F361C145424004FA20F /* SortViewController.swift */,
@@ -1867,12 +1858,10 @@
 				04CF8EC41C144FDB00512979 /* AFNetworkReachabilityManager.m in Sources */,
 				04CF8EF31C144FDB00512979 /* Constraint.swift in Sources */,
 				04CF8EDF1C144FDB00512979 /* UIScrollView+MJExtension.m in Sources */,
-				047A5F4A1C145424004FA20F /* PhotoScrollView.swift in Sources */,
 				04CF8EF71C144FDB00512979 /* ConstraintMaker.swift in Sources */,
 				04CF8EC51C144FDB00512979 /* AFSecurityPolicy.m in Sources */,
 				04CF8D601C144DAE00512979 /* Demo.xcdatamodeld in Sources */,
 				960FC0FD1C1560E100F0580D /* ContentView.swift in Sources */,
-				047A5F3B1C145424004FA20F /* DemoViewController.swift in Sources */,
 				04CF8EF51C144FDB00512979 /* ConstraintDescription.swift in Sources */,
 				04CF8EFA1C144FDB00512979 /* EdgeInsets.swift in Sources */,
 				96E82A081C17043900247660 /* ViewPagerIndicator.swift in Sources */,
@@ -1984,7 +1973,6 @@
 				04CF8DBD1C144FB400512979 /* CityViewController.swift in Sources */,
 				04CF8DD11C144FB400512979 /* RecommendViewController.swift in Sources */,
 				04CF8DD51C144FB400512979 /* ShakeViewController.swift in Sources */,
-				047A5F491C145424004FA20F /* PhotoModel.swift in Sources */,
 				04CF8EF61C144FDB00512979 /* ConstraintItem.swift in Sources */,
 				96C83E8C1C1975CA0075A204 /* PitayaManager+Static.swift in Sources */,
 			);

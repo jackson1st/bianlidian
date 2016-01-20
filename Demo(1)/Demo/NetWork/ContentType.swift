@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum ContentType: String{
+public enum ContentType : String {
 
     /**
      *  购物车相关
@@ -43,12 +43,13 @@ public enum ContentType: String{
     //获取商品评论
     case ItemComment = "/BSMD/item/comment.do"
     //获取分类列表
-    case ItemBigClass = "/BSMD/item/getclass.do"
+    case ItemSmallClass = "/BSMD/item/getclass.do"
     //获取类别表
-    case ItemSmallClass = "/BSMD/item/classlist.do"
-    //获取搜索列表
+    case ItemBigClass = "/BSMD/item/classlist.do"
+    //获取搜索关键字列表
     case SearchResultList = "/BSMD/item/findlist.do"
-    
+    //获取搜索列表
+    case SearchResultListByItemName = "/BSMD/item/item.do"
     
     /**
      *  定位相关

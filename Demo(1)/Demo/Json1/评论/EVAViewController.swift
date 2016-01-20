@@ -11,26 +11,18 @@ import UIKit
 class EVAViewController: UITableViewController {
 
     var comments = [Comment]()
-    let httpManager = AFHTTPRequestOperationManager()
     var itemId: String!
     override func viewDidLoad() {
         super.viewDidLoad()
-        initHttp()
         loadData()
         tableView.bounces = false
     }
     
-    func initHttp(){
-        
-        httpManager.responseSerializer = AFJSONResponseSerializer()
-        httpManager.responseSerializer.acceptableContentTypes = NSSet(object: "application/json") as Set<NSObject>
-        httpManager.requestSerializer = AFJSONRequestSerializer()
-    }
     
     func loadData(){
-        httpManager.POST("http://192.168.43.185:8080/BSMD/item/comment.do", parameters: ["itemno":itemId], success: { (operation, response) -> Void in
-            let arry = response.objectForKey("comments") as? NSArray
-            print(arry)
+        
+        HTTPManager.POST(ContentType.ItemComment, params: ["itemno":itemId]).responseJSON({(json) -> Void in
+            let arry = json["comments"] as? NSArray
             if(arry?.count != 0){
                 for var x in arry!{
                     var xx = x as! NSDictionary
@@ -38,9 +30,10 @@ class EVAViewController: UITableViewController {
                 }
             }
             self.tableView.reloadData()
-            }) { (opreation, error) -> Void in
-                print(error)
+            }) { (error) -> Void in
+                print("发生了错误: " + (error?.localizedDescription)!)
         }
+        
     }
 
     override func didReceiveMemoryWarning() {

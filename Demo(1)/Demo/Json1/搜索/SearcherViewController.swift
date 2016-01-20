@@ -106,14 +106,21 @@ extension SearcherViewController{
     //获取搜索关键字
     func getSearchKey(str:String){
         
-        let json: JSONND = ["address": address, "name": str]
-        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.43.185:8080/BSMD/item/findlist").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
-            
-            self.data = json.data["name"] as! [String]
-
+        HTTPManager.POST(.SearchResultList, params: ["address": address, "name": str]).responseJSON({ (json) -> Void in
+            self.data = json["name"] as! [String]
             self.tableView.hidden = false
             self.tableView.reloadData()
+            }) { (error) -> Void in
+                print("发生了错误: " + (error?.localizedDescription)!)
         }
+        
+//        Pitaya.build(HTTPMethod:.POST , url: "http://192.168.43.185:8080/BSMD/item/findlist").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
+//            
+//            self.data = json.data["name"] as! [String]
+//
+//            self.tableView.hidden = false
+//            self.tableView.reloadData()
+//        }
         
         
     }
