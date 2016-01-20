@@ -24,6 +24,7 @@ class Model: NSObject {
         }
         return modes!
     }()
+    var dict = [String: Bool]()
     lazy var shopLists:[Shop] = {
         var modes = NSKeyedUnarchiver.unarchiveObjectWithFile(shopFilePath) as? [Shop]
         if(modes == nil){
@@ -31,6 +32,22 @@ class Model: NSObject {
         }
         return modes!
     }()
+    
+    func itemIsExist(itemNo: String) -> Bool {
+        return dict[itemNo] == nil ? false : dict[itemNo]!
+    }
+    
+    func addItem(model: JFGoodModel){
+        shopCart.append(model)
+        dict[model.itemNo!] = true
+    }
+    
+    func removeAtIndex(index: Int){
+        let model = shopCart[index]
+        dict[model.itemNo!] = false
+        shopCart.removeAtIndex(index)
+    }
+    
     
     private override init(){
         super.init()
@@ -93,33 +110,34 @@ class Model: NSObject {
             })
         }
     }
-
+    
+    
     func uploadData(){
-        var str = NSMutableString(string: "{\"itemlist\":[")
-        var cur = 0
-        var count = 0
-        for var x in shopCart{
-            if(x.needUp == false){
-                continue
-            }
-            count++
-            let json:JSONND = ["custNo":userID,"itemNo": x.itemNo!,"num":"\(x.num)","itemSize":x.itemSize!]
-            if(cur == 0){
-                str.appendString(json.RAWValue)
-            }else{
-                str.appendString("," + json.RAWValue)
-            }
-            cur++
-        }
-        
-        str.appendString("]}")
-        if(count == 0){
-            return
-        }
-        
-        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.149:8080/BSMD/car/addToCar.do").setHTTPBodyRaw(str as String, isJSON: true).responseJSON { (json, response) -> Void in
-            print(json.data)
-        }
+//        var str = NSMutableString(string: "{\"itemlist\":[")
+//        var cur = 0
+//        var count = 0
+//        for var x in shopCart{
+//            if(x.needUp == false){
+//                continue
+//            }
+//            count++
+//            let json:JSONND = ["custNo":userID,"itemNo": x.itemNo!,"num":"\(x.num)","itemSize":x.itemSize!]
+//            if(cur == 0){
+//                str.appendString(json.RAWValue)
+//            }else{
+//                str.appendString("," + json.RAWValue)
+//            }
+//            cur++
+//        }
+//        
+//        str.appendString("]}")
+//        if(count == 0){
+//            return
+//        }
+//        
+//        Pitaya.build(HTTPMethod: .POST, url: "http://192.168.199.149:8080/BSMD/car/addToCar.do").setHTTPBodyRaw(str as String, isJSON: true).responseJSON { (json, response) -> Void in
+//            print(json.data)
+//        }
     }
     
 }

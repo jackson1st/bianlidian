@@ -263,7 +263,7 @@ extension JFShoppingCartViewController: UITableViewDataSource, UITableViewDelega
         return UITableViewCellEditingStyle.Delete
     }
     internal func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        Model.defaultModel.shopCart.removeAtIndex(indexPath.row)
+        Model.defaultModel.removeAtIndex(indexPath.row)
         tableView.deleteRowsAtIndexPaths([indexPath],withRowAnimation: UITableViewRowAnimation.Fade)
         reCalculateGoodCount()
     }

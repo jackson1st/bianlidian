@@ -6,6 +6,7 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
     
     
     //MenuView
+    @IBOutlet weak var ButtonAdd: UIButton!
     @IBOutlet weak var ButtonItem: UIButton!
     @IBOutlet weak var ButtonDetail: UIButton!
     @IBOutlet weak var ButtonEVA: UIButton!
@@ -68,6 +69,7 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
             self.navigationController?.interactivePopGestureRecognizer?.enabled = true
             self.navigationController?.interactivePopGestureRecognizer?.delegate = self
             self.tabBarController!.tabBar.hidden = true
+            changeButtonAddState()
         }
     
     override func didReceiveMemoryWarning() {
@@ -80,6 +82,21 @@ extension OtherViewController{
     
     @IBAction func ButtonBackClicked(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    //改变加入购物车按钮的状态
+    func changeButtonAddState(){
+        if(Model.defaultModel.itemIsExist((item?.itemNo)!)){
+            ButtonAdd.backgroundColor = UIColor.lightGrayColor()
+            ButtonAdd.setTitle("已加入购物车", forState: .Normal)
+            ButtonAdd.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            ButtonAdd.userInteractionEnabled = false
+        }else{
+            ButtonAdd.backgroundColor = UIColor.colorWith(237, green: 65, blue: 75, alpha: 1)
+            ButtonAdd.setTitle("加入购物车", forState: .Normal)
+            ButtonAdd.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            ButtonAdd.userInteractionEnabled = true
+        }
     }
     
     @IBAction func ButtonMenuClicked(sender: AnyObject) {
@@ -119,6 +136,8 @@ extension OtherViewController{
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
+    
+    //将商品加入购物车
     @IBAction func ButtonAddItemToShopCartClicked(sender: AnyObject) {
         if(countForSizeChoose != 1){
             SVProgressHUD.showErrorWithStatus("请选择商品规格")
@@ -141,7 +160,8 @@ extension OtherViewController{
                 print(x.shopName)
                 JFmodel.shopNameList.append(ShopName(stockQty: x.stockQty, shopName: x.shopName))
             }
-            Model.defaultModel.shopCart.append(JFmodel)
+            Model.defaultModel.addItem(JFmodel)
+            changeButtonAddState()
             print(Model.defaultModel.shopCart.count)
         }
     }
