@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Alamofire
 class LocationViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var textLable: UILabel!
@@ -46,15 +46,17 @@ class LocationViewController: UIViewController,UITableViewDelegate,UITableViewDa
     func initArr(){
         //manager2.responseSerializer.acceptableContentTypes = NSSet(object: "appliaction/json") as Set<NSObject>
         let parameter = ["city":"Null","county":"Null"]
-        httpManager.POST("http://192.168.43.185:8080/BSMD/locate/city.do", parameters: parameter, success: { (operation, response) -> Void in
-            print(response)
-            self.firstArry = response.objectForKey("citys") as! NSArray
+    
+        
+        HTTPManager.POST(ContentType.Location, params: parameter).responseJSON({ (json) -> Void in
+            
+            self.firstArry = json["citys"] as? NSArray
             //print(self.firstArry?.count)
             self.firstTableView?.reloadData()
-            }) { (operation, error ) -> Void in
-                print(error)
+            
+            }) { (error) -> Void in
+               print("发生了错误: " + (error?.localizedDescription)!)
         }
-        
     }
     
     func initTitle(){
@@ -125,30 +127,36 @@ class LocationViewController: UIViewController,UITableViewDelegate,UITableViewDa
         if(cur == 1){
             //manager2.responseSerializer.acceptableContentTypes = NSSet(object: "appliaction/json") as Set<NSObject>
             let parameter = ["city":firstArry![indexPath.row],"county":"Null"]
-            httpManager.POST("http://192.168.43.185:8080/BSMD/locate/city.do", parameters: parameter, success: { (operation, response) -> Void in
-                //print(response)
-                self.secondArry = response.objectForKey("countys") as! NSArray
-                //print(self.firstArry?.count)
+            
+            HTTPManager.POST(ContentType.Location, params: parameter).responseJSON({ (json) -> Void in
+                self.secondArry = json["countys"] as? NSArray
+                    //print(self.firstArry?.count)
                 self.loadData()
-                }) { (operation, error ) -> Void in
-                    print(error)
-            }
-            first = firstArry![indexPath.row] as! String
+                }, error: { (error) -> Void in
+                    print("发生了错误: " + (error?.localizedDescription)!)
+            })
+            first = firstArry![indexPath.row] as?
+            String
             
         }
         if(cur == 2){
             //manager2.responseSerializer.acceptableContentTypes = NSSet(object: "appliaction/json") as Set<NSObject>
             let parameter = ["city":first!,"county":secondArry![indexPath.row]]
-            print(parameter)
-            httpManager.POST("http://192.168.43.185:8080/BSMD/locate/city.do", parameters: parameter, success: { (operation, response) -> Void in
-                //print(response)
-                self.thirdArry = response.objectForKey("shops") as! NSArray
-                print(self.thirdArry)
+//            HTTPManager.POST(ContentType.Location, params: parameter).responseJSON({ (json, response) -> Void in
+//                self.thirdArry = json.data["shops"] as? NSArray
+//               
+//                self.loadData()
+//            })
+            
+             HTTPManager.POST(ContentType.Location, params: parameter).responseJSON({ (json) -> Void in
+                self.thirdArry = json["shops"] as? NSArray
+
                 self.loadData()
-                //print(self.firstArry?.count)
-                }) { (	operation, error ) -> Void in
-                    print(error)
-            }
+                }, error: { (error) -> Void in
+                     print("发生了错误: " + (error?.localizedDescription)!)
+             })
+            
+            
             second = secondArry![indexPath.row] as! String
         }
         if(cur == 3){

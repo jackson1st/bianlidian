@@ -7,21 +7,25 @@
 //
 
 import UIKit
-
+import Alamofire
 public class HTTPManager {
-    static let HTTPURL = "http://192.168.199.134:8080"
-    var pitaya: Pitaya!
-    
+    static let HTTPURL = "http://192.168.199.242:8080"
+    var request: Request!
     
     public static func POST(contentType: ContentType,params: [String: AnyObject]) -> HTTPManager {
-        let p = HTTPManager()
-        let json = JSONND.init(dictionary: params)
-        p.pitaya = Pitaya.build(HTTPMethod: .GET, url: HTTPURL + contentType.rawValue).setHTTPBodyRaw(json.RAWValue, isJSON: true)
-        return p
+        let manager = HTTPManager()
+        manager.request = Alamofire.request(.POST, HTTPURL + contentType.rawValue, parameters: params, encoding: .JSON)
+        return manager
     }
     
-    public func responseJSON(callback: ((json: JSONND, response: NSHTTPURLResponse?) -> Void)?) {
-        self.pitaya.responseJSON(callback)
+    public func responseJSON(success: (json:[String: AnyObject]) -> Void, error: (error: NSError?) -> Void ){
+        request.responseJSON { (response) -> Void in
+            if(response.result.isSuccess){
+                success(json:(response.result.value)! as! [String : AnyObject])
+            }else{
+                error(error: response.result.error)
+            }
+        }
     }
     
 }
