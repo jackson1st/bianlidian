@@ -23,9 +23,9 @@ class JFShoppingCartViewController: UIViewController{
     var price: CFloat = 0.00
     var selectShop: String?
     var backButtonShow: Bool = false
+    @IBOutlet var tableView: UITableView!
     /// 商品列表cell的重用标识符
     private let shoppingCarCellIdentifier = "shoppingCarCell"
-    
     // MARK: - view生命周期
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,25 +62,7 @@ class JFShoppingCartViewController: UIViewController{
     private func  prpareUI2() {
         // 标题
         navigationItem.title = "购物车列表"
-        self.tabBarController!.tabBar.hidden = true;
-        // 导航栏左边返回
-        if(backButtonShow){
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Plain, target: self, action: "didTappedBackButton")
-            self.tabBarController!.tabBar.hidden = true
-        }
-        // view背景颜色
-        view.backgroundColor = UIColor.whiteColor()
-        view.addSubview(bottomView)
-        bottomView.addSubview(selectButton)
-        bottomView.addSubview(totalPriceLabel)
-        bottomView.addSubview(buyButton)
-        for model in Model.defaultModel.shopCart {
-            if model.selected != true && model.canChange == true{
-                // 只要有一个不等于就不全选
-                selectButton.selected = false
-                break
-            }
-        }
+        
     }
     /**
      准备UI
@@ -102,8 +84,11 @@ class JFShoppingCartViewController: UIViewController{
         
         tableView.rowHeight = 80
         
-        // 注册cell
-        tableView.registerClass(JFShoppingCartCell.self, forCellReuseIdentifier: shoppingCarCellIdentifier)
+        tableView.delegate = self
+        
+        tableView.dataSource = self
+        
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         
         // 设置TableViewHeader
         self.tableView.header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
@@ -115,7 +100,6 @@ class JFShoppingCartViewController: UIViewController{
         configureToolbar()
         
         // 添加子控件
-        view.addSubview(tableView)
         view.addSubview(bottomView)
         bottomView.addSubview(selectButton)
         bottomView.addSubview(totalPriceLabel)
@@ -141,11 +125,6 @@ class JFShoppingCartViewController: UIViewController{
     private func layoutUI() {
         
         // 约束子控件
-        tableView.snp_makeConstraints { (make) -> Void in
-            make.top.equalTo(0)
-            make.left.right.equalTo(0)
-            make.bottom.equalTo(-49)
-        }
         
         bottomView.snp_makeConstraints { (make) -> Void in
             make.left.bottom.right.equalTo(0)
@@ -167,6 +146,8 @@ class JFShoppingCartViewController: UIViewController{
             make.centerY.equalTo(bottomView.snp_centerY)
         }
         
+        
+        
     }
     
     // MARK: - 懒加载
@@ -185,16 +166,6 @@ class JFShoppingCartViewController: UIViewController{
         let accView = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 38))
         return accView
     }()
-    /// tableView
-    lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        
-        // 指定数据源和代理
-        tableView.dataSource = self
-        tableView.delegate = self
-        
-        return tableView
-    }()
     
     /// 底部视图
     lazy var bottomView: UIView = {
@@ -203,6 +174,11 @@ class JFShoppingCartViewController: UIViewController{
         return bottomView
     }()
     
+    lazy var topView: UIView = {
+        let topView = UIView()
+        topView.backgroundColor = UIColor.whiteColor()
+        return topView
+    }()
     /// 底部多选、反选按钮
     lazy var selectButton: UIButton = {
         let selectButton = UIButton(type: UIButtonType.Custom)
@@ -247,12 +223,6 @@ class JFShoppingCartViewController: UIViewController{
         return selectBrunch
     }()
     
-    /// 设置TableViewTitle
-    //    func setTableViewHeader(refreshingTarget: AnyObject, refreshingAction: Selector, imageFrame: CGRect, tableView: UITableView) {
-    //        let header = SDRefreshHeader(refreshingTarget: refreshingTarget, refreshingAction: refreshingAction)
-    //        header.gifView!.frame = imageFrame
-    //        tableView.header = header
-    //    }
     //配置tool bar Item 函数
     func configureToolbar(){
         let toolbarButtonItem = [addButtonItem,
@@ -284,30 +254,49 @@ class JFShoppingCartViewController: UIViewController{
 extension JFShoppingCartViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Model.defaultModel.shopCart.count ?? 0
+        return Model.defaultModel.shopCart.count + 1 ?? 0
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if(indexPath.row == 0) {
+            return 50
+        }
+        return 80
+    }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        // 从缓存池创建cell,不成功就根据重用标识符和注册的cell新创建一个
-        let cell = tableView.dequeueReusableCellWithIdentifier(shoppingCarCellIdentifier, forIndexPath: indexPath) as! JFShoppingCartCell
+        var cell: UITableViewCell?
         
-        // cell取消选中效果
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
-        
-        // 指定代理对象
-        cell.delegate = self
-        
-        // 传递模型
-        cell.goodModel = Model.defaultModel.shopCart[indexPath.row]
-        
-        if cell.goodModel?.canChange == false {
-            cell.backgroundColor = UIColor.grayColor()
+        if( indexPath.row == 0) {
+            cell = tableView.dequeueReusableCellWithIdentifier("selectBrunchCell")
+            
+            let selectBruchButton = cell?.viewWithTag(100) as? UIButton
+            selectBruchButton?.addTarget(self, action: "selectAlert", forControlEvents: UIControlEvents.TouchUpInside)
+            selectBruchButton?.setTitle("当前店铺:\(canSelectShop[0] )", forState: UIControlState.Normal)
+            print(100)
         }
         else {
-            cell.backgroundColor = UIColor.whiteColor()
+        // 从缓存池创建cell,不成功就根据重用标识符和注册的cell新创建一个
+        let cell2 = tableView.dequeueReusableCellWithIdentifier(shoppingCarCellIdentifier, forIndexPath: indexPath) as! JFShoppingCartCell
+        // cell取消选中效果
+        cell2.selectionStyle = UITableViewCellSelectionStyle.None
+        
+        // 指定代理对象
+        cell2.delegate = self
+        
+        // 传递模型
+        cell2.goodModel = Model.defaultModel.shopCart[indexPath.row]
+        
+        if cell2.goodModel?.canChange == false {
+            cell2.backgroundColor = UIColor.grayColor()
         }
-        return cell
+        else {
+            cell2.backgroundColor = UIColor.whiteColor()
+        }
+        return cell2
+        }
+
+        return cell!
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -529,6 +518,20 @@ extension JFShoppingCartViewController {
                 Model.defaultModel.shopCart[i].selected = false
             }
         }
+    }
+    func selectAlert(){
+        let select = UIAlertController(title: "选择店铺", message: "", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        let cancelAction = UIAlertAction(title: "返回", style: UIAlertActionStyle.Cancel) { (UIAlertAction) -> Void in
+            print("取消选择")
+        }
+        for var i = 0;i < canSelectShop.count;i++ {
+            let contexAction = UIAlertAction(title: canSelectShop[i], style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
+                print("选择了\(i)号店铺")
+            })
+            select.addAction(contexAction)
+        }
+        select.addAction(cancelAction)
+        self.presentViewController(select, animated: true, completion: nil)
     }
 }
 

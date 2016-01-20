@@ -168,3 +168,9 @@ extension OrderInfoController: UITableViewDataSource,UITableViewDelegate{
         return cell!
     }
 }
+
+extension OrderInfoController {
+    func payForZhiFuBao(){
+        
+    }
+}
