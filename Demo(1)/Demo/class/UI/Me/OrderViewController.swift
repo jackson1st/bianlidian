@@ -48,71 +48,62 @@ extension OrderViewController {
     //从服务器上载入数据并封装成对象
     func loadDataModel(orderStatu: String) {
         let custNo: String = UserAccountTool.userAccount()!
-        let manager = AFHTTPRequestOperationManager()
-        manager.responseSerializer = AFJSONResponseSerializer()
-        manager.requestSerializer = AFJSONRequestSerializer()
         let parameters = ["No":"cust01","pageIndex":1,"pageCount":5,"orderStatu":orderStatu]
-        // manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/html") as Set<NSObject>
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            //这里写需要大量时间的代码
-            print("这里写需要大量时间的代码")
-            dispatch_async(dispatch_get_main_queue(), {
-                manager.POST("http://192.168.199.242:8080/BSMD/order/select/list", parameters: parameters, success: { (oper, data) -> Void in
-                    print(data)
-                    var expArray: [OrderModel] = []
-                    if let orderpage = data as? NSDictionary {
-                        if let page = orderpage["orderPage"] as? NSDictionary {
-                            let exp = OrderModel()
-                            exp.listorder = []
-                            exp.pageIndex = page["pageIndex"] as! Int
-                            if let list = page["list"] as? NSArray {
-                                for var i=0 ; i<list.count ; i++ {
-                                    let listorder = orderInfo()
-                                   if let oinfo = list[i]["orderInfo"] as? NSDictionary {
-                                    listorder.orderNo = oinfo["orderNo"] as? String
-                                    listorder.totalAmt = oinfo["totalAmt"] as? Double
-                                    listorder.freeAmt = oinfo["freeAmt"] as? Double
-                                    listorder.payDate = oinfo["createDateString"] as! String
-                                    listorder.itemNum  = oinfo["itemNum"] as! Int
-                                    if let receiveAddress = list[i]["receiveAddress"] as? NSDictionary {
-                                        listorder.address = receiveAddress["address"] as?
-                                        String
-                                        listorder.tel = receiveAddress["tel"] as? String
-                                        }
-                                    }
-                                    if let item = list[i]["itemList"] as? NSArray {
-                                        listorder.itemList = []
-                                        for var j=0 ; j<item.count ; j++ {
-                                            let itemList = goodList()
-                                            itemList.nowUnit = item[j]["nowUnit"] as? String
-                                            itemList.nowPack = item[j]["nowPack"] as!
-                                            Int
-                                            itemList.subQty = item[j]["subQty"] as! Int
-                                            itemList.subAmt = item[j]["subAmt"] as? Double
-                                            itemList.orgPrice = item[j]["orgPrice"] as? Double
-                                            itemList.realPrice = item[j]["realPrice"] as?
-                                            Double
-                                            if let good = item[j]["item"] as? NSDictionary {
-                                                itemList.itemName = good["itemName"] as? String
-                                                itemList.url = good["url"] as? String
-                                            }
-                                            listorder.itemList?.append(itemList)
-                                        }
-                                    }
-                                    exp.listorder?.append(listorder)
+        
+        HTTPManager.POST(ContentType.UserOrder, params: parameters as! [String : AnyObject]).responseJSON({ (json) -> Void in
+            var expArray: [OrderModel] = []
+            if let orderpage = json as? NSDictionary {
+                if let page = orderpage["orderPage"] as? NSDictionary {
+                    let exp = OrderModel()
+                    exp.listorder = []
+                    exp.pageIndex = page["pageIndex"] as! Int
+                    if let list = page["list"] as? NSArray {
+                        for var i=0 ; i<list.count ; i++ {
+                            let listorder = orderInfo()
+                            if let oinfo = list[i]["orderInfo"] as? NSDictionary {
+                                listorder.orderNo = oinfo["orderNo"] as? String
+                                listorder.totalAmt = oinfo["totalAmt"] as? Double
+                                listorder.freeAmt = oinfo["freeAmt"] as? Double
+                                listorder.payDate = oinfo["createDateString"] as! String
+                                listorder.itemNum  = oinfo["itemNum"] as! Int
+                                if let receiveAddress = list[i]["receiveAddress"] as? NSDictionary {
+                                    listorder.address = receiveAddress["address"] as?
+                                    String
+                                    listorder.tel = receiveAddress["tel"] as? String
                                 }
                             }
-                            expArray.append(exp)
+                            if let item = list[i]["itemList"] as? NSArray {
+                                listorder.itemList = []
+                                for var j=0 ; j<item.count ; j++ {
+                                    let itemList = goodList()
+                                    itemList.nowUnit = item[j]["nowUnit"] as? String
+                                    itemList.nowPack = item[j]["nowPack"] as!
+                                    Int
+                                    itemList.subQty = item[j]["subQty"] as! Int
+                                    itemList.subAmt = item[j]["subAmt"] as? Double
+                                    itemList.orgPrice = item[j]["orgPrice"] as? Double
+                                    itemList.realPrice = item[j]["realPrice"] as?
+                                    Double
+                                    if let good = item[j]["item"] as? NSDictionary {
+                                        itemList.itemName = good["itemName"] as? String
+                                        itemList.url = good["url"] as? String
+                                    }
+                                    listorder.itemList?.append(itemList)
+                                }
+                            }
+                            exp.listorder?.append(listorder)
                         }
                     }
-                    self.orderArray = expArray
-                    
-                    self.tableView.reloadData()
-                    }) { (opeation, error) -> Void in
-                        print(error)
+                    expArray.append(exp)
                 }
-            })
-        })
+            }
+            self.orderArray = expArray
+            
+            self.tableView.reloadData()
+            
+            }) { (error) -> Void in
+                print("发生了错误\(error)")
+        }
     }
 }
 // MARK: - tableview 上的数据和协议
