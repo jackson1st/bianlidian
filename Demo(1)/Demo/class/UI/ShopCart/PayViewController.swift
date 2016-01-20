@@ -167,11 +167,11 @@ extension PayViewController {
         }
         let parameters: [String : AnyObject] = [ userID! : modelChangeDict()]
         
-//        HTTPManager.POST(ContentType.OrderAdd, params: parameters).responseJSON { (json, response) -> Void in
-//            
-//            
-//        }
-//                        SVProgressHUD.showErrorWithStatus("数据加载失败，请检查网络连接", maskType: SVProgressHUDMaskType.Black)
+        HTTPManager.POST(ContentType.OrderAdd, params: parameters).responseJSON({ (json) -> Void in
+            
+            }) { (error) -> Void in
+                SVProgressHUD.showErrorWithStatus("数据加载失败，请检查网络连接", maskType: SVProgressHUDMaskType.Black)
+        }
         return true
     }
 }
