@@ -22,7 +22,8 @@ class EVAViewController: UITableViewController {
     func loadData(){
         
         HTTPManager.POST(ContentType.ItemComment, params: ["itemno":itemId]).responseJSON({(json) -> Void in
-            let arry = json["comments"] as? NSArray
+            print(json)
+            let arry = (json["comments"] as? NSDictionary)!["list"] as? NSArray
             if(arry?.count != 0){
                 for var x in arry!{
                     var xx = x as! NSDictionary

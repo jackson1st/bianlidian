@@ -22,11 +22,11 @@ public enum ContentType : String {
     //结算
     case CalMoney = "/BSMD/car/settlement.do"
     //判断是否超过库存
-    case IsOverStock = "/BSMD/car/isOverStock"
+    case IsOverStock = "/BSMD/car/isOverStock.do"
     //更新购物车中商品数量
-    case UpdateItemNum = "/BSMD/car/updateItemNum"
+    case UpdateItemNum = "/BSMD/car/updateItemNum.do"
     //计算购物车数量
-    case calItemNum = "/BSMD/car/countItemNum"
+    case calItemNum = "/BSMD/car/countItemNum.do"
     
     /**
      *  主页相关
