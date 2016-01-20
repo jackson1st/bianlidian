@@ -31,19 +31,15 @@ class JFShoppingCartViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //dloadmodel()
+        self.showMySelect()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTable", name: "finishLoadDataFromNetwork", object: nil)
-         prepareUI()
+        prepareUI()
         
         if(UserAccountTool.userIsLogin()) {
             
         }
         else {
         }
-        if(Model.defaultModel.shopCart.count > 0){
-            self.canSelectShop.append(Model.defaultModel.shopCart[0].shopNameList[0].shopName!)
-        }
-        self.showMySelect()
         self.tableView.reloadData()
         
     }
@@ -55,6 +51,9 @@ class JFShoppingCartViewController: UIViewController{
     }
     
     func reloadTable(){
+        
+        showMySelect()
+        reCalculateGoodCount()
         tableView.reloadData()
     }
     
@@ -96,14 +95,13 @@ class JFShoppingCartViewController: UIViewController{
         
         // cell行高
         
-        tableView.rowHeight = 80
         
         tableView.delegate = self
         
         tableView.dataSource = self
         
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         
+        tableView.registerClass(JFShoppingCartCell.self, forCellReuseIdentifier: shoppingCarCellIdentifier)
         // 设置TableViewHeader
         self.tableView.header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             self.tableView.reloadData()
@@ -230,6 +228,7 @@ extension JFShoppingCartViewController: UITableViewDataSource, UITableViewDelega
             print(100)
         }
         else {
+        
         // 从缓存池创建cell,不成功就根据重用标识符和注册的cell新创建一个
         let cell2 = tableView.dequeueReusableCellWithIdentifier(shoppingCarCellIdentifier, forIndexPath: indexPath) as! JFShoppingCartCell
         // cell取消选中效果
@@ -239,7 +238,7 @@ extension JFShoppingCartViewController: UITableViewDataSource, UITableViewDelega
         cell2.delegate = self
         
         // 传递模型
-        cell2.goodModel = Model.defaultModel.shopCart[indexPath.row]
+        cell2.goodModel = Model.defaultModel.shopCart[indexPath.row - 1]
         
         if cell2.goodModel?.canChange == false {
             cell2.backgroundColor = UIColor.grayColor()
@@ -263,12 +262,25 @@ extension JFShoppingCartViewController: UITableViewDataSource, UITableViewDelega
         return UITableViewCellEditingStyle.Delete
     }
     internal func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        Model.defaultModel.shopCart.removeAtIndex(indexPath.row)
+        Model.defaultModel.shopCart.removeAtIndex(indexPath.row - 1)
         tableView.deleteRowsAtIndexPaths([indexPath],withRowAnimation: UITableViewRowAnimation.Fade)
         reCalculateGoodCount()
     }
 }
-
+// MARK: - UIActionSheetDelegate事件处理
+extension JFShoppingCartViewController : UIActionSheetDelegate {
+    
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        
+        if(buttonIndex <= self.canSelectShop.count) {
+        self.shopName = self.canSelectShop[buttonIndex - 1]
+        self.canChange(self.shopName)
+        self.tableView.reloadData()
+        self.reCalculateGoodCount()
+        }
+    }
+    
+}
 // MARK: - view上的一些事件处理
 extension JFShoppingCartViewController {
     
@@ -338,7 +350,7 @@ extension JFShoppingCartViewController {
                 var str = model.itemSalePrice! as NSString
                 let isPerfix = str.hasPrefix("￥")
                 if !isPerfix {
-                    str = str.substringFromIndex(2)
+                    str = str.substringFromIndex(1)
                 }
                 price += Float(model.num) * (str).floatValue
             }
@@ -396,7 +408,9 @@ extension JFShoppingCartViewController {
             }
         }
         if(self.canSelectShop.isEmpty == false) {
+            if(shopName == "无") {
             shopName = canSelectShop[0]
+            }
             canChange(shopName)
         }
         reCalculateGoodCount()
@@ -407,6 +421,7 @@ extension JFShoppingCartViewController {
     func canChange(selectShopName: String){
         for var i=0 ; i<Model.defaultModel.shopCart.count ; i++ {
             for var j=0 ; j<Model.defaultModel.shopCart[i].shopNameList!.count ; j++ {
+                print(Model.defaultModel.shopCart[i].shopNameList[j].shopName)
                 if (Model.defaultModel.shopCart[i].shopNameList[j].shopName == selectShopName ){
                     print(Model.defaultModel.shopCart[i].shopNameList[j].shopName! + " " + selectShopName)
                     Model.defaultModel.shopCart[i].canChange = true
@@ -422,22 +437,13 @@ extension JFShoppingCartViewController {
         }
     }
     func selectAlert(){
-        let select = UIAlertController(title: "选择店铺", message: "", preferredStyle: UIAlertControllerStyle.ActionSheet)
-        let cancelAction = UIAlertAction(title: "返回", style: UIAlertActionStyle.Cancel) { (UIAlertAction) -> Void in
-            print("取消选择")
-        }
+        let select = UIActionSheet(title: "选择店铺", delegate: self, cancelButtonTitle: "返回", destructiveButtonTitle: nil)
+         print(canSelectShop)
         for var i = 0;i < canSelectShop.count;i++ {
-            let contexAction = UIAlertAction(title: canSelectShop[i], style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
-                self.shopName = self.canSelectShop[i]
-                self.canChange(self.shopName)
-                self.tableView.reloadData()
-                self.reCalculateGoodCount()
-                print("选择了\(i)号店铺")
-            })
-            select.addAction(contexAction)
+            select.addButtonWithTitle(canSelectShop[i])
         }
-        select.addAction(cancelAction)
-        self.presentViewController(select, animated: true, completion: nil)
+        select.showInView(self.view)
+        
     }
 }
 
@@ -459,7 +465,7 @@ extension JFShoppingCartViewController: JFShoppingCartCellDelegate {
         }
         
         // 获取当前模型，添加到购物车模型数组
-        let model = Model.defaultModel.shopCart[indexPath.row]
+        let model = Model.defaultModel.shopCart[indexPath.row - 1]
         
         if model.canChange == true {
             
