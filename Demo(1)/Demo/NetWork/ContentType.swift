@@ -146,9 +146,4 @@ public enum ContentType: String{
     */
     //获取用户礼卷
     case StampGet = "/BSMD/getUserPosStamp.do"
-    //
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 }

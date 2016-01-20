@@ -107,24 +107,20 @@ class JFShoppingCartViewController: UIViewController{
         
         // 设置TableViewHeader
         self.tableView.header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
-            
-            Model.defaultModel.loadDataForNetWork()
-            
             self.tableView.reloadData()
             self.reCalculateTotalPrice()
             self.tableView.header.endRefreshing()
         })
-        
         //配置toolbar
         configureToolbar()
         
         // 添加子控件
         view.addSubview(tableView)
         view.addSubview(bottomView)
-        view.addSubview(topView)
-        topView.addSubview(selectBrunch)
+        bottomView.addSubview(selectButton)
         bottomView.addSubview(totalPriceLabel)
         bottomView.addSubview(buyButton)
+        bottomView.addSubview(selectBrunch)
         // 判断是否需要全选
         
         for model in Model.defaultModel.shopCart {
@@ -146,7 +142,7 @@ class JFShoppingCartViewController: UIViewController{
         
         // 约束子控件
         tableView.snp_makeConstraints { (make) -> Void in
-            make.top.equalTo(30)
+            make.top.equalTo(0)
             make.left.right.equalTo(0)
             make.bottom.equalTo(-49)
         }
@@ -156,10 +152,6 @@ class JFShoppingCartViewController: UIViewController{
             make.height.equalTo(49)
         }
         
-        topView.snp_makeConstraints { (make) -> Void in
-            make.left.top.right.equalTo(0)
-            make.height.equalTo(30)
-        }
         selectButton.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(12)
             make.centerY.equalTo(bottomView.snp_centerY)
@@ -171,7 +163,7 @@ class JFShoppingCartViewController: UIViewController{
         }
         
         selectBrunch.snp_makeConstraints { (make) -> Void in
-            make.center.equalTo(topView.snp_center)
+            make.left.equalTo(100)
             make.centerY.equalTo(bottomView.snp_centerY)
         }
         
@@ -209,12 +201,6 @@ class JFShoppingCartViewController: UIViewController{
         let bottomView = UIView()
         bottomView.backgroundColor = UIColor.whiteColor()
         return bottomView
-    }()
-    /// 顶部视图
-    lazy var topView: UIView = {
-        let topView = UIView()
-        topView.backgroundColor = UIColor.whiteColor()
-        return topView
     }()
     
     /// 底部多选、反选按钮
@@ -261,6 +247,12 @@ class JFShoppingCartViewController: UIViewController{
         return selectBrunch
     }()
     
+    /// 设置TableViewTitle
+    //    func setTableViewHeader(refreshingTarget: AnyObject, refreshingAction: Selector, imageFrame: CGRect, tableView: UITableView) {
+    //        let header = SDRefreshHeader(refreshingTarget: refreshingTarget, refreshingAction: refreshingAction)
+    //        header.gifView!.frame = imageFrame
+    //        tableView.header = header
+    //    }
     //配置tool bar Item 函数
     func configureToolbar(){
         let toolbarButtonItem = [addButtonItem,
@@ -413,6 +405,7 @@ extension JFShoppingCartViewController {
                 }
             }
             self.presentViewController(UINavigationController(rootViewController: next), animated: false, completion: nil)
+            //            self.navigationController?.pushViewController(next, animated: true)
         }
         ispay.addAction(cancelAction)
         ispay.addAction(addAction)
@@ -497,6 +490,27 @@ extension JFShoppingCartViewController {
         pickView.reloadAllComponents()
     }
     
+    // 下拉加载刷新数据
+    func pullLoadDayData() {
+        weak var tmpSelf = self
+        
+        
+        // 模拟延时加载
+        let time = dispatch_time(DISPATCH_TIME_NOW,Int64(0.6 * Double(NSEC_PER_SEC)))
+        dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
+            JFGoodModels.loadEventsData { (data, error) -> () in
+                //  if error != nil {
+                //  SVProgressHUD.showErrorWithStatus("数据加载失败")
+                //  tmpSelf!.tableView.header.endRefreshing()
+                //  return
+                //  }
+                //  tmpSelf!.jfGoodModels = data!
+                tmpSelf!.tableView.reloadData()
+                tmpSelf!.reCalculateGoodCount()
+                tmpSelf!.tableView.header.endRefreshing()
+            }
+        }
+    }
     
     // 根据店铺名判断商品是否可送
     func canChange(selectShopName: String){
