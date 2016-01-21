@@ -24,7 +24,11 @@ class Model: NSObject {
         }
         return modes!
     }()
+    
+    
     var dict = [String: Bool]()
+    
+    
     lazy var shopLists:[Shop] = {
         var modes = NSKeyedUnarchiver.unarchiveObjectWithFile(shopFilePath) as? [Shop]
         if(modes == nil){
@@ -33,19 +37,50 @@ class Model: NSObject {
         return modes!
     }()
     
+    
+    
+    
+    
+    
     func itemIsExist(itemNo: String) -> Bool {
         return dict[itemNo] == nil ? false : dict[itemNo]!
     }
     
     func addItem(model: JFGoodModel){
-        shopCart.append(model)
-        dict[model.itemNo!] = true
+        let parm = ["itemlist":[["custNo":userID,"itemNo":model.itemNo,"num":"\(model.num)","itemSize":model.itemSize]]]
+        print(parm)
+        HTTPManager.POST(ContentType.PushItemToCar, params: parm).responseJSON({ (json) -> Void in
+            print(json)
+            }) { (error) -> Void in
+                print("发生了错误: " + (error?.localizedDescription)!)
+        }
+        loadDataForNetWork()
     }
     
     func removeAtIndex(index: Int){
         let model = shopCart[index]
-        dict[model.itemNo!] = false
-        shopCart.removeAtIndex(index)
+        HTTPManager.POST(ContentType.DelFromCar, params: ["custNo":userID,"barcodes":[model.barcode!]]).responseJSON({ (json) -> Void in
+            print(json)
+            }) { (error) -> Void in
+                print("发生了错误: " + (error?.localizedDescription)!)
+        }
+        loadDataForNetWork()
+    }
+    
+    func updataItemNum(index: Int, shopNo: String,dis: Int,success: () -> Void,callback:() -> Void){
+        let model = shopCart[index]
+        print(model.barcode)
+        let num = model.num + dis
+        HTTPManager.POST(ContentType.UpdateItemNum, params: ["custNo": userID,"barcode": model.barcode!,"shopNo": shopNo,"num":"\(num)"]).responseJSON({ (json) -> Void in
+            if(json["result"] as! String == "success"){
+                model.num = num
+                success()
+            }
+            callback()
+            }) { (error) -> Void in
+                print("发生了错误: " + (error?.localizedDescription)!)
+        }
+        
     }
     
     
@@ -59,9 +94,15 @@ class Model: NSObject {
         let address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
         //获取用户id
         if UserAccountTool.userIsLogin() {
-        userID = userDefault.objectForKey(SD_UserDefaults_Account) as! String
-     
+        userID = userDefault.objectForKey(SD_UserDefaults_Account) as? String
+            if(userID == nil){
+                return
+            }
+            self.shopCart.removeAll()
+            dict.removeAll()
             HTTPManager.POST(ContentType.ShowCarDetail, params: ["cust":userID,"areaName":address]).responseJSON({ (json) -> Void in
+//                print("json的内容:")
+//                print(json)
                 if let showCar = json as? NSDictionary{
                     if let shopList = showCar["allShop"] as? NSArray{
                         for var x in shopList{
@@ -72,27 +113,31 @@ class Model: NSObject {
                         }
                     }
                     if let jfModellist = showCar["cartList"] as? NSArray {
-                        print(jfModellist)
                         for var i=0 ; i<jfModellist.count ; i++ {
                             if let jfModel = jfModellist[i] as? NSDictionary{
                                 let JFmodel = JFGoodModel()
+                                print(jfModel)
                                 JFmodel.url = jfModel["url"] as? String
                                 JFmodel.num = jfModel["num"] as! Int
                                 JFmodel.itemName = jfModel["itemName"] as? String
                                 JFmodel.itemSize = jfModel["itemSize"] as? String
+                                JFmodel.itemNo = jfModel["itemNo"] as? String
+                                JFmodel.barcode = jfModel["barcode"] as? String
+                                //标记商品已经在购物车
+                                self.dict[JFmodel.itemNo!] = true
+                                
                                 let itemSalePrice = jfModel["itemSalePrice"] as? Double
                                 let itemDistPrice = jfModel["itemDistPrice"] as? Double
                                 JFmodel.itemSalePrice = "\(itemSalePrice! - itemDistPrice!)"
                                 JFmodel.itemDistPrice = "\(itemSalePrice!)"
-                                print(JFmodel.itemSalePrice)
                                 if let shopnamelist = jfModel["shopNameList"] as? NSArray{
-                                    var arr: [ShopName] = []
+                                    var arr: [Shop] = []
                                     for var j=0 ; j<shopnamelist.count ; j++ {
                                         if let shopname = shopnamelist[j] as? NSDictionary{
-                                            let spName = ShopName()
+                                            let spName = Shop()
+                                            print(shopname)
                                             spName.shopName = shopname["shopName"] as? String
-                                            spName.stockQty = shopname["stockQty"] as? Int
-                                            spName.onArea = shopname["onArea"] as? Bool
+                                            spName.shopNo = shopname["shopNo"] as? String
                                             arr.append(spName)
                                         }
                                         JFmodel.shopNameList = arr

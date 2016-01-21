@@ -33,10 +33,18 @@ class JFGoodModels: NSObject,DictModelProtocol{
 class Shop:NSObject, NSCoding{
     var shopName: String?
     var shopNo: String?
-    
+
     override init(){
         super.init()
     }
+    
+    convenience init(shopName: String,shopNo: String = "NULL"){
+        self.init()
+        self.shopName = shopName
+        self.shopNo = shopNo
+    }
+    
+    
     
     required init?(coder aDecoder: NSCoder) {
         shopName = aDecoder.decodeObjectForKey("shopName") as? String
@@ -57,7 +65,7 @@ class JFGoodModel: NSObject,DictModelProtocol,NSCoding {
     var custNo: String?
     var itemNo: String?
     var itemPack: Int?
-    var shopNameList: [ShopName]!
+    var shopNameList: [Shop]!
     
     var needUp: Bool = true
     // 是否可以选择
@@ -114,7 +122,7 @@ class JFGoodModel: NSObject,DictModelProtocol,NSCoding {
         barcode = aDecoder.decodeObjectForKey("barcode") as? String
         custNo = aDecoder.decodeObjectForKey("custNo") as? String
         itemPack = aDecoder.decodeObjectForKey("itemPack") as? Int
-        shopNameList = aDecoder.decodeObjectForKey("shopNameList") as! [ShopName]
+        shopNameList = aDecoder.decodeObjectForKey("shopNameList") as! [Shop]
         canChange = aDecoder.decodeBoolForKey("canChange")
         alreadyAddShoppingCart = aDecoder.decodeBoolForKey("alreadyAddShoppingCart")
         url = aDecoder.decodeObjectForKey("url") as? String

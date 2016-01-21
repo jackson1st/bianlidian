@@ -154,11 +154,10 @@ extension OtherViewController{
             JFmodel.itemSalePrice = item?.itemSalePrice
             JFmodel.itemDistPrice = item?.itemSalePrice
             JFmodel.totalPrice = 100
-            JFmodel.shopNameList = [ShopName]()
+            JFmodel.shopNameList = [Shop]()
             for var x in (item?.itemStocks)!{
-                print(x.stockQty)
                 print(x.shopName)
-                JFmodel.shopNameList.append(ShopName(stockQty: x.stockQty, shopName: x.shopName))
+                JFmodel.shopNameList.append(Shop(shopName:x.shopName!))
             }
             Model.defaultModel.addItem(JFmodel)
             changeButtonAddState()

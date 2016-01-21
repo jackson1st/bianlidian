@@ -22,7 +22,6 @@ class JFShoppingCartViewController: UIViewController{
     var payPrice: CFloat = 0.00
     /// 总金额，默认0.00
     var price: CFloat = 0.00
-    var selectShop: String?
     var backButtonShow: Bool = false
     @IBOutlet var tableView: UITableView!
     /// 商品列表cell的重用标识符
@@ -262,11 +261,7 @@ extension JFShoppingCartViewController: UITableViewDataSource, UITableViewDelega
         return UITableViewCellEditingStyle.Delete
     }
     internal func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-<<<<<<< HEAD
-        Model.defaultModel.removeAtIndex(indexPath.row)
-=======
-        Model.defaultModel.shopCart.removeAtIndex(indexPath.row - 1)
->>>>>>> origin/master
+        Model.defaultModel.removeAtIndex(indexPath.row - 1)
         tableView.deleteRowsAtIndexPaths([indexPath],withRowAnimation: UITableViewRowAnimation.Fade)
         reCalculateGoodCount()
     }
@@ -414,10 +409,25 @@ extension JFShoppingCartViewController {
         if(self.canSelectShop.isEmpty == false) {
             if(shopName == "无") {
             shopName = canSelectShop[0]
+            
             }
             canChange(shopName)
         }
         reCalculateGoodCount()
+    }
+    
+    func shopNoByName(name: String) -> String{
+        
+        if(name == "无"){
+            return "-1"
+        }
+
+        for x in Model.defaultModel.shopLists {
+            if(x.shopName == name){
+                return x.shopNo!
+            }
+        }
+        return "-1"
     }
     
     
@@ -463,6 +473,7 @@ extension JFShoppingCartViewController: JFShoppingCartCellDelegate {
      */
     func shoppingCartCell(cell: JFShoppingCartCell, button: UIButton, countLabel: UILabel) {
         
+        
         // 根据cell获取当前模型
         guard let indexPath = tableView.indexPathForCell(cell) else {
             return
@@ -475,18 +486,27 @@ extension JFShoppingCartViewController: JFShoppingCartCellDelegate {
             
             if button.tag == 10 {
                 
-                if model.num < 1 {
-                    print("数量不能低于0")
+                if model.num <= 1 {
+                    print("数量不能低于1")
                     return
                 }
+                starRefreshView()
                 
                 // 减
-                model.num--
-                countLabel.text = "\(model.num)"
+                Model.defaultModel.updataItemNum(indexPath.row - 1 , shopNo: shopNoByName(shopName), dis: -1, success: { () -> Void in
+                    countLabel.text = "\(model.num)"
+                    }, callback: { () -> Void in
+                        self.stopRefreshView()
+                })
+                
             } else {
                 // 加
-                model.num++
+                starRefreshView()
+               Model.defaultModel.updataItemNum(indexPath.row - 1 , shopNo: shopNoByName(shopName), dis: 1, success: { () -> Void in
                 countLabel.text = "\(model.num)"
+                }, callback: { () -> Void in
+                    self.stopRefreshView()
+               })
             }
             
         }
