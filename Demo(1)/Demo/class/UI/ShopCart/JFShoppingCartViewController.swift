@@ -32,14 +32,19 @@ class JFShoppingCartViewController: UIViewController{
         
         self.showMySelect()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTable", name: "finishLoadDataFromNetwork", object: nil)
+        
+        
         prepareUI()
         
         if(UserAccountTool.userIsLogin()) {
             
+            prpareUiForLogin()
+            
         }
         else {
+            
+            prpareUiForNoLogin()
         }
-        self.tableView.reloadData()
         
     }
     
@@ -52,12 +57,11 @@ class JFShoppingCartViewController: UIViewController{
     func reloadTable(){
         
         showMySelect()
-        reCalculateGoodCount()
-        tableView.reloadData()
     }
     
     
-    func showNotLogin(){
+    func prpareUiForNoGoods(){
+        
         tableView.hidden = true
         bottomView.hidden = true
         
@@ -71,10 +75,46 @@ class JFShoppingCartViewController: UIViewController{
         // 重新计算价格
         reCalculateGoodCount()
     }
-    private func  prpareUI2() {
+    private func  prpareUiForNoLogin() {
         // 标题
-        navigationItem.title = "购物车列表"
+        self.view.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
+        tableView.hidden = true
+        bottomView.hidden = true
+        loginButton.hidden = false
+        resignButton.hidden = false
+        noLoginImageView.hidden = false
+    }
+    private func prpareUiForLogin(){
+        tableView.hidden = false
+        bottomView.hidden = false
+        loginButton.hidden = true
+        resignButton.hidden = true
+        noLoginImageView.hidden = true
+        // view背景颜色
+        view.backgroundColor = UIColor.whiteColor()
+        tableView.delegate = self
         
+        tableView.dataSource = self
+        
+        
+        tableView.registerClass(JFShoppingCartCell.self, forCellReuseIdentifier: shoppingCarCellIdentifier)
+        // 设置TableViewHeader
+        self.tableView.header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            self.tableView.reloadData()
+            self.reCalculateTotalPrice()
+            self.showMySelect()
+            self.tableView.header.endRefreshing()
+        })
+        // 判断是否需要全选
+        
+        for model in Model.defaultModel.shopCart {
+            if model.selected != true && model.canChange == true{
+                // 只要有一个不等于就不全选
+                selectButton.selected = false
+                break
+            }
+        }
+
     }
     /**
      准备UI
@@ -89,41 +129,15 @@ class JFShoppingCartViewController: UIViewController{
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Plain, target: self, action: "didTappedBackButton")
             self.tabBarController!.tabBar.hidden = true
         }
-        // view背景颜色
-        view.backgroundColor = UIColor.whiteColor()
-        
-        // cell行高
-        
-        
-        tableView.delegate = self
-        
-        tableView.dataSource = self
-        
-        
-        tableView.registerClass(JFShoppingCartCell.self, forCellReuseIdentifier: shoppingCarCellIdentifier)
-        // 设置TableViewHeader
-        self.tableView.header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
-            self.tableView.reloadData()
-            self.reCalculateTotalPrice()
-            self.showMySelect()
-            self.tableView.header.endRefreshing()
-        })
         
         // 添加子控件
         view.addSubview(bottomView)
+        view.addSubview(noLoginImageView)
+        view.addSubview(loginButton)
+        view.addSubview(resignButton)
         bottomView.addSubview(selectButton)
         bottomView.addSubview(totalPriceLabel)
         bottomView.addSubview(buyButton)
-        // 判断是否需要全选
-        
-        for model in Model.defaultModel.shopCart {
-            if model.selected != true && model.canChange == true{
-                // 只要有一个不等于就不全选
-                selectButton.selected = false
-                break
-            }
-        }
-        
     }
     
     
@@ -200,6 +214,39 @@ class JFShoppingCartViewController: UIViewController{
         return buyButton
     }()
     
+    
+    /// 未登录页面
+    lazy var noLoginImageView: UIImageView = {
+        let noLoginImageView = UIImageView(frame: CGRect(x: (AppWidth - 240)/2, y: 112, width: 240, height: 240))
+        noLoginImageView.image = UIImage(named: "未登录页面")
+        return noLoginImageView
+    }()
+    
+    /// 登录按钮
+    lazy var loginButton: UIButton = {
+        let loginButton = UIButton(frame: CGRect(x: (AppWidth - 240)/2 + 27, y: 322, width: 85, height: 30))
+        loginButton.setTitle("登录", forState: UIControlState.Normal)
+        loginButton.titleLabel?.font = UIFont.systemFontOfSize(14)
+        loginButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        loginButton.backgroundColor = UIColor.redColor()
+        loginButton.layer.masksToBounds = true
+        loginButton.layer.cornerRadius = 2
+        loginButton.layer.borderWidth = 0.25
+        return loginButton
+    }()
+    
+    /// 注册按钮
+    lazy var resignButton: UIButton = {
+        let resignButton = UIButton(frame: CGRect(x: (AppWidth - 240)/2 + 122, y: 322, width: 85, height: 30 ))
+        resignButton.setTitle("注册", forState: UIControlState.Normal)
+        resignButton.titleLabel?.font = UIFont.systemFontOfSize(14)
+        resignButton.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
+        resignButton.backgroundColor = UIColor.whiteColor()
+        resignButton.layer.masksToBounds = true
+        resignButton.layer.cornerRadius = 2
+        resignButton.layer.borderWidth = 0.25
+        return resignButton
+    }()
 }
 // MARK: - UITableViewDataSource, UITableViewDelegate数据、代理
 extension JFShoppingCartViewController: UITableViewDataSource, UITableViewDelegate {
@@ -263,6 +310,7 @@ extension JFShoppingCartViewController: UITableViewDataSource, UITableViewDelega
     internal func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         Model.defaultModel.removeAtIndex(indexPath.row - 1)
         tableView.deleteRowsAtIndexPaths([indexPath],withRowAnimation: UITableViewRowAnimation.Fade)
+        showMySelect()
         reCalculateGoodCount()
     }
 }
@@ -271,7 +319,7 @@ extension JFShoppingCartViewController : UIActionSheetDelegate {
     
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         
-        if(buttonIndex <= self.canSelectShop.count) {
+        if(buttonIndex <= self.canSelectShop.count && buttonIndex > 0) {
         self.shopName = self.canSelectShop[buttonIndex - 1]
         self.canChange(self.shopName)
         self.tableView.reloadData()
@@ -407,13 +455,20 @@ extension JFShoppingCartViewController {
             }
         }
         if(self.canSelectShop.isEmpty == false) {
+<<<<<<< Updated upstream
             if(shopName == "无") {
             shopName = canSelectShop[0]
             
+=======
+            if(shopName == "无" || !canSelectShop.contains(shopName)) {
+              shopName = canSelectShop[0]
+>>>>>>> Stashed changes
             }
-            canChange(shopName)
+            
         }
+        canChange(shopName)
         reCalculateGoodCount()
+        tableView.reloadData()
     }
     
     func shopNoByName(name: String) -> String{
@@ -447,6 +502,9 @@ extension JFShoppingCartViewController {
             }
             if(Model.defaultModel.shopCart[i].canChange == false) {
                 Model.defaultModel.shopCart[i].selected = false
+            }
+            else {
+                Model.defaultModel.shopCart[i].selected = true
             }
         }
     }
