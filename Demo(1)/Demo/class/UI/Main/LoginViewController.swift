@@ -192,6 +192,7 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
     /// 登录按钮被点击
     func loginClick() {
         
+         NSNotificationCenter.defaultCenter().postNotificationName("Login", object: self)
         if !phoneTextField.text!.validateMobile() {
             SVProgressHUD.showErrorWithStatus("请输入11位的正确手机号", maskType: SVProgressHUDMaskType.Black)
             return

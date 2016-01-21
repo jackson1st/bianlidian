@@ -31,19 +31,18 @@ class JFShoppingCartViewController: UIViewController{
         super.viewDidLoad()
         
         self.showMySelect()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTable", name: "finishLoadDataFromNetwork", object: nil)
-        
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "login", name: "Login", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "signOut", name: "SignOut", object: nil)
         prepareUI()
         
         if(UserAccountTool.userIsLogin()) {
             
-            prpareUiForLogin()
+            prepareUiForLogin()
             
         }
         else {
             
-            prpareUiForNoLogin()
+            prepareUiForNoLogin()
         }
         
     }
@@ -54,11 +53,17 @@ class JFShoppingCartViewController: UIViewController{
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    
     func reloadTable(){
         
         showMySelect()
     }
-    
+    func login(){
+        prepareUiForLogin()
+    }
+    func signOut(){
+        prepareUiForNoLogin()
+    }
     
     func prpareUiForNoGoods(){
         
@@ -73,9 +78,18 @@ class JFShoppingCartViewController: UIViewController{
         layoutUI()
         
         // 重新计算价格
-        reCalculateGoodCount()
+        if(theme.refreshFlag == true){
+            starRefreshView()
+            Model.defaultModel.loadDataForNetWork { () -> Void in
+                self.showMySelect()
+                self.reCalculateGoodCount()
+                self.stopRefreshView()
+                theme.refreshFlag = false
+            }
+        }
+        
     }
-    private func  prpareUiForNoLogin() {
+    private func  prepareUiForNoLogin() {
         // 标题
         self.view.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
         tableView.hidden = true
@@ -84,14 +98,14 @@ class JFShoppingCartViewController: UIViewController{
         resignButton.hidden = false
         noLoginImageView.hidden = false
     }
-    private func prpareUiForLogin(){
+    private func prepareUiForLogin(){
         tableView.hidden = false
         bottomView.hidden = false
         loginButton.hidden = true
         resignButton.hidden = true
         noLoginImageView.hidden = true
-        // view背景颜色
-        view.backgroundColor = UIColor.whiteColor()
+        
+        
         tableView.delegate = self
         
         tableView.dataSource = self
@@ -308,10 +322,11 @@ extension JFShoppingCartViewController: UITableViewDataSource, UITableViewDelega
         return UITableViewCellEditingStyle.Delete
     }
     internal func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        Model.defaultModel.removeAtIndex(indexPath.row - 1)
-        tableView.deleteRowsAtIndexPaths([indexPath],withRowAnimation: UITableViewRowAnimation.Fade)
-        showMySelect()
-        reCalculateGoodCount()
+        Model.defaultModel.removeAtIndex(indexPath.row - 1) { () -> Void in
+            tableView.deleteRowsAtIndexPaths([indexPath],withRowAnimation: UITableViewRowAnimation.Fade)
+            self.showMySelect()
+            self.reCalculateGoodCount()
+        }
     }
 }
 // MARK: - UIActionSheetDelegate事件处理
@@ -396,7 +411,7 @@ extension JFShoppingCartViewController {
                 print("\(price) \(model.itemSalePrice)")
                 var str = model.itemSalePrice! as NSString
                 let isPerfix = str.hasPrefix("￥")
-                if !isPerfix {
+                if isPerfix {
                     str = str.substringFromIndex(1)
                 }
                 price += Float(model.num) * (str).floatValue
@@ -455,14 +470,9 @@ extension JFShoppingCartViewController {
             }
         }
         if(self.canSelectShop.isEmpty == false) {
-<<<<<<< Updated upstream
-            if(shopName == "无") {
-            shopName = canSelectShop[0]
             
-=======
             if(shopName == "无" || !canSelectShop.contains(shopName)) {
               shopName = canSelectShop[0]
->>>>>>> Stashed changes
             }
             
         }

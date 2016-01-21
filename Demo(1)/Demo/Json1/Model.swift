@@ -51,20 +51,22 @@ class Model: NSObject {
         print(parm)
         HTTPManager.POST(ContentType.PushItemToCar, params: parm).responseJSON({ (json) -> Void in
             print(json)
+            self.loadDataForNetWork(nil)
             }) { (error) -> Void in
                 print("发生了错误: " + (error?.localizedDescription)!)
         }
-        loadDataForNetWork()
+        
     }
     
-    func removeAtIndex(index: Int){
+    func removeAtIndex(index: Int, success: () -> Void){
         let model = shopCart[index]
-        HTTPManager.POST(ContentType.DelFromCar, params: ["custNo":userID,"barcodes":[model.barcode!]]).responseJSON({ (json) -> Void in
+        HTTPManager.POST(ContentType.DelFromCar, params: ["custNo":userID,"barcodes":[["barcode":model.barcode!]]]).responseJSON({ (json) -> Void in
             print(json)
+            self.loadDataForNetWork(success)
             }) { (error) -> Void in
                 print("发生了错误: " + (error?.localizedDescription)!)
         }
-        loadDataForNetWork()
+        
     }
     
     func updataItemNum(index: Int, shopNo: String,dis: Int,success: () -> Void,callback:() -> Void){
@@ -86,11 +88,11 @@ class Model: NSObject {
     
     private override init(){
         super.init()
-        loadDataForNetWork()
+        loadDataForNetWork(nil)
     }
     
     //从服务器加载数据
-    func loadDataForNetWork(){
+    func loadDataForNetWork(success: (() -> Void)?){
         let address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
         //获取用户id
         if UserAccountTool.userIsLogin() {
@@ -146,7 +148,9 @@ class Model: NSObject {
                                     self.shopCart.append(JFmodel)
                                 }
                             }
-                            NSNotificationCenter.defaultCenter().postNotificationName("finishLoadDataFromNetwork", object: self)
+                            if success != nil{
+                                success!()
+                            }
                         }
                     }
                 }

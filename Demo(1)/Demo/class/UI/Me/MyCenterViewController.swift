@@ -43,6 +43,7 @@ class MyCenterViewController: UIViewController {
     }
     
     @IBAction func logoutBtnClick(sender: UIButton) {
+        NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: "SignOut", object: self))
         let user = NSUserDefaults.standardUserDefaults()
         user.setObject(nil, forKey: SD_UserDefaults_Account)
         user.setObject(nil, forKey: SD_UserDefaults_Password)

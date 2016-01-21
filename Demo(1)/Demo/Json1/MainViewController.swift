@@ -86,7 +86,6 @@ extension MainViewController{
         initHttpManager()
         initWebView()
         initViewSearch()
-        
     }
     
     func initViewSearch(){

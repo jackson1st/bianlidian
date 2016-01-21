@@ -161,11 +161,13 @@ extension OtherViewController{
             }
             Model.defaultModel.addItem(JFmodel)
             changeButtonAddState()
+            theme.refreshFlag = true
             print(Model.defaultModel.shopCart.count)
         }
     }
     
     //响应规格选择的通知
+    
     func chooseSize(notification: NSNotification){
         let useInfo = notification.userInfo
         let flag = useInfo!["flag"] as! Int
