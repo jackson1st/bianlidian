@@ -17,9 +17,9 @@ class SearcherResultViewController: UIViewController {
     
     var keyForSearchResult: String!{
         didSet{
-            
             HTTPManager.POST(ContentType.SearchResultListByItemName, params: ["address": address, "itemname": keyForSearchResult]).responseJSON({ (json) -> Void in
                 print(json)
+                self.data.removeAll()
                 var Json = json["itemlist"] as! NSDictionary
                 let arr = Json["list"] as! [NSDictionary]
                 for var x in arr{
@@ -41,13 +41,17 @@ class SearcherResultViewController: UIViewController {
     var orderstyle: Bool?
     var ordercondition: String?
     var pageindex = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initAll()
     }
+    
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        //self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
     override func didReceiveMemoryWarning() {
@@ -129,13 +133,23 @@ extension SearcherResultViewController{
 extension SearcherResultViewController{
     
     func initAll(){
-        initTabelView()
         initViewChooseType()
+        initTabelView()
     }
     
     func initViewChooseType(){
-        ViewChooseType = UIView(frame: CGRect(x: 0, y: 64, width: self.view.width, height: 20))
+        ViewChooseType = UIView()
+        view.addSubview(ViewChooseType)
+        ViewChooseType.translatesAutoresizingMaskIntoConstraints = false
+        ViewChooseType.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(view)
+            make.left.equalTo(view)
+            make.width.equalTo(view)
+            make.height.equalTo(30)
+        }
         ViewChooseType.backgroundColor = UIColor.whiteColor()
+        ViewChooseType.layoutIfNeeded()
+        //ViewChooseType.backgroundColor = UIColor.blackColor()
         let width = ViewChooseType.width/4
         var button1 = UIButton()
         button1.setTitle("全部", forState: .Normal)
@@ -143,6 +157,7 @@ extension SearcherResultViewController{
        // button1.setTitleColor(UIColor.colorWith(245, green: 77, blue: 86, alpha: 1), forState: .Selected)
         var view1 = UIView()
         button1.addSubview(view1)
+        view1.translatesAutoresizingMaskIntoConstraints = false
         view1.backgroundColor = UIColor.blackColor()
         view1.snp_makeConstraints { (make) -> Void in
             make.height.equalTo(button1)
@@ -151,6 +166,7 @@ extension SearcherResultViewController{
             make.centerY.equalTo(button1)
         }
         ViewChooseType.addSubview(button1)
+        button1.translatesAutoresizingMaskIntoConstraints = false
         button1.snp_makeConstraints { (make) -> Void in
             make.width.equalTo(width)
             make.height.equalTo(20)
@@ -161,11 +177,13 @@ extension SearcherResultViewController{
         button1.addTarget(self, action: "ButtonTypeClicked:", forControlEvents: .TouchUpInside)
         
         var button2 = UIButton()
+        button2.translatesAutoresizingMaskIntoConstraints = false
         button2.setTitle("销量", forState: .Normal)
         button2.setTitleColor(UIColor.blackColor(), forState: .Normal)
         button2.setTitleColor(UIColor.colorWith(245, green: 77, blue: 86, alpha: 1), forState: .Selected)
         var view2 = UIView()
         button2.addSubview(view2)
+        view2.translatesAutoresizingMaskIntoConstraints = false
         view2.backgroundColor = UIColor.blackColor()
         view2.snp_makeConstraints { (make) -> Void in
             make.height.equalTo(button2)
@@ -184,11 +202,13 @@ extension SearcherResultViewController{
         button2.addTarget(self, action: "ButtonTypeClicked:", forControlEvents: .TouchUpInside)
         
         var button3 = UIButton()
+        button3.translatesAutoresizingMaskIntoConstraints = false
         button3.setTitle("价格", forState: .Normal)
         button3.setTitleColor(UIColor.blackColor(), forState: .Normal)
         button3.setTitleColor(UIColor.colorWith(245, green: 77, blue: 86, alpha: 1), forState: .Selected)
         var view3 = UIView()
         button3.addSubview(view3)
+        view3.translatesAutoresizingMaskIntoConstraints = false
         view3.backgroundColor = UIColor.blackColor()
         view3.snp_makeConstraints { (make) -> Void in
             make.height.equalTo(button3)
@@ -207,11 +227,13 @@ extension SearcherResultViewController{
         button3.addTarget(self, action: "ButtonTypeClicked:", forControlEvents: .TouchUpInside)
         
         var button4 = UIButton()
+        button4.translatesAutoresizingMaskIntoConstraints = false
         button4.setTitle("店铺", forState: .Normal)
         button4.setTitleColor(UIColor.blackColor(), forState: .Normal)
         button4.setTitleColor(UIColor.colorWith(245, green: 77, blue: 86, alpha: 1), forState: .Selected)
         var view4 = UIView()
         button4.addSubview(view4)
+        view4.translatesAutoresizingMaskIntoConstraints = false
         view4.backgroundColor = UIColor.blackColor()
         view4.snp_makeConstraints { (make) -> Void in
             make.height.equalTo(button4)
@@ -228,12 +250,11 @@ extension SearcherResultViewController{
         }
         button4.tag = 104
         button4.addTarget(self, action: "ButtonTypeClicked:", forControlEvents: .TouchUpInside)
-        view.addSubview(ViewChooseType)
-        
     }
     
     func initTabelView(){
-        tableView = UITableView(frame: CGRect(x: 0, y: 30, width: self.view.width, height: self.view.height-30))
+        tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         let nib = UINib(nibName: "IitemSearchResultViewCell", bundle: NSBundle.mainBundle())
         tableView.registerNib(nib, forCellReuseIdentifier: "cell")
         tableView.delegate = self
@@ -244,6 +265,12 @@ extension SearcherResultViewController{
         tableView.estimatedRowHeight = 80
         tableView.rowHeight = UITableViewAutomaticDimension
         self.view.addSubview(tableView)
+        tableView.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(ViewChooseType.snp_bottom).offset(5)
+            make.left.equalTo(view)
+            make.width.equalTo(view)
+            make.bottom.equalTo(view)
+        }
     }
     
 }
@@ -316,7 +343,7 @@ extension SearcherResultViewController: UITableViewDelegate,UITableViewDataSourc
             
             let vc = UIStoryboard(name: "Home", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("itemDetail") as! OtherViewController
             vc.item = self.item
-            self.navigationController?.setNavigationBarHidden(true, animated: false)
+            //self.navigationController?.setNavigationBarHidden(true, animated: false)
             self.navigationController?.pushViewController(vc, animated: true)
             }) { (error) -> Void in
                 print("发生了错误: " + (error?.localizedDescription)!)

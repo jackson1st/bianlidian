@@ -21,6 +21,7 @@ class SortViewController: UIViewController{
     var userDefault = NSUserDefaults()
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController!.navigationBar.barTintColor = UIColor.colorWith(242, green: 50, blue: 65, alpha: 1)
         address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
         initAll()
     }
@@ -91,7 +92,7 @@ extension SortViewController{
     func initViewSearch(){
         
         ViewSearch = UIView(frame: CGRect(x: 0, y:0, width: self.view.frame.width, height: 64))
-        ViewSearch.backgroundColor = UIColor.colorWith(245, green: 77, blue: 86, alpha: 1)
+        ViewSearch.backgroundColor = UIColor.clearColor()
         view.addSubview(ViewSearch)
         
         TextFieldSearchBar = UITextField()
@@ -116,9 +117,10 @@ extension SortViewController{
         tableViewLeft = UITableView()
         tableViewLeft.delegate = self
         tableViewLeft.dataSource = self
+        tableViewLeft.rowHeight = 40
         self.view.addSubview(tableViewLeft)
         tableViewLeft.snp_makeConstraints { (make) -> Void in
-            make.width.equalTo(100)
+            make.width.equalTo(80)
             make.left.equalTo(view)
             make.top.equalTo(ViewSearch.snp_bottom)
             make.bottom.equalTo(view.snp_bottom)
@@ -162,6 +164,7 @@ extension SortViewController: UITableViewDelegate,UITableViewDataSource{
             cell?.selectionStyle = .None
         }
         cell?.textLabel?.text = bigClass[indexPath.row]
+        cell?.textLabel?.textAlignment = .Center
         return cell!
     }
     
@@ -187,7 +190,7 @@ extension SortViewController: UITableViewDelegate,UITableViewDataSource{
 }
 
 // MARK: - UICollectionViewDelegate,UICollectionViewDataSource
-extension SortViewController: UICollectionViewDelegate,UICollectionViewDataSource{
+extension SortViewController: UICollectionViewDelegateFlowLayout,UICollectionViewDataSource{
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
@@ -199,7 +202,7 @@ extension SortViewController: UICollectionViewDelegate,UICollectionViewDataSourc
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell = collectionViewRight.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! smallClassCell
+        let cell = collectionViewRight.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! smallClassCell
         cell.imgView.setImageWithURL(NSURL(string: smallCalsses[indexPath.row].url!))
         cell.textLabel.text = smallCalsses[indexPath.row].name
         return cell
@@ -212,6 +215,16 @@ extension SortViewController: UICollectionViewDelegate,UICollectionViewDataSourc
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return CGSizeMake(80, 100)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
+    }
+
+    
 }
 
 // MARK: - UITextFieldDelegate

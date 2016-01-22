@@ -78,12 +78,7 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
         self.navigationController?.interactivePopGestureRecognizer?.enabled = true
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.tabBarController!.tabBar.hidden = true
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if(theme.isFirstLoad == true){
+        if(theme.isFirstLoad == true && UserAccountTool.userIsLogin()){
             starRefreshView()
             Model.defaultModel.loadDataForNetWork({ () -> Void in
                 self.changeButtonAddState()
@@ -92,8 +87,16 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
                 self.viewDidLoad()
             })
         }else{
+            theme.isFirstLoad = false
             changeButtonAddState()
+            self.viewDidLoad()
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        
 
     }
     
@@ -125,16 +128,23 @@ extension OtherViewController{
     
     //改变加入购物车按钮的状态
     func changeButtonAddState(){
-        if(Model.defaultModel.itemIsExist((item?.itemNo)!)){
+        if(UserAccountTool.userIsLogin() == false){
             ButtonAdd.backgroundColor = UIColor.lightGrayColor()
-            ButtonAdd.setTitle("已加入购物车", forState: .Normal)
+            ButtonAdd.setTitle("请登录购买", forState: .Normal)
             ButtonAdd.setTitleColor(UIColor.whiteColor(), forState: .Normal)
             ButtonAdd.userInteractionEnabled = false
         }else{
-            ButtonAdd.backgroundColor = UIColor.colorWith(237, green: 65, blue: 75, alpha: 1)
-            ButtonAdd.setTitle("加入购物车", forState: .Normal)
-            ButtonAdd.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-            ButtonAdd.userInteractionEnabled = true
+            if(Model.defaultModel.itemIsExist((item?.itemNo)!)){
+                ButtonAdd.backgroundColor = UIColor.lightGrayColor()
+                ButtonAdd.setTitle("已加入购物车", forState: .Normal)
+                ButtonAdd.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+                ButtonAdd.userInteractionEnabled = false
+            }else{
+                ButtonAdd.backgroundColor = UIColor.colorWith(237, green: 65, blue: 75, alpha: 1)
+                ButtonAdd.setTitle("加入购物车", forState: .Normal)
+                ButtonAdd.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+                ButtonAdd.userInteractionEnabled = true
+            }
         }
     }
     

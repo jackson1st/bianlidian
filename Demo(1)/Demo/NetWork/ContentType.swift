@@ -50,6 +50,8 @@ public enum ContentType : String {
     case SearchResultList = "/BSMD/item/findlist.do"
     //获取搜索列表
     case SearchResultListByItemName = "/BSMD/item/item.do"
+    //获取热搜关键字
+    case SearchHotKey = "/BSMD/item/getkey.do"
     
     /**
      *  定位相关
