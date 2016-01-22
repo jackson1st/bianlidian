@@ -492,12 +492,12 @@ extension JFShoppingCartViewController {
             }
         }
         if(self.canSelectShop.isEmpty == false) {
-            
             if(shopName == "无" || !canSelectShop.contains(shopName)) {
               shopName = canSelectShop[0]
             }
             
         }
+        
         canChange(shopName)
         reCalculateGoodCount()
         tableView.reloadData()

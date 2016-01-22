@@ -35,7 +35,7 @@ class LoadAnimatImageView: NSObject {
         }()
     
     func startLoadAnimatImageViewInView(view: UIView, center: CGPoint)  {
-
+        
         loadImageView.center = center
         view.addSubview(loadImageView)
         loadImageView.startAnimating()

@@ -35,6 +35,7 @@ class SearcherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navVC = self.navigationController
+        navVC.navigationBar.barTintColor = UIColor.colorWith(245, green: 77, blue: 86, alpha: 1)
         initAll()
         //实现需要定位，有bug
         address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
@@ -53,6 +54,7 @@ class SearcherViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        //装载搜索栏
         self.tabBarController!.tabBar.hidden = true
         TextFieldSearch = UITextField()
         TextFieldSearch.backgroundColor = UIColor.whiteColor()
