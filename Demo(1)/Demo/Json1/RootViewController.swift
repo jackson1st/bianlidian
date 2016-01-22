@@ -12,7 +12,6 @@ class RootViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.translucent = false
-        tabBar.items![2].badgeValue = "2"
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "doSomething", name: "finishAOrder", object: nil)
     }
     

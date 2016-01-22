@@ -61,11 +61,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="未登录页面" translatesAutoresizingMaskIntoConstraints="NO" id="7o7-Eh-WIf">
-                                <rect key="frame" x="40" y="112" width="240" height="240"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="没有商品图片" translatesAutoresizingMaskIntoConstraints="NO" id="7o7-Eh-WIf">
+                                <rect key="frame" x="40" y="79" width="240" height="240"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jas-KE-YxD">
-                                <rect key="frame" x="67" y="322" width="85" height="30"/>
+                                <rect key="frame" x="46" y="396" width="85" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="登录">
@@ -73,20 +73,24 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lBP-cF-Yc0">
-                                <rect key="frame" x="162" y="322" width="85" height="30"/>
+                                <rect key="frame" x="157" y="382" width="85" height="30"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="注册">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="huD-GE-ozh">
+                                <rect key="frame" x="76" y="322" width="168" height="30"/>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.91979166666666667" green="0.91979166666666667" blue="0.91979166666666667" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.97568108974358969" green="0.97568108974358969" blue="0.97568108974358969" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sJ8-Kb-orE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1969" y="-338"/>
+            <point key="canvasLocation" x="-1974" y="-386"/>
         </scene>
         <!--我的-->
         <scene sceneID="f6N-Za-hue">
@@ -995,7 +999,7 @@
         <image name="密码-1" width="47" height="48"/>
         <image name="帮助" width="60" height="60"/>
         <image name="推荐" width="60" height="60"/>
-        <image name="未登录页面" width="523" height="502"/>
+        <image name="没有商品图片" width="480" height="480"/>
         <image name="用户" width="48" height="48"/>
         <image name="积分-1" width="60" height="60"/>
         <image name="芝麻信用" width="60" height="60"/>

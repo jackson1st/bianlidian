@@ -18,7 +18,7 @@ class Model: NSObject {
     var userID: String!
     let userDefault = NSUserDefaults()
     lazy var shopCart: [JFGoodModel] = {
-        var modes = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? [JFGoodModel]
+        var modes: [JFGoodModel]?
         if( modes == nil){
             modes = [JFGoodModel]()
         }
@@ -30,7 +30,7 @@ class Model: NSObject {
     
     
     lazy var shopLists:[Shop] = {
-        var modes = NSKeyedUnarchiver.unarchiveObjectWithFile(shopFilePath) as? [Shop]
+        var modes: [Shop]?
         if(modes == nil){
             modes = [Shop]()
         }
@@ -46,12 +46,12 @@ class Model: NSObject {
         return dict[itemNo] == nil ? false : dict[itemNo]!
     }
     
-    func addItem(model: JFGoodModel){
+    func addItem(model: JFGoodModel,success: () -> Void){
         let parm = ["itemlist":[["custNo":userID,"itemNo":model.itemNo,"num":"\(model.num)","itemSize":model.itemSize]]]
         print(parm)
         HTTPManager.POST(ContentType.PushItemToCar, params: parm).responseJSON({ (json) -> Void in
             print(json)
-            self.loadDataForNetWork(nil)
+            self.loadDataForNetWork(success)
             }) { (error) -> Void in
                 print("发生了错误: " + (error?.localizedDescription)!)
         }
@@ -100,11 +100,11 @@ class Model: NSObject {
             if(userID == nil){
                 return
             }
-            self.shopCart.removeAll()
-            dict.removeAll()
             HTTPManager.POST(ContentType.ShowCarDetail, params: ["cust":userID,"areaName":address]).responseJSON({ (json) -> Void in
-//                print("json的内容:")
-//                print(json)
+                print("json的内容:")
+                self.shopCart.removeAll()
+                self.dict.removeAll()
+                print(json)
                 if let showCar = json as? NSDictionary{
                     if let shopList = showCar["allShop"] as? NSArray{
                         for var x in shopList{
@@ -118,7 +118,6 @@ class Model: NSObject {
                         for var i=0 ; i<jfModellist.count ; i++ {
                             if let jfModel = jfModellist[i] as? NSDictionary{
                                 let JFmodel = JFGoodModel()
-                                print(jfModel)
                                 JFmodel.url = jfModel["url"] as? String
                                 JFmodel.num = jfModel["num"] as! Int
                                 JFmodel.itemName = jfModel["itemName"] as? String
@@ -137,7 +136,6 @@ class Model: NSObject {
                                     for var j=0 ; j<shopnamelist.count ; j++ {
                                         if let shopname = shopnamelist[j] as? NSDictionary{
                                             let spName = Shop()
-                                            print(shopname)
                                             spName.shopName = shopname["shopName"] as? String
                                             spName.shopNo = shopname["shopNo"] as? String
                                             arr.append(spName)
@@ -148,12 +146,14 @@ class Model: NSObject {
                                     self.shopCart.append(JFmodel)
                                 }
                             }
-                            if success != nil{
-                                success!()
-                            }
                         }
                     }
                 }
+                if success != nil{
+                    success!()
+                }
+                print(self.shopCart.count)
+                print("一个Model")
                 }, error: { (error) -> Void in
                     print("发生了错误: " + (error?.localizedDescription)!)
             })

@@ -127,7 +127,6 @@ extension OtherViewController{
         }
     }
     @IBAction func ButtonGoToShopCartClicked(sender: AnyObject) {
-        
         let story = UIStoryboard(name: "Main", bundle: nil)
         let vc = story.instantiateViewControllerWithIdentifier("shoppingCart") as! JFShoppingCartViewController
         vc.backButtonShow = true
@@ -159,7 +158,9 @@ extension OtherViewController{
                 print(x.shopName)
                 JFmodel.shopNameList.append(Shop(shopName:x.shopName!))
             }
-            Model.defaultModel.addItem(JFmodel)
+            Model.defaultModel.addItem(JFmodel, success: { () -> Void in
+                self.tabBarController?.tabBar.items![2].badgeValue = "\(Model.defaultModel.shopCart.count)"
+            })
             changeButtonAddState()
             theme.refreshFlag = true
             print(Model.defaultModel.shopCart.count)
