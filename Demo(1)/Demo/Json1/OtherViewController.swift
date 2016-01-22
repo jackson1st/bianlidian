@@ -13,6 +13,7 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
     @IBOutlet weak var ViewFlag: UIView!
     @IBOutlet weak var ConstaintViewFlagLeading: NSLayoutConstraint!
     
+    private let refreshView:LoadAnimatImageView! = LoadAnimatImageView.sharedManager
     var pictureView: CyclePictureView?
     var detailView: ContentView!
     @IBOutlet weak var toolBar: UIView!
@@ -53,7 +54,15 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
     var dictSizeChoose = NSMutableDictionary()
     var countForSizeChoose = 0
     var sumCountForSizeChoose = 0
+    
+    
+    /**
+     页面开始加载
+     */
     override func viewDidLoad() {
+        if(theme.isFirstLoad){
+            return
+        }
         super.viewDidLoad()
         initAll()
     }
@@ -63,18 +72,48 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
     var addNum: Int = 1
     
     //MARK: - 页面出现的事务
-        override func viewWillAppear(animated: Bool) {
-
-            self.navigationController?.navigationBarHidden = true
-            self.navigationController?.interactivePopGestureRecognizer?.enabled = true
-            self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-            self.tabBarController!.tabBar.hidden = true
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBarHidden = true
+        self.navigationController?.interactivePopGestureRecognizer?.enabled = true
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.tabBarController!.tabBar.hidden = true
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if(theme.isFirstLoad == true){
+            starRefreshView()
+            Model.defaultModel.loadDataForNetWork({ () -> Void in
+                self.changeButtonAddState()
+                self.stopRefreshView()
+                theme.isFirstLoad = false
+                self.viewDidLoad()
+            })
+        }else{
             changeButtonAddState()
         }
+
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+}
+
+// MARK: - 一些方法
+extension OtherViewController{
+    
+    //开始刷新
+    func starRefreshView(){
+        refreshView.startLoadAnimatImageViewInView(view, center: view.center)
+    }
+    //停止刷新
+    func stopRefreshView(){
+        refreshView.stopLoadAnimatImageView()
+    }
+
 }
 
 //MARK:-一些控件的方法

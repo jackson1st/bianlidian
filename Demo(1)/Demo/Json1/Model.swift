@@ -148,11 +148,12 @@ class Model: NSObject {
                                     self.shopCart.append(JFmodel)
                                 }
                             }
-                            if success != nil{
-                                success!()
-                            }
+                            
                         }
                     }
+                }
+                if success != nil{
+                    success!()
                 }
                 }, error: { (error) -> Void in
                     print("发生了错误: " + (error?.localizedDescription)!)

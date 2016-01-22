@@ -41,8 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         JPUSHService.handleRemoteNotification(userInfo)
     }
+    
     func registerJPushStatusNotification () {
-        
         
     let defaultCenter = NSNotificationCenter.defaultCenter()
     defaultCenter.addObserver(self, selector: "networkDidSetup:", name: kJPFNetworkDidSetupNotification, object: nil)

@@ -38,5 +38,7 @@ struct theme {
     static let GaoDeAPPKey = "2e6b9f0a88b4a79366a13ce1ee9688b8"
     /// 是否刷新标记
     static var refreshFlag = true
+    //判断是否是第一次请求购物车数据
+    static var isFirstLoad = true
     
 }

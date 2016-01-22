@@ -45,6 +45,7 @@ class MainViewController: UIViewController,WKNavigationDelegate,UISearchBarDeleg
         }else{
             initAll()
         }
+        
     }
     
     deinit {
@@ -76,6 +77,9 @@ extension MainViewController{
             self.performSegueWithIdentifier("showLocation", sender: nil)
         }
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+// MARK: - 临时解决点击搜索栏后，搜索栏会下移一个搜索栏高的距离
+        webView?.scrollView.contentOffset.y = -40
     }
 }
 
@@ -229,7 +233,6 @@ extension MainViewController{
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        print(scrollView.contentOffset.y)
         let y = scrollView.contentOffset.y > 0 ? 0: scrollView.contentOffset.y
         if( y != 0){
             if(ButtonSearch.hidden == false){
@@ -274,7 +277,6 @@ extension MainViewController{
         textField.resignFirstResponder()
         self.navigationController?.navigationBarHidden = false
         self.performSegueWithIdentifier("showSearcher", sender: nil)
-
     }
 }
 
