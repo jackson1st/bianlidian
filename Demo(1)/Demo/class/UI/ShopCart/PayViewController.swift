@@ -129,7 +129,7 @@ extension PayViewController {
         receiveAddress.setObject(address[1], forKey: "tel")
         //封装orderinfo
         let orderInfo: NSMutableDictionary = NSMutableDictionary()
-        orderInfo.setObject(self.payModel[0].custNo!, forKey: "custNo")
+        orderInfo.setObject(address[1], forKey: "custNo")
         orderInfo.setObject(self.sumprice, forKey: "totalAmt")
         orderInfo.setObject(self.disprice, forKey: "freeAmt")
         orderInfo.setObject("202",forKey: "shopNo")
@@ -165,7 +165,7 @@ extension PayViewController {
         if UserAccountTool.userIsLogin() {
          userID = userDefault.objectForKey(SD_UserDefaults_Account) as? String
         }
-        let parameters: [String : AnyObject] = [ userID! : modelChangeDict()]
+        let parameters: [String : AnyObject] =  (modelChangeDict() as? [String : AnyObject])!
         
         HTTPManager.POST(ContentType.OrderAdd, params: parameters).responseJSON({ (json) -> Void in
             

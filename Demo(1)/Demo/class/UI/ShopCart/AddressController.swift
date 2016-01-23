@@ -43,11 +43,11 @@ class AddressController: UITableViewController {
             piaddress.text = addressArray[0]
             address.text = addressArray[1]
             tele.text = ad[1]
-        }
-            else {
-                piAddress = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
-                piaddress.text = piAddress
             }
+        }
+        else {
+            piAddress = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
+            piaddress.text = piAddress
         }
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 class OrderModel: NSObject {
-    var pageIndex: Int?
+    var dataCount: Int?
     var listorder: [orderInfo]!
 }
 class orderInfo: NSObject {

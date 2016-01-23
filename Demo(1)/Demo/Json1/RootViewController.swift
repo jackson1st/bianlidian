@@ -13,6 +13,16 @@ class RootViewController: UITabBarController {
         super.viewDidLoad()
         tabBar.translucent = false
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "doSomething", name: "finishAOrder", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "changeCarNum", name: "CarNumChanged", object: nil)
+    }
+    
+    func changeCarNum(){
+        if(Model.defaultModel.shopCart.count == 0) {
+            self.tabBar.items![2].badgeValue = nil
+        }
+        else {
+            self.tabBar.items![2].badgeValue = "\(Model.defaultModel.shopCart.count)"
+        }
     }
     
     func doSomething(){

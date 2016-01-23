@@ -53,7 +53,7 @@ class CenterController: UIViewController {
                         if let page = orderpage["orderPage"] as? NSDictionary {
                             let exp = OrderModel()
                             exp.listorder = []
-                            exp.pageIndex = page["pageIndex"] as! Int
+                            exp.dataCount = page["pageIndex"] as! Int
                             if let list = page["list"] as? NSArray {
                                 for var i=0 ; i<list.count ; i++ {
                                     let listorder = orderInfo()

@@ -34,6 +34,7 @@ class OrderInfoController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         removeButton.layer.borderWidth = 0.5
+        removeButton.layer.cornerRadius = 5
     }
 }
 extension OrderInfoController: UITableViewDataSource,UITableViewDelegate{
@@ -43,15 +44,50 @@ extension OrderInfoController: UITableViewDataSource,UITableViewDelegate{
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(section == 0) {
-        return 6
+            return 6
+        }
+        if(section == 1) {
+            return (orderInformation?.itemList!.count)!
+        }
+        if(section == 2) {
+            return 4
+        }
+        if(section == 3) {
+            return 2
         }
         return 0
+    }
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10
+    }
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if(indexPath.section == 0) {
+            if(indexPath.row == 2) {
+                return 85
+            }
+            if(indexPath.row == 5) {
+                return 40
+            }
+        }
+        if(indexPath.section == 1) {
+            return 90
+        }
+        return 29
     }
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if(section == 0) {
             return "基本信息"
         }
-        return ""
+        if(section == 1){
+            return "商品列表"
+        }
+        if(section == 2) {
+            return "价格清单"
+        }
+        return "发票信息"
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var identifier = "contextCell"
@@ -112,13 +148,16 @@ extension OrderInfoController: UITableViewDataSource,UITableViewDelegate{
             }
             if(indexPath.row == 3) {
                 titleLabel?.text = "支付方式"
+                subsLabel?.textColor = UIColor.colorWith(255, green: 128, blue: 0, alpha: 1)
                 subsLabel?.text = "网上支付"
             }
             if(indexPath.row == 4) {
                 titleLabel?.text = "还需支付"
-                subsLabel?.text = "\(orderInformation?.totalAmt)"
+                subsLabel?.textColor = UIColor.redColor()
+                subsLabel?.text = "¥\((orderInformation?.totalAmt)!)"
             }
             if(indexPath.row == 5) {
+                payButton?.layer.cornerRadius = 10
                 payButton?.addTarget(self, action: "payForZhiFuBao", forControlEvents: UIControlEvents.TouchUpInside)
             }
         }
@@ -138,10 +177,12 @@ extension OrderInfoController: UITableViewDataSource,UITableViewDelegate{
         if(indexPath.section == 2){
             if(indexPath.row == 0){
                 titleLabel?.text = "商品总额"
-                subsLabel?.text = "\((orderInformation?.totalAmt)! + (orderInformation?.freeAmt)!)"
+                subsLabel?.textColor = UIColor.redColor()
+                subsLabel?.text = "¥\((orderInformation?.totalAmt)! + (orderInformation?.freeAmt)!)"
             }
             if(indexPath.row == 1){
                 titleLabel?.text = "促销立减"
+                subsLabel?.textColor = UIColor.colorWith(0, green: 255, blue: 138, alpha: 1)
                 subsLabel?.text = "-￥0.00"
             }
             if(indexPath.row == 2){
@@ -150,7 +191,8 @@ extension OrderInfoController: UITableViewDataSource,UITableViewDelegate{
             }
             if(indexPath.row == 3){
                 titleLabel?.text = "应付金额"
-                subsLabel?.text = "\(orderInformation?.totalAmt)"
+                subsLabel?.textColor = UIColor.redColor()
+                subsLabel?.text = "¥\((orderInformation?.totalAmt)!)"
             }
         }
         

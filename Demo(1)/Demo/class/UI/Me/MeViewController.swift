@@ -8,8 +8,8 @@
 //  这种cell最好用stroyboard的静态单元格来描述
 
 import UIKit
-
 public let SD_UserIconData_Path = theme.cachesPath + "/iconImage.data"
+public let navigationColor = UIColor.whiteColor()
 
 enum SDMineCellType: Int {
     /// 个人中心
@@ -25,9 +25,11 @@ enum SDMineCellType: Int {
 }
 
 class MeViewController: UIViewController,UINavigationControllerDelegate {
-    private var manageMent: UIButton!
+    
+    private let myStoryBoard = UIStoryboard(name: "MyOrderStoryBoard", bundle: nil)
     private var loginLabel: UILabel!
     private var tableView: UITableView!
+    private var iconImageView: UIImageView!
     private lazy var pickVC: UIImagePickerController = {
         let pickVC = UIImagePickerController()
         pickVC.delegate = self
@@ -47,25 +49,29 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
         setNav()
         // 设置tableView
         setTableView()
-
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(false)
-        self.tabBarController!.tabBar.hidden = false
+//        self.tabBarController!.tabBar.hidden = false
+        navigationController?.navigationBar.lt_setBackgroundColor(navigationColor)
+//        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     
     private func setNav() {
-        navigationItem.title = "我的"
+        navigationItem.title = ""
+        navigationController?.navigationBar.lt_setBackgroundColor(UIColor.clearColor())
+        navigationController?.navigationBar.shadowImage = UIImage()
         navigationItem.leftBarButtonItem = nil
-        navigationItem.rightBarButtonItem = UIBarButtonItem(imageName: "settinghhhh", highlImageName: "settingh", targer: self, action: "settingClick")
+        navigationItem.rightBarButtonItem = nil
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(imageName: "settinghhhh", highlImageName: "settingh", targer: self, action: "settingClick")
     }
     
     private func setTableView() {
         self.automaticallyAdjustsScrollViewInsets = false
         
-        tableView = UITableView(frame: CGRectMake(0, 64, AppWidth, AppHeight - NavigationH - 49), style: UITableViewStyle.Grouped)
+        tableView = UITableView(frame: CGRectMake(0, 0, AppWidth, AppHeight - 49), style: UITableViewStyle.Grouped)
         tableView.backgroundColor = UIColor.colorWith(245, green: 245, blue: 245, alpha: 1)
         tableView.delegate = self
         tableView.dataSource = self
@@ -74,27 +80,25 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
         tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
         view.addSubview(tableView)
         
+        
         // 设置tableView的headerView
-        let iconImageViewHeight: CGFloat = 180
-        let iconImageView = UIImageView(frame: CGRectMake(0, 0, AppWidth, iconImageViewHeight))
-        iconImageView.image = UIImage(named: "quesheng")
+        let iconImageViewHeight: CGFloat = 280
+        iconImageView = UIImageView(frame: CGRectMake(0, 0, AppWidth, iconImageViewHeight))
+        iconImageView.image = UIImage(named: "mybk1")
         iconImageView.userInteractionEnabled = true
+
+    
         
         // 添加未登录的文字
         let loginLabelHeight: CGFloat = 40
         loginLabel = UILabel(frame: CGRectMake(0, iconImageViewHeight - loginLabelHeight, AppWidth, loginLabelHeight))
         loginLabel.textAlignment = .Center
-        loginLabel.text = "登陆,开始我的小日子"
+        loginLabel.text = "立即登录"
         loginLabel.font = UIFont.systemFontOfSize(16)
-        loginLabel.textColor = UIColor.colorWith(80, green: 80, blue: 80, alpha: 1)
+        loginLabel.textColor = UIColor.whiteColor()
         iconImageView.addSubview(loginLabel)
+
         
-        // 进入管理员模式的按钮
-        manageMent = UIButton(frame: CGRectMake(0, iconImageViewHeight - loginLabelHeight, AppWidth, loginLabelHeight))
-        manageMent.setTitle("管理员页面", forState: .Normal)
-        manageMent.tintColor = UIColor.blackColor()
-        manageMent.addTarget(self, action: "enterManageView", forControlEvents: .TouchDown)
-        iconImageView.addSubview(manageMent)
         
         // 添加iconImageView
         iconView = IconView(frame: CGRectMake(0, 0, 100, 100))
@@ -102,7 +106,20 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
         iconView!.center = CGPointMake(iconImageView.width * 0.5, (iconImageViewHeight - loginLabelHeight) * 0.5 + 8)
         iconImageView.addSubview(iconView!)
         
-        tableView.tableHeaderView = iconImageView
+        
+        iconView?.snp_makeConstraints(closure: { (make) -> Void in
+            make.center.equalTo(iconImageView.center)
+            make.size.equalTo(100)
+        })
+        loginLabel.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo((iconView?.snp_bottom)!).offset(10)
+            make.width.equalTo(AppWidth)
+            make.height.equalTo(loginLabelHeight)
+        }
+        //添加tableHeaderView
+        let headerView_v: ParallaxHeaderView = ParallaxHeaderView.parallaxHeaderViewWithSubView(iconImageView) as! ParallaxHeaderView
+        
+         tableView.tableHeaderView = headerView_v
     }
     
     func settingClick() {
@@ -110,11 +127,19 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
         navigationController?.pushViewController(settingVC, animated: true)
     }
     
-    
+    //MARK: 滑动操作
+     func  scrollViewDidScroll(scrollView: UIScrollView) {
+        if (scrollView == self.tableView){
+            let header: ParallaxHeaderView = self.tableView.tableHeaderView as! ParallaxHeaderView
+            header.layoutHeaderViewForScrollViewOffset(scrollView.contentOffset)
+            self.tableView.tableHeaderView = header
+        }
+    }
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        manageMent.hidden = !UserAccountTool.userIsLogin()
+        setNav()
         loginLabel.hidden = UserAccountTool.userIsLogin()
         if UserAccountTool.userIsLogin() {
             if let data = NSData(contentsOfFile: SD_UserIconData_Path) {
@@ -125,11 +150,6 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
         } else {
             iconView!.iconButton.setImage(UIImage(named: "my"), forState: .Normal)
         }
-    }
-    func enterManageView() {
-        let sb = UIStoryboard(name: "Center", bundle: nil)
-        let vc = sb.instantiateViewControllerWithIdentifier("CenterController")
-        self.presentViewController(vc, animated: true, completion: nil)
     }
 }
 
@@ -163,6 +183,13 @@ extension MeViewController: UIActionSheetDelegate {
     
 }
 
+/// MARK: APParallaxViewDelegate
+
+extension MeViewController: APParallaxViewDelegate {
+    func parallaxView(view: APParallaxView!, willChangeFrame frame: CGRect) {
+        
+    }
+}
 /// MARK: 摄像机和相册的操作和代理方法
 extension MeViewController: UIImagePickerControllerDelegate {
     
@@ -259,6 +286,7 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         if indexPath.section == 0 {
             
             if indexPath.row == SDMineCellType.Feedback.hashValue {         // 留言反馈
@@ -266,7 +294,8 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
                 navigationController?.pushViewController(feedbackVC, animated: true)
             } else if indexPath.row == SDMineCellType.MyCenter.hashValue {  // 个人中心
                 if UserAccountTool.userIsLogin() {
-                    let myCenterVC = MyCenterViewController()
+                    
+                    let myCenterVC = myStoryBoard.instantiateViewControllerWithIdentifier("MyCenterController")
                     navigationController!.pushViewController(myCenterVC, animated: true)
                 } else {
                     let login = LoginViewController()

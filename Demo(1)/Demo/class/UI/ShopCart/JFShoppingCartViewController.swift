@@ -136,7 +136,6 @@ class JFShoppingCartViewController: UIViewController{
                 
                 self.tableView.dataSource = self
                 
-                
                 self.tableView.registerClass(JFShoppingCartCell.self, forCellReuseIdentifier: self.shoppingCarCellIdentifier)
                 // 设置TableViewHeader
                 self.tableView.header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
@@ -172,6 +171,9 @@ class JFShoppingCartViewController: UIViewController{
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Plain, target: self, action: "didTappedBackButton")
             self.tabBarController!.tabBar.hidden = true
         }
+        let clearView: UIView = UIView()
+        clearView.backgroundColor = UIColor.clearColor()
+        tableView.tableFooterView = clearView
         // 添加子控件
         view.addSubview(bottomView)
         view.addSubview(noLoginImageView)
@@ -203,7 +205,7 @@ class JFShoppingCartViewController: UIViewController{
         }
         
         totalPriceLabel.snp_makeConstraints { (make) -> Void in
-            make.left.equalTo(170)
+            make.centerX.equalTo(bottomView.snp_centerX)
             make.centerY.equalTo(bottomView.snp_centerY)
         }
         
@@ -304,33 +306,35 @@ extension JFShoppingCartViewController: UITableViewDataSource, UITableViewDelega
         
         if( indexPath.row == 0) {
             cell = tableView.dequeueReusableCellWithIdentifier("selectBrunchCell")
-            
+//            tableView.separatorStyle = UITableViewCellSeparatorStyle.None
             let selectBruchButton = cell?.viewWithTag(100) as? UIButton
             selectBruchButton?.addTarget(self, action: "selectAlert", forControlEvents: UIControlEvents.TouchUpInside)
             selectBruchButton?.setTitle("当前店铺:\(shopName)", forState: UIControlState.Normal)
         }
         else {
-        
-        // 从缓存池创建cell,不成功就根据重用标识符和注册的cell新创建一个
-        let cell2 = tableView.dequeueReusableCellWithIdentifier(shoppingCarCellIdentifier, forIndexPath: indexPath) as! JFShoppingCartCell
-        // cell取消选中效果
-        cell2.selectionStyle = UITableViewCellSelectionStyle.None
-        
-        // 指定代理对象
-        cell2.delegate = self
-        
-        // 传递模型
-        cell2.goodModel = Model.defaultModel.shopCart[indexPath.row - 1]
-        
-        if cell2.goodModel?.canChange == false {
-            cell2.backgroundColor = UIColor.grayColor()
+            
+            // 从缓存池创建cell,不成功就根据重用标识符和注册的cell新创建一个
+            let cell2 = tableView.dequeueReusableCellWithIdentifier(shoppingCarCellIdentifier, forIndexPath: indexPath) as! JFShoppingCartCell
+            // cell取消选中效果
+            cell2.selectionStyle = UITableViewCellSelectionStyle.None
+            
+            // 指定代理对象
+            cell2.delegate = self
+            
+            // 传递模型
+            cell2.goodModel = Model.defaultModel.shopCart[indexPath.row - 1]
+            
+            if cell2.goodModel?.canChange == false {
+                cell2.backgroundColor = UIColor.grayColor()
+            }
+            else {
+                cell2.backgroundColor = UIColor.whiteColor()
+            }
+            return cell2
         }
-        else {
-            cell2.backgroundColor = UIColor.whiteColor()
+        if(indexPath.row > Model.defaultModel.shopCart.count + 1) {
+//            tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         }
-        return cell2
-        }
-
         return cell!
     }
     

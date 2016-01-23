@@ -198,7 +198,7 @@ extension OtherViewController{
                 JFmodel.shopNameList.append(Shop(shopName:x.shopName!))
             }
             Model.defaultModel.addItem(JFmodel, success: { () -> Void in
-                self.tabBarController?.tabBar.items![2].badgeValue = "\(Model.defaultModel.shopCart.count)"
+               
             })
             changeButtonAddState()
             theme.refreshFlag = true

@@ -131,6 +131,7 @@ class Model: NSObject {
                                 let itemDistPrice = jfModel["itemDistPrice"] as? Double
                                 JFmodel.itemSalePrice = "\(itemSalePrice! - itemDistPrice!)"
                                 JFmodel.itemDistPrice = "\(itemSalePrice!)"
+                                JFmodel.totalPrice = itemSalePrice! * Double(JFmodel.num)
                                 if let shopnamelist = jfModel["shopNameList"] as? NSArray{
                                     var arr: [Shop] = []
                                     for var j=0 ; j<shopnamelist.count ; j++ {
@@ -146,21 +147,17 @@ class Model: NSObject {
                                     self.shopCart.append(JFmodel)
                                 }
                             }
-<<<<<<< HEAD
-=======
-                            
->>>>>>> origin/master
+
                         }
                     }
                 }
                 if success != nil{
                     success!()
                 }
-<<<<<<< HEAD
+                NSNotificationCenter.defaultCenter().postNotificationName("CarNumChanged", object: nil)
                 print(self.shopCart.count)
                 print("一个Model")
-=======
->>>>>>> origin/master
+                
                 }, error: { (error) -> Void in
                     print("发生了错误: " + (error?.localizedDescription)!)
             })

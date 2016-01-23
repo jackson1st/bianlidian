@@ -19,7 +19,9 @@
 #import <JMessage/JMessage.h>
 #import "HRHDatePickerView.h"
 #import "WebImage.h"
-
+#import "UINavigationBar+Awesome.h"
+#import "UIScrollView+APParallaxHeader.h"
+#import "ParallaxHeaderView.h"
 //! Project version number for ViewPagerIndicator.
 FOUNDATION_EXPORT double ViewPagerIndicatorVersionNumber;
 

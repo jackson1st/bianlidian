@@ -36,11 +36,11 @@ class JFShoppingCartCell: UITableViewCell {
             }
             
             if let newPrice = goodModel?.itemSalePrice {
-                newPriceLabel.text = newPrice
+                newPriceLabel.text = "¥\(newPrice)"
             }
             
             if let oldPrice = goodModel?.itemDistPrice {
-                oldPriceLabel.text = oldPrice
+                oldPriceLabel.text = "¥\(oldPrice)"
             }
             
             // 重新布局，会更新frame

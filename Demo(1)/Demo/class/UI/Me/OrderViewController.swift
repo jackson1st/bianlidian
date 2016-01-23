@@ -1,10 +1,10 @@
 //
-//  OrderViewController.swift
-//  SmallDay
-//  项目GitHub地址:         https://github.com/ZhongTaoTian/SmallDay
-//  项目思路和架构讲解博客:    http://www.jianshu.com/p/bcc297e19a94
-//  Created by MacBook on 15/9/10.
-//  Copyright (c) 2015年 维尼的小熊. All rights reserved.
+//  MyCenterController.swift
+//  Demo
+//
+//  Created by mac on 16/1/23.
+//  Copyright © 2016年 Fjnu. All rights reserved.
+//
 //  我的订单
 
 import UIKit
@@ -12,29 +12,50 @@ class OrderViewController: UIViewController{
     
     @IBOutlet var seg: UISegmentedControl!
     @IBOutlet var tableView: UITableView!
-    private var orderArray: [OrderModel] = []
+    private var orderArray: OrderModel!
     private var orderStatu: String = "-1"
+    private var pageIndex: Int = 1
     var ispush = true
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadDataModel(orderStatu)
+        
         title = "我的订单"
         view.backgroundColor = theme.SDBackgroundColor
-        if ispush {
-        }
+        
+        pullRefreshData()
+        setTableView()
+    }
+    
+    func setTableView(){
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
         // 设置TableViewHeader
         self.tableView.header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
-            self.tableView.reloadData()
+            self.pullRefreshData()
             self.tableView.header.endRefreshing()
         })
         
         self.tableView.footer = MJRefreshAutoNormalFooter(refreshingBlock: { () -> Void in
-            
+            self.dropDownLoading()
+            self.tableView.footer.endRefreshing()
         })
-        
+    }
+    
+    func pullRefreshData(){
+        //重新加载所有数据
+       loadDataModel("\(self.seg.selectedSegmentIndex - 1)",requestType: true)
+        if(orderArray == nil) {
+            SVProgressHUD.showErrorWithStatus("数据加载失败")
+        }
+
+//        print("刷新后数据数量\(self.orderArray.listorder.count)")
+    }
+    
+    func dropDownLoading(){
+        //原有数据上增加
+        loadDataModel("\(self.seg.selectedSegmentIndex - 1)", requestType: false)
+//        print("加载后数据数量\(self.orderArray.listorder.count)")
     }
     
 }
@@ -43,20 +64,28 @@ extension OrderViewController {
 
     @IBAction func changeSegment(sender: AnyObject) {
         orderStatu = "\(seg.selectedSegmentIndex - 1)"
-        loadDataModel(orderStatu)
+        loadDataModel(orderStatu,requestType: true)
     }
     //从服务器上载入数据并封装成对象
-    func loadDataModel(orderStatu: String) {
+    func loadDataModel(orderStatu: String, requestType: Bool){
         let custNo: String = UserAccountTool.userAccount()!
-        let parameters = ["No":"cust01","pageIndex":1,"pageCount":5,"orderStatu":orderStatu]
-        
-        HTTPManager.POST(ContentType.UserOrder, params: parameters as! [String : AnyObject]).responseJSON({ (json) -> Void in
-            var expArray: [OrderModel] = []
+        var parameters: [String : AnyObject]
+        if(requestType == true) {
+            
+            parameters = ["No": custNo,"pageIndex":1,"pageCount":2,"orderStatu":orderStatu]
+            
+        }
+        else {
+            pageIndex++
+            parameters = ["No": custNo,"pageIndex":pageIndex,"pageCount":2,"orderStatu":orderStatu]
+        }
+        HTTPManager.POST(ContentType.UserOrder, params: parameters ).responseJSON({ (json) -> Void in
+            print(json)
             if let orderpage = json as? NSDictionary {
                 if let page = orderpage["orderPage"] as? NSDictionary {
                     let exp = OrderModel()
                     exp.listorder = []
-                    exp.pageIndex = page["pageIndex"] as! Int
+                    exp.dataCount = page["dataCount"] as! Int
                     if let list = page["list"] as? NSArray {
                         for var i=0 ; i<list.count ; i++ {
                             let listorder = orderInfo()
@@ -91,16 +120,18 @@ extension OrderViewController {
                                     listorder.itemList?.append(itemList)
                                 }
                             }
+                            if(requestType == false) {
+                                self.orderArray.listorder.append(listorder)
+                            }
                             exp.listorder?.append(listorder)
                         }
                     }
-                    expArray.append(exp)
+                    if(requestType == true) {
+                        self.orderArray = exp
+                    }
                 }
             }
-            self.orderArray = expArray
-            
             self.tableView.reloadData()
-            
             }) { (error) -> Void in
                 print("发生了错误\(error)")
         }
@@ -109,12 +140,12 @@ extension OrderViewController {
 // MARK: - tableview 上的数据和协议
 extension OrderViewController: UITableViewDataSource,UITableViewDelegate {
     internal func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if self.orderArray.count == 0 {
+        if self.orderArray == nil {
             return 0
         }
         else {
             
-            return self.orderArray[0].listorder.count ?? 0
+            return self.orderArray.listorder.count
         }
     }
     
@@ -151,7 +182,7 @@ extension OrderViewController: UITableViewDataSource,UITableViewDelegate {
         if(cellId == "title"){
             let dingDanHao = cell?.viewWithTag(10001) as! UILabel
             let dingDanZhuangtai = cell?.viewWithTag(10002) as! UILabel
-            dingDanHao.text = self.orderArray[0].listorder[indexPath.section].orderNo
+            dingDanHao.text = self.orderArray.listorder[indexPath.section].orderNo
             dingDanZhuangtai.text = "正在配送"
             // cell取消选中效果
             cell!.selectionStyle = UITableViewCellSelectionStyle.None
@@ -162,26 +193,24 @@ extension OrderViewController: UITableViewDataSource,UITableViewDelegate {
             let danjia = cell?.viewWithTag(20003) as! UILabel
             let shuliang = cell?.viewWithTag(20004) as! UILabel
             let zongjia = cell?.viewWithTag(20005) as! UILabel
-            goodsimage.sd_setImageWithURL(NSURL(string: self.orderArray[0].listorder[indexPath.section].itemList[0].url!), placeholderImage: UIImage(named: "quesheng"))
-            let attributeText1 = NSMutableAttributedString(string: "数量: \(self.orderArray[0].listorder[indexPath.section].itemList[0].subQty!)")
+            goodsimage.sd_setImageWithURL(NSURL(string: self.orderArray.listorder[indexPath.section].itemList[0].url!), placeholderImage: UIImage(named: "quesheng"))
+            let attributeText1 = NSMutableAttributedString(string: "数量: \(self.orderArray.listorder[indexPath.section].itemList[0].subQty!)")
             attributeText1.setAttributes([NSForegroundColorAttributeName : UIColor.redColor()], range: NSMakeRange(3, attributeText1.length - 3))
             shuliang.attributedText = attributeText1
-            mingcheng.text = self.orderArray[0].listorder[indexPath.section].itemList[0].itemName
-            danjia.text = "￥\(self.orderArray[0].listorder[indexPath.section].itemList[0].subQty!)"
-            let attributeText2 = NSMutableAttributedString(string: "合计: ￥\(self.orderArray[0].listorder[indexPath.section].itemList[0].subAmt!)")
+            mingcheng.text = self.orderArray.listorder[indexPath.section].itemList[0].itemName
+            danjia.text = "￥\(self.orderArray.listorder[indexPath.section].itemList[0].subQty!)"
+            let attributeText2 = NSMutableAttributedString(string: "合计: ￥\(self.orderArray.listorder[indexPath.section].itemList[0].subAmt!)")
             attributeText2.setAttributes([NSForegroundColorAttributeName : UIColor.redColor()], range: NSMakeRange(3, attributeText2.length - 3))
             zongjia.attributedText = attributeText2
             // cell取消选中效果
             cell!.selectionStyle = UITableViewCellSelectionStyle.None
         }
         if(cellId == "foot"){
-            let zhekou = cell?.viewWithTag(30002) as! UILabel
             let shuliang = cell?.viewWithTag(30001) as! UILabel
             let zongjia = cell?.viewWithTag(30003) as! UILabel
-            let sl = self.orderArray[0].listorder[indexPath.section].itemNum
-            zhekou.text = "折扣: -￥\(self.orderArray[0].listorder[indexPath.section].freeAmt!)"
+            let sl = self.orderArray.listorder[indexPath.section].itemNum
             shuliang.text = "共\(sl!)件商品"
-            let attributeText = NSMutableAttributedString(string: "总计: ￥\(self.orderArray[0].listorder[indexPath.section].totalAmt!)")
+            let attributeText = NSMutableAttributedString(string: "总计: ￥\(self.orderArray.listorder[indexPath.section].totalAmt!)")
             attributeText.setAttributes([NSForegroundColorAttributeName : UIColor.redColor()], range: NSMakeRange(3, attributeText.length - 3))
             zongjia.attributedText = attributeText
             // cell取消选中效果
@@ -211,8 +240,8 @@ extension OrderViewController: UITableViewDataSource,UITableViewDelegate {
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let story = UIStoryboard(name: "MyOrderStoryBoard", bundle: nil)
-        let vc = story.instantiateViewControllerWithIdentifier("OrderInfoController") as? OrderController
-        vc?.order = self.orderArray[0].listorder[indexPath.section]
+        let vc = story.instantiateViewControllerWithIdentifier("OrderInfoController") as? OrderInfoController
+        vc?.orderInformation = self.orderArray.listorder[indexPath.section]
         self.navigationController?.pushViewController(vc!, animated: true)
         
     }
