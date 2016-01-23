@@ -75,8 +75,6 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBarHidden = true
-        self.navigationController?.interactivePopGestureRecognizer?.enabled = true
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.tabBarController!.tabBar.hidden = true
         if(theme.isFirstLoad == true && UserAccountTool.userIsLogin()){
             starRefreshView()

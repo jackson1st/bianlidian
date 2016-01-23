@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import pop
 
 class SearcherViewController: UIViewController {
 
@@ -30,6 +31,7 @@ class SearcherViewController: UIViewController {
     var resultController: SearcherResultViewController?
     var SearchResultView: UIView?
     var ButtonCancel: UIButton!
+    var flag = false
     override func viewDidLoad() {
         super.viewDidLoad()
         navVC = self.navigationController
@@ -37,9 +39,14 @@ class SearcherViewController: UIViewController {
         initAll()
         //实现需要定位，有bug
         address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
-        let gesture = UITapGestureRecognizer(target: self, action: "endingEditing")
-        gesture.cancelsTouchesInView = false
-        self.view.addGestureRecognizer(gesture)
+        
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        TextFieldSearch.resignFirstResponder()
+        if(flag){
+            
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,40 +61,8 @@ class SearcherViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        //装载搜索栏  后期优化，使得不需要每次都装载
         self.tabBarController!.tabBar.hidden = true
-        TextFieldSearch = UITextField()
-        TextFieldSearch.backgroundColor = UIColor.whiteColor()
-        TextFieldSearch.textAlignment = .Center
-        TextFieldSearch.placeholder = "输入便利店或商品名称"
-        TextFieldSearch.returnKeyType = .Search
-        TextFieldSearch.delegate = self
-        TextFieldSearch.layer.cornerRadius = 4
-        TextFieldSearch.clearButtonMode = .Always
-        TextFieldSearch.addTarget(self, action: "contentChange", forControlEvents: UIControlEvents.EditingChanged)
-        navVC.navigationBar.addSubview(TextFieldSearch)
-        if(ButtonCancel != nil){
-            ButtonCancel.removeFromSuperview()
-        }
-        ButtonCancel = UIButton()
-        ButtonCancel.setTitle("取消", forState: .Normal)
-        ButtonCancel.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-        ButtonCancel.hidden = true
-        navVC.navigationBar.addSubview(ButtonCancel)
-        ButtonCancel?.snp_makeConstraints(closure: { (make) -> Void in
-            make.width.equalTo(40)
-            make.right.equalTo(navVC.navigationBar).offset(-3)
-            make.centerY.equalTo(navVC.navigationBar)
-            
-        })
-        ButtonCancel.addTarget(self, action: "endingEditing", forControlEvents: UIControlEvents.TouchUpOutside)
         
-        TextFieldSearch.snp_makeConstraints { (make) -> Void in
-            make.right.equalTo(navVC.navigationBar.snp_right).offset(-10)
-            make.left.equalTo(navVC.navigationBar.snp_left).offset(30)
-            make.centerY.equalTo(navVC.navigationBar.snp_centerY)
-            make.height.equalTo(26)
-        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -96,14 +71,30 @@ class SearcherViewController: UIViewController {
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        TextFieldSearch.snp_removeConstraints()
-        TextFieldSearch.removeFromSuperview()
+//        TextFieldSearch.snp_removeConstraints()
+//        TextFieldSearch.removeFromSuperview()
+    }
+    
+    
+    //取消按钮的功能，cool!
+    func SoGoodFunction(){
+        if(tableView.hidden == true){
+            if(SearchResultView?.hidden == false){
+                SearchResultView?.hidden = true
+            }else{
+                self.navigationController?.popViewControllerAnimated(true)
+                self.dismissViewControllerAnimated(true, completion: nil)
+                view.hidden = true
+            }
+            endingEditing()
+        }else{
+            endingEditing()
+        }
     }
     
     
     
     func endingEditing(){
-        TextFieldSearch.text = ""
         TextFieldSearch.resignFirstResponder()
         SearchResultView?.hidden = false
         tableView.hidden = true
@@ -170,9 +161,47 @@ extension SearcherViewController{
 extension SearcherViewController{
     
     func initAll(){
+        initSearch()
         initViewHotSea()
         initTableView()
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: self, action: nil)
+    }
+    
+    func initSearch(){
+        TextFieldSearch = UITextField()
+        TextFieldSearch.backgroundColor = UIColor.whiteColor()
+        TextFieldSearch.textAlignment = .Center
+        TextFieldSearch.placeholder = "输入便利店或商品名称"
+        TextFieldSearch.font = UIFont.systemFontOfSize(15)
+        TextFieldSearch.returnKeyType = .Search
+        TextFieldSearch.delegate = self
+        TextFieldSearch.layer.cornerRadius = 4
+        TextFieldSearch.clearButtonMode = .Always
+        TextFieldSearch.addTarget(self, action: "contentChange", forControlEvents: UIControlEvents.EditingChanged)
+        navVC.navigationBar.addSubview(TextFieldSearch)
+        if(ButtonCancel == nil){
+            ButtonCancel = UIButton()
+            ButtonCancel.setTitle("取消", forState: .Normal)
+            ButtonCancel.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            ButtonCancel.setTitleColor(UIColor.lightGrayColor(), forState: .Highlighted)
+            ButtonCancel.hidden = true
+            ButtonCancel.alpha = 0
+            ButtonCancel.titleLabel?.font = UIFont.systemFontOfSize(15)
+            navVC.navigationBar.addSubview(ButtonCancel)
+            ButtonCancel?.snp_makeConstraints(closure: { (make) -> Void in
+                make.width.equalTo(40)
+                make.right.equalTo(navVC.navigationBar).offset(-3)
+                make.centerY.equalTo(navVC.navigationBar)
+            })
+            ButtonCancel.addTarget(self, action: "SoGoodFunction", forControlEvents: UIControlEvents.TouchUpInside)
+        }
+        TextFieldSearch.translatesAutoresizingMaskIntoConstraints = false
+        TextFieldSearch.snp_makeConstraints { (make) -> Void in
+            make.left.equalTo(navVC.navigationBar.snp_left).offset(30)
+            make.centerY.equalTo(navVC.navigationBar.snp_centerY)
+            make.height.equalTo(26)
+            make.width.equalTo(330)
+        }
     }
     
     func initTableView(){
@@ -234,16 +263,37 @@ extension SearcherViewController{
 extension SearcherViewController: UITextFieldDelegate{
     
     func textFieldDidBeginEditing(textField: UITextField) {
+        if(view.hidden == true){
+            view.hidden = false
+        }
         SearchResultView?.hidden = true
         //显示“取消”按钮
         //加个pop动画来实现
-        self.TextFieldSearch.snp_updateConstraints(closure: { (make) -> Void in
-            make.right.equalTo(navVC.navigationBar).offset(-50)
-        })
-        self.TextFieldSearch.layoutIfNeeded()
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
-            self.ButtonCancel.hidden = false
-            })
+        //考虑是否可以复用，应该是可以
+//        let basicAnimation = CABasicAnimation(keyPath: "frame.size.width")
+////        basicAnimation.keyPath = "frame.size.width"
+//        basicAnimation.toValue = 300.0
+//        basicAnimation.duration = 0.5
+//        basicAnimation.removedOnCompletion = false
+//        basicAnimation.fillMode = kCAFillModeForwards
+//        TextFieldSearch.layer.addAnimation(basicAnimation, forKey: "cancel")
+        TextFieldSearch.pop_removeAllAnimations()
+        let basicAnimation = POPBasicAnimation(propertyNamed: kPOPViewFrame)
+        basicAnimation.toValue = NSValue(CGRect: CGRectMake(30, 9, 300, 26))
+        basicAnimation.duration = 0.5
+        basicAnimation.delegate = self
+        TextFieldSearch.pop_addAnimation(basicAnimation, forKey: "basicCancel")
+        ButtonCancel.pop_removeAllAnimations()
+        ButtonCancel.hidden = false
+        print(ButtonCancel.frame)
+        let basicAnimation2 = POPBasicAnimation(propertyNamed: kPOPViewAlpha)
+        basicAnimation2.toValue = 1
+        basicAnimation2.duration = 0.5
+        ButtonCancel.pop_addAnimation(basicAnimation2, forKey: "buttonAnimation")
+//        self.TextFieldSearch.snp_updateConstraints(closure: { (make) -> Void in
+//            make.right.equalTo(navVC.navigationBar).offset(-50)
+//        })
+        
         textField.text = ""
         textField.becomeFirstResponder()
         textField.textAlignment = .Left
@@ -263,13 +313,20 @@ extension SearcherViewController: UITextFieldDelegate{
         textField.textAlignment = .Center
         //隐藏“取消”按钮
         //加个pop动画来实现
-        self.TextFieldSearch.snp_updateConstraints(closure: { (make) -> Void in
-            make.right.equalTo(navVC.navigationBar.snp_right).offset(-10)
-        })
-        self.TextFieldSearch.layoutIfNeeded()
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
-            self.ButtonCancel.hidden = true
-            })
+//        let basicAnimation = CABasicAnimation(keyPath: "frame.size.width")
+//        //basicAnimation.keyPath = "frame.size.width"
+//        basicAnimation.toValue = 320
+//        basicAnimation.duration = 0.5
+//        basicAnimation.removedOnCompletion = false
+//        basicAnimation.fillMode = kCAFillModeForwards
+//        TextFieldSearch.layer.addAnimation(basicAnimation, forKey: "return")
+        ButtonCancel.hidden = true
+        TextFieldSearch.pop_removeAllAnimations()
+        let basicAnimation = POPBasicAnimation(propertyNamed: kPOPViewFrame)
+        basicAnimation.toValue = NSValue(CGRect: CGRectMake(30, 9, 329, 26))
+        basicAnimation.duration = 0.5
+        basicAnimation.delegate = self
+        TextFieldSearch.pop_addAnimation(basicAnimation, forKey: "basicReturn")
     }
     
     func textFieldShouldClear(textField: UITextField) -> Bool {
@@ -285,6 +342,22 @@ extension SearcherViewController: UITextFieldDelegate{
         textField.textAlignment = .Center
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension SearcherViewController: POPAnimationDelegate{
+    func pop_animationDidStop(anim: POPAnimation!, finished: Bool) {
+        if(finished == true){
+            if(ButtonCancel.hidden == false){
+                TextFieldSearch.snp_updateConstraints(closure: { (make) -> Void in
+                    make.width.equalTo(300)
+                })
+            }else{
+                TextFieldSearch.snp_updateConstraints(closure: { (make) -> Void in
+                    make.width.equalTo(330)
+                })
+            }
+        }
     }
 }
 

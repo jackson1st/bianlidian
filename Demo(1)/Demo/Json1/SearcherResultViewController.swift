@@ -266,7 +266,7 @@ extension SearcherResultViewController{
         tableView.rowHeight = UITableViewAutomaticDimension
         self.view.addSubview(tableView)
         tableView.snp_makeConstraints { (make) -> Void in
-            make.top.equalTo(ViewChooseType.snp_bottom).offset(5)
+            make.top.equalTo(ViewChooseType.snp_bottom)
             make.left.equalTo(view)
             make.width.equalTo(view)
             make.bottom.equalTo(view)

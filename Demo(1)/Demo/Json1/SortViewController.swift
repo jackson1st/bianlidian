@@ -10,15 +10,14 @@ import UIKit
 import WebKit
 class SortViewController: UIViewController{
 
-    var TextFieldSearchBar: UITextField!
     var ViewSearch: UIView!
     var tableViewLeft: UITableView!
     var collectionViewRight: UICollectionView!
     lazy var bigClass = [String]()
     var smallCalsses = [smallClass]()
-    
     var address: String!
     var userDefault = NSUserDefaults()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController!.navigationBar.barTintColor = UIColor.colorWith(242, green: 50, blue: 65, alpha: 1)
@@ -27,11 +26,22 @@ class SortViewController: UIViewController{
     }
     
     lazy var searchVC:SearcherViewController = {
-        var story = UIStoryboard(name: "Home", bundle: nil)
+        let story = UIStoryboard(name: "Home", bundle: nil)
         let vc = story.instantiateViewControllerWithIdentifier("searchView") as! SearcherViewController
         return vc
     }()
-
+    /**
+     职责链！！！
+     响应搜索控制器当中的点击事件
+     */
+    func endingEditing(){
+        searchVC.endingEditing()
+    }
+    
+    //响应搜索按钮的方法
+    func pushSearchViewController(){
+        self.navigationController?.pushViewController(searchVC, animated: true)
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -39,11 +49,6 @@ class SortViewController: UIViewController{
     }
     
     override func viewWillDisappear(animated: Bool) {
-        endingEditing()
-    }
-    
-    func endingEditing(){
-        TextFieldSearchBar.resignFirstResponder()
     }
     
     override func didReceiveMemoryWarning() {
@@ -54,17 +59,32 @@ class SortViewController: UIViewController{
 extension SortViewController{
     
     func initAll(){
-        initViewSearch()
+        initSearch()
         initTableview()
         initCollectionView()
         initData()
         let item = UIBarButtonItem(title: "", style: .Plain, target: self, action: nil)
         self.navigationItem.backBarButtonItem = item;
         self.hidesBottomBarWhenPushed = true
-        
-        var gesture = UITapGestureRecognizer(target: self, action: "endingEditing")
-        gesture.cancelsTouchesInView = false
-        self.view.addGestureRecognizer(gesture)
+    }
+    
+    func initSearch(){
+        let button = UIButton()
+        button.backgroundColor = UIColor.whiteColor()
+        button.setTitle("输入便利店或商品名称", forState: UIControlState.Normal)
+        button.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+        button.setTitleColor(UIColor.grayColor(), forState: UIControlState.Highlighted)
+        button.setImage(UIImage(named: "search"), forState: UIControlState.Normal)
+        button.imageEdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+        button.titleLabel?.font = UIFont.systemFontOfSize(15)
+        button.layer.cornerRadius = 4
+        self.navigationController?.navigationBar.addSubview(button)
+        button.snp_makeConstraints { (make) -> Void in
+            make.center.equalTo((self.navigationController?.navigationBar)!)
+            make.width.equalTo(330)
+            make.height.equalTo(26)
+        }
+        button.addTarget(self, action: "pushSearchViewController", forControlEvents: UIControlEvents.TouchUpInside)
     }
     
     func initData(){
@@ -89,30 +109,6 @@ extension SortViewController{
         }
     }
     
-    func initViewSearch(){
-        
-        ViewSearch = UIView(frame: CGRect(x: 0, y:0, width: self.view.frame.width, height: 64))
-        ViewSearch.backgroundColor = UIColor.clearColor()
-        view.addSubview(ViewSearch)
-        
-        TextFieldSearchBar = UITextField()
-        TextFieldSearchBar.backgroundColor = UIColor.whiteColor()
-        TextFieldSearchBar.placeholder = "输入便利店或商品名称"
-        TextFieldSearchBar.layer.cornerRadius = 4
-        TextFieldSearchBar.textAlignment = .Center
-        if(navigationController == nil){
-            print("yes")
-        }
-        self.navigationController?.navigationBar.addSubview(TextFieldSearchBar)
-        TextFieldSearchBar.snp_makeConstraints { (make) -> Void in
-            make.right.equalTo((navigationController?.navigationBar.snp_right)!).offset(-10)
-            make.left.equalTo((navigationController?.navigationBar.snp_left)!).offset(30)
-            make.centerY.equalTo((navigationController?.navigationBar.snp_centerY)!)
-            make.height.equalTo(26)
-        }
-        TextFieldSearchBar.delegate = self
-    }
-    
     func initTableview(){
         tableViewLeft = UITableView()
         tableViewLeft.delegate = self
@@ -122,7 +118,7 @@ extension SortViewController{
         tableViewLeft.snp_makeConstraints { (make) -> Void in
             make.width.equalTo(80)
             make.left.equalTo(view)
-            make.top.equalTo(ViewSearch.snp_bottom)
+            make.top.equalTo(view).offset(64)
             make.bottom.equalTo(view.snp_bottom)
         }
     }
@@ -140,8 +136,8 @@ extension SortViewController{
         self.view.addSubview(collectionViewRight)
         collectionViewRight.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(tableViewLeft.snp_right)
-            make.top.equalTo(ViewSearch.snp_bottom)
-            make.right.equalTo(ViewSearch.snp_right)
+            make.top.equalTo(view).offset(64)
+            make.right.equalTo(view)
             make.bottom.equalTo(view.snp_bottom)
         }
         var nib = UINib(nibName: "smallClassCell", bundle: nil)
@@ -225,12 +221,4 @@ extension SortViewController: UICollectionViewDelegateFlowLayout,UICollectionVie
     }
 
     
-}
-
-// MARK: - UITextFieldDelegate
-extension SortViewController: UITextFieldDelegate{
-    func textFieldDidBeginEditing(textField: UITextField) {
-        self.navigationController?.pushViewController(searchVC, animated: true)
-        TextFieldSearchBar.resignFirstResponder()
-    }
 }
