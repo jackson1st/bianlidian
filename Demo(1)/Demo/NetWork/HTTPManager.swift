@@ -9,17 +9,22 @@
 import UIKit
 import Alamofire
 public class HTTPManager {
+<<<<<<< HEAD
     //http://192.168.199.242:8080
     //http://139.129.45.31:8080
     static let HTTPURL = "http://192.168.199.242:8080"
+=======
+    static let HTTPURL = "http://139.129.45.31:8080"
+    static let HTTPURL2 = "http://192.168.199.242:8080"
+>>>>>>> origin/master
     var request: Request!
     
     public static func POST(contentType: ContentType,params: [String: AnyObject]?) -> HTTPManager {
         let manager = HTTPManager()
         if(params != nil){
-        manager.request = Alamofire.request(.POST, HTTPURL + contentType.rawValue, parameters: params, encoding: .JSON)
+        manager.request = Alamofire.request(.POST, HTTPURL2 + contentType.rawValue, parameters: params, encoding: .JSON)
         }else{
-            manager.request = Alamofire.request(.POST, HTTPURL + contentType.rawValue)
+            manager.request = Alamofire.request(.POST, HTTPURL2 + contentType.rawValue)
         }
         return manager
     }

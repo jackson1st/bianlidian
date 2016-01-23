@@ -12,6 +12,9 @@ class smallClassCell: UICollectionViewCell {
 
     var imgView: UIImageView!
     var textLabel: UILabel!
+    /**
+     从nib加载会调用的初始化方式
+     */
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -19,10 +22,8 @@ class smallClassCell: UICollectionViewCell {
         imgView = UIImageView()
         self.contentView.addSubview(imgView)
         imgView.snp_makeConstraints { (make) -> Void in
-            make.centerX.equalTo(contentView)
-            make.centerY.equalTo(contentView).offset(-10)
-            make.height.equalTo(20)
-            make.width.equalTo(height)
+            make.centerX.equalTo(self)
+            make.top.equalTo(contentView.snp_top).offset(5)
         }
         
         //初始化textLabel
@@ -30,9 +31,11 @@ class smallClassCell: UICollectionViewCell {
         textLabel.font = UIFont.systemFontOfSize(14)
         self.contentView.addSubview(textLabel)
         textLabel.snp_makeConstraints { (make) -> Void in
-            make.centerX.equalTo(contentView)
+            make.centerX.equalTo(self)
+            make.height.equalTo(15)
             make.top.equalTo(imgView.snp_bottom).offset(5)
         }
+        
         
     }
 

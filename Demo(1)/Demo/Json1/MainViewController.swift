@@ -102,6 +102,7 @@ extension MainViewController{
         TextFieldSearchBar = UITextField()
         TextFieldSearchBar.backgroundColor = UIColor.whiteColor()
         TextFieldSearchBar.placeholder = "输入便利店或商品名称"
+        TextFieldSearchBar.font = UIFont.systemFontOfSize(15)
         TextFieldSearchBar.layer.cornerRadius = 4
         TextFieldSearchBar.textAlignment = .Center
         ViewSearch.addSubview(TextFieldSearchBar)
