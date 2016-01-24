@@ -147,25 +147,16 @@ class Model: NSObject {
                                     self.shopCart.append(JFmodel)
                                 }
                             }
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
                         }
                     }
                 }
                 if success != nil{
                     success!()
                 }
-<<<<<<< HEAD
                 NSNotificationCenter.defaultCenter().postNotificationName("CarNumChanged", object: nil)
                 print(self.shopCart.count)
                 print("一个Model")
                 
-=======
-                print(self.shopCart.count)
-                print("一个Model")
->>>>>>> origin/master
                 }, error: { (error) -> Void in
                     print("发生了错误: " + (error?.localizedDescription)!)
             })
