@@ -5,6 +5,24 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="x5B-go-Dou">
+            <objects>
+                <viewController id="DwE-6W-8Yf" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YCf-I6-iMF"/>
+                        <viewControllerLayoutGuide type="bottom" id="qoo-a6-vbi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="u95-c3-oLn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="806-O5-Jvs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-378" y="-1136"/>
+        </scene>
         <!--My Center Controller-->
         <scene sceneID="hmD-ic-KZ5">
             <objects>
@@ -107,12 +125,38 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="bKW-xJ-zRf">
+                                        <rect key="frame" x="0.0" y="279" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bKW-xJ-zRf" id="DeA-hn-stm">
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="积分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I17-5Z-YVD">
+                                                    <rect key="frame" x="56" y="11" width="34" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="我的手机" translatesAutoresizingMaskIntoConstraints="NO" id="aS1-Rd-GHS">
+                                                    <rect key="frame" x="16" y="7" width="30" height="30"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1111111111111" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZO6-Ao-y7R">
+                                                    <rect key="frame" x="430" y="12" width="137" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="安全设置" id="BGt-Mr-L8H">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Y1h-Db-mUs" detailTextLabel="bhl-1N-9Li" style="IBUITableViewCellStyleValue1" id="74G-Er-Pa4">
-                                        <rect key="frame" x="0.0" y="330" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="374" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="74G-Er-Pa4" id="8Wd-vR-cuJ">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
@@ -136,7 +180,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Oo3-nN-zl7" detailTextLabel="o84-ya-JWs" style="IBUITableViewCellStyleValue1" id="Kk9-10-OCd">
-                                        <rect key="frame" x="0.0" y="374" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="418" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kk9-10-OCd" id="aK9-BR-CgO">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
@@ -173,7 +217,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oX0-sq-K0T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-467" y="-456"/>
+            <point key="canvasLocation" x="-385" y="-425"/>
         </scene>
         <!--我的订单-->
         <scene sceneID="owv-3C-ucx">
@@ -718,10 +762,98 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1sS-i0-tzI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="994.5" y="347.5"/>
+            <point key="canvasLocation" x="186.5" y="275.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1Ls-8Z-iEQ">
+            <objects>
+                <navigationController storyboardIdentifier="LoginViewController" id="scz-VU-Tbs" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4KL-ar-Xo6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.96078431369999995" green="0.30196078430000001" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="lCe-WZ-NZY" kind="relationship" relationship="rootViewController" id="eH3-bW-AcL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WGA-Ew-S6x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2982" y="-1698"/>
+        </scene>
+        <!--登录-->
+        <scene sceneID="mOw-1z-Bzi">
+            <objects>
+                <viewController id="lCe-WZ-NZY" customClass="LoginViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="POg-U5-p7e"/>
+                        <viewControllerLayoutGuide type="bottom" id="mkZ-6j-N75"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PeA-UA-IK9">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="登录" id="jm3-bl-4Is">
+                        <barButtonItem key="leftBarButtonItem" image="back_0" id="oMD-lU-fGi"/>
+                        <barButtonItem key="rightBarButtonItem" title="注册" id="anu-Ac-O9L">
+                            <connections>
+                                <action selector="resignClick:" destination="lCe-WZ-NZY" id="hEt-q2-aOf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6ER-qZ-HJh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2263" y="-1719"/>
+        </scene>
+        <!--Resign View Controller-->
+        <scene sceneID="32L-ak-Egz">
+            <objects>
+                <viewController id="BSp-ju-vki" customClass="ResignViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="shZ-gb-XNK"/>
+                        <viewControllerLayoutGuide type="bottom" id="9aA-AF-YFa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="k5S-c2-chz">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="bY6-Xq-f4B"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IQv-D9-ZpM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2263" y="-970"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="r3M-mO-qxo">
+            <objects>
+                <navigationController storyboardIdentifier="ResignViewController" id="ZEI-9v-W4g" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hPk-b3-9Yy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.96078431369999995" green="0.30196078430000001" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BSp-ju-vki" kind="relationship" relationship="rootViewController" id="lqg-CZ-FZ0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w3W-h6-7zR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2982" y="-970"/>
         </scene>
     </scenes>
     <resources>
+        <image name="back_0" width="44" height="44"/>
         <image name="my" width="80" height="80"/>
         <image name="我的手机" width="56" height="56"/>
         <image name="立即支付按钮_1" width="660" height="65"/>

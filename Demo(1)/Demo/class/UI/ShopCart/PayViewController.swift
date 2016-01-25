@@ -13,6 +13,7 @@ public let SD_UserAddress_Notification = "SD_UserAddress_Notification"
 public let SD_UserDefaults_Telephone = "SD_UserDefaults_Telephone"
 public let SD_UserDefaults_Address = "SD_UserDefaults_Address"
 public let SD_OrderInfo_Note = "SD_OrderInfo_Note"
+public let SD_UserDefaults_SD_Credit = "SD_UserDefaulets_Credit"
 
 protocol payDelegate: NSObjectProtocol {
     func returnOk(ok: String)
@@ -86,6 +87,9 @@ class PayViewController: UIViewController {
         tableView.dataSource = self
         let frame = CGRectMake(0, 0, 0, -0.0001)
         self.tableView.tableHeaderView = UIView.init(frame: frame)
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: AppWidth, height: 10))
+        imageView.image = UIImage(named: "彩带")
+        tableView.footerViewForSection(0)?.backgroundView = imageView
         self.navigationItem.title = "确认订单"
 //        backBtn.setImage(UIImage(named: "back_1"), forState: .Normal)
 //        backBtn.setImage(UIImage(named: "back_2"), forState: .Highlighted)
@@ -255,7 +259,7 @@ extension PayViewController: UITableViewDataSource,UITableViewDelegate{
                 cell?.detailTextLabel?.text = sendTime
             }
             if indexPath.row == 1 {
-                noteInfo = OrderInfo.orderInfoNote()
+                noteInfo = UserOrderInfo.orderInfoNote()
                 if noteInfo != "" {
                 cell?.detailTextLabel?.text = noteInfo
                     print("noteinfo is \(noteInfo)")

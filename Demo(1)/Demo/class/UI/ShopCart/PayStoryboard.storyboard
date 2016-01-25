@@ -211,6 +211,9 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="彩条" translatesAutoresizingMaskIntoConstraints="NO" id="2UF-Ho-vNR">
+                                                    <rect key="frame" x="0.0" y="71" width="375" height="10"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -481,5 +484,6 @@
     </scenes>
     <resources>
         <image name="map_2-1" width="44" height="44"/>
+        <image name="彩条" width="573" height="11"/>
     </resources>
 </document>

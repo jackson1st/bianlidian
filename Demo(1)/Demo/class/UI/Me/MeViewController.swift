@@ -9,7 +9,7 @@
 
 import UIKit
 public let SD_UserIconData_Path = theme.cachesPath + "/iconImage.data"
-public let navigationColor = UIColor.whiteColor()
+public let navigationColor = UIColor.colorWith(245, green: 77, blue: 86, alpha: 1)
 
 enum SDMineCellType: Int {
     /// 个人中心
@@ -160,8 +160,8 @@ extension MeViewController: IconViewDelegate {
         if UserAccountTool.userIsLogin() {
             iconActionSheet.showInView(view)
         } else {
-            let login = LoginViewController()
-            navigationController?.pushViewController(login, animated: true)
+            let login = myStoryBoard.instantiateViewControllerWithIdentifier("LoginViewController")
+            presentViewController(login, animated: true, completion: nil)
         }
     }
 }
@@ -295,11 +295,12 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
             } else if indexPath.row == SDMineCellType.MyCenter.hashValue {  // 个人中心
                 if UserAccountTool.userIsLogin() {
                     
-                    let myCenterVC = myStoryBoard.instantiateViewControllerWithIdentifier("MyCenterController")
+//                    let myCenterVC = myStoryBoard.instantiateViewControllerWithIdentifier("MyCenterController")     
+                    let myCenterVC = MyCenterViewController()
                     navigationController!.pushViewController(myCenterVC, animated: true)
                 } else {
-                    let login = LoginViewController()
-                    navigationController?.pushViewController(login, animated: true)
+                    let login = myStoryBoard.instantiateViewControllerWithIdentifier("LoginViewController")
+                    presentViewController(login, animated: true, completion: nil)
                 }
                 
             } else if indexPath.row == SDMineCellType.MyCollect.hashValue { // 我的收藏
@@ -307,12 +308,11 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
             } else if indexPath.row == SDMineCellType.MyOrder.hashValue {   // 我的订单
                 if UserAccountTool.userIsLogin() {
                     
-                    let OrederStoryBoard = UIStoryboard(name: "MyOrderStoryBoard", bundle: nil)
-                    let orderVC = OrederStoryBoard.instantiateViewControllerWithIdentifier("OrderView")
+                    let orderVC = myStoryBoard.instantiateViewControllerWithIdentifier("OrderView")
                     navigationController!.pushViewController(orderVC, animated: true)
                 } else {
-                    let login = LoginViewController()
-                    navigationController?.pushViewController(login, animated: true)
+                    let login = myStoryBoard.instantiateViewControllerWithIdentifier("LoginViewController")
+                    presentViewController(login, animated: true, completion: nil)
                 }
             } else {                                                        // 应用推荐
                 let rmdVC = RecommendViewController()

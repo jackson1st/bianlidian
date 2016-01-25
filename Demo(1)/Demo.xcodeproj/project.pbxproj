@@ -50,6 +50,10 @@
 		048E22371C531BAE00E7096B /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 048E22331C531BAE00E7096B /* UIImage+ImageEffects.m */; };
 		048E22381C531BAE00E7096B /* ParallaxHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048E22351C531BAE00E7096B /* ParallaxHeaderView.m */; };
 		048E223A1C532C4700E7096B /* MyCenterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E22391C532C4700E7096B /* MyCenterController.swift */; };
+		048E224E1C55C88A00E7096B /* UserInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E224D1C55C88A00E7096B /* UserInformation.swift */; };
+		048E22501C560DBB00E7096B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E224F1C560DBB00E7096B /* LoginViewController.swift */; };
+		048E22521C56391D00E7096B /* SentSecurityCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E22511C56391D00E7096B /* SentSecurityCodeViewController.swift */; };
+		048E22561C5648A200E7096B /* MZTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048E22551C5648A200E7096B /* MZTimerLabel.m */; };
 		04CF8D581C144DAE00512979 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8D571C144DAE00512979 /* AppDelegate.swift */; };
 		04CF8D601C144DAE00512979 /* Demo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8D5E1C144DAE00512979 /* Demo.xcdatamodeld */; };
 		04CF8D621C144DAE00512979 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04CF8D611C144DAE00512979 /* Assets.xcassets */; };
@@ -63,7 +67,6 @@
 		04CF8DBE1C144FB400512979 /* CustomCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8D901C144FB400512979 /* CustomCalloutView.swift */; };
 		04CF8DBF1C144FB400512979 /* LeadpageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8D911C144FB400512979 /* LeadpageViewController.swift */; };
 		04CF8DC01C144FB400512979 /* LoadAnimatImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8D921C144FB400512979 /* LoadAnimatImageView.swift */; };
-		04CF8DC11C144FB400512979 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8D931C144FB400512979 /* LoginViewController.swift */; };
 		04CF8DC21C144FB400512979 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8D941C144FB400512979 /* MainNavigationController.swift */; };
 		04CF8DC31C144FB400512979 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8D951C144FB400512979 /* MainTabBarController.swift */; };
 		04CF8DC41C144FB400512979 /* MainTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF8D961C144FB400512979 /* MainTableView.swift */; };
@@ -206,7 +209,6 @@
 		960512621C54B6660021BDE4 /* pop.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 960512561C54B6580021BDE4 /* pop.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96090E541C202457004FB3DC /* GoodSizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96090E531C202457004FB3DC /* GoodSizeViewController.swift */; };
 		96090E561C2024B5004FB3DC /* AddressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96090E551C2024B5004FB3DC /* AddressController.swift */; };
-		96090E581C2025B8004FB3DC /* UserAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96090E571C2025B8004FB3DC /* UserAddress.swift */; };
 		960929711C4CDC84006BE59E /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960929701C4CDC84006BE59E /* HTTPManager.swift */; };
 		960929731C4CDCFA006BE59E /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960929721C4CDCFA006BE59E /* ContentType.swift */; };
 		960929751C4CDD68006BE59E /* something'.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960929741C4CDD68006BE59E /* something'.swift */; };
@@ -439,6 +441,11 @@
 		048E22351C531BAE00E7096B /* ParallaxHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParallaxHeaderView.m; path = Demo/extension/APParallaxHeader/ParallaxHeaderView.m; sourceTree = SOURCE_ROOT; };
 		048E22361C531BAE00E7096B /* ParallaxHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParallaxHeaderView.h; path = Demo/extension/APParallaxHeader/ParallaxHeaderView.h; sourceTree = SOURCE_ROOT; };
 		048E22391C532C4700E7096B /* MyCenterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCenterController.swift; sourceTree = "<group>"; };
+		048E224D1C55C88A00E7096B /* UserInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInformation.swift; sourceTree = "<group>"; };
+		048E224F1C560DBB00E7096B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		048E22511C56391D00E7096B /* SentSecurityCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentSecurityCodeViewController.swift; sourceTree = "<group>"; };
+		048E22541C5648A200E7096B /* MZTimerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MZTimerLabel.h; sourceTree = "<group>"; };
+		048E22551C5648A200E7096B /* MZTimerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MZTimerLabel.m; sourceTree = "<group>"; };
 		04CF8D541C144DAE00512979 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04CF8D571C144DAE00512979 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04CF8D5F1C144DAE00512979 /* Demo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Demo.xcdatamodel; sourceTree = "<group>"; };
@@ -458,7 +465,6 @@
 		04CF8D901C144FB400512979 /* CustomCalloutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalloutView.swift; sourceTree = "<group>"; };
 		04CF8D911C144FB400512979 /* LeadpageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadpageViewController.swift; sourceTree = "<group>"; };
 		04CF8D921C144FB400512979 /* LoadAnimatImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadAnimatImageView.swift; sourceTree = "<group>"; };
-		04CF8D931C144FB400512979 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		04CF8D941C144FB400512979 /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		04CF8D951C144FB400512979 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		04CF8D961C144FB400512979 /* MainTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableView.swift; sourceTree = "<group>"; };
@@ -679,7 +685,6 @@
 		960512491C54B6570021BDE4 /* pop.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = pop.xcodeproj; path = "pop-master-2/pop.xcodeproj"; sourceTree = "<group>"; };
 		96090E531C202457004FB3DC /* GoodSizeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodSizeViewController.swift; sourceTree = "<group>"; };
 		96090E551C2024B5004FB3DC /* AddressController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressController.swift; sourceTree = "<group>"; };
-		96090E571C2025B8004FB3DC /* UserAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAddress.swift; sourceTree = "<group>"; };
 		960929701C4CDC84006BE59E /* HTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPManager.swift; sourceTree = "<group>"; };
 		960929721C4CDCFA006BE59E /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		960929741C4CDD68006BE59E /* something'.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "something'.swift"; sourceTree = "<group>"; };
@@ -862,6 +867,15 @@
 			path = APParallaxHeader;
 			sourceTree = "<group>";
 		};
+		048E22531C5648A200E7096B /* MZTimerLabel */ = {
+			isa = PBXGroup;
+			children = (
+				048E22541C5648A200E7096B /* MZTimerLabel.h */,
+				048E22551C5648A200E7096B /* MZTimerLabel.m */,
+			);
+			path = MZTimerLabel;
+			sourceTree = "<group>";
+		};
 		04CF8D4B1C144DAE00512979 = {
 			isa = PBXGroup;
 			children = (
@@ -959,7 +973,7 @@
 				04CF8D901C144FB400512979 /* CustomCalloutView.swift */,
 				04CF8D911C144FB400512979 /* LeadpageViewController.swift */,
 				04CF8D921C144FB400512979 /* LoadAnimatImageView.swift */,
-				04CF8D931C144FB400512979 /* LoginViewController.swift */,
+				048E224F1C560DBB00E7096B /* LoginViewController.swift */,
 				04CF8D941C144FB400512979 /* MainNavigationController.swift */,
 				04CF8D951C144FB400512979 /* MainTabBarController.swift */,
 				04CF8D961C144FB400512979 /* MainTableView.swift */,
@@ -967,6 +981,7 @@
 				04CF8D981C144FB400512979 /* ShareView.swift */,
 				04CF8D991C144FB400512979 /* ShareView.xib */,
 				040F8C7A1C22C57D0027CDC1 /* ResignViewController.swift */,
+				048E22511C56391D00E7096B /* SentSecurityCodeViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -993,6 +1008,7 @@
 				04CF8DA91C144FB400512979 /* ShakeViewController.xib */,
 				043B85C81C4DD7F5009EAB79 /* OrderInfoController.swift */,
 				048E22391C532C4700E7096B /* MyCenterController.swift */,
+				048E224D1C55C88A00E7096B /* UserInformation.swift */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -1015,7 +1031,6 @@
 		04CF8DB11C144FB400512979 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				96090E571C2025B8004FB3DC /* UserAddress.swift */,
 				04CF8DB21C144FB400512979 /* FileTool.swift */,
 				04CF8DB31C144FB400512979 /* NetworkManager.swift */,
 				04CF8DB51C144FB400512979 /* SimpleNetwork.swift */,
@@ -1030,6 +1045,7 @@
 		04CF8DE51C144FDB00512979 /* extension */ = {
 			isa = PBXGroup;
 			children = (
+				048E22531C5648A200E7096B /* MZTimerLabel */,
 				960512491C54B6570021BDE4 /* pop.xcodeproj */,
 				048E21F41C530BF100E7096B /* APParallaxHeader */,
 				048E21EA1C52522800E7096B /* AwsomeNavigationBar */,
@@ -1782,7 +1798,7 @@
 				TargetAttributes = {
 					04CF8D531C144DAE00512979 = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = XY62SV3XGC;
+						DevelopmentTeam = KCE7SZBDA8;
 					};
 					04CF8D6A1C144DAE00512979 = {
 						CreatedOnToolsVersion = 7.0.1;
@@ -2023,6 +2039,7 @@
 				040F8C7B1C22C57D0027CDC1 /* ResignViewController.swift in Sources */,
 				047A5F1F1C14519C004FA20F /* MainMeViewController.swift in Sources */,
 				04CF8DC41C144FB400512979 /* MainTableView.swift in Sources */,
+				048E22521C56391D00E7096B /* SentSecurityCodeViewController.swift in Sources */,
 				96C83E871C1975CA0075A204 /* JSONND+DictionaryLiteralConvertible.swift in Sources */,
 				04CF8DCC1C144FB400512979 /* MeViewController.swift in Sources */,
 				04CF8EDE1C144FDB00512979 /* MJRefreshConst.m in Sources */,
@@ -2036,6 +2053,7 @@
 				04CF8F021C144FDB00512979 /* README.md in Sources */,
 				04CF8DD91C144FB400512979 /* JFShoppingCartCell.swift in Sources */,
 				04CF8EF81C144FDB00512979 /* ConstraintRelation.swift in Sources */,
+				048E224E1C55C88A00E7096B /* UserInformation.swift in Sources */,
 				04CF8DBF1C144FB400512979 /* LeadpageViewController.swift in Sources */,
 				04CF8DC31C144FB400512979 /* MainTabBarController.swift in Sources */,
 				04CF8F061C144FDB00512979 /* UIBarButtonItem+wxnBarButtonItem.swift in Sources */,
@@ -2056,7 +2074,6 @@
 				040F8C801C242FAE0027CDC1 /* CenterController.swift in Sources */,
 				04CF8F0F1C144FDB00512979 /* UIProgressView+AFNetworking.m in Sources */,
 				32D7AF281C30617C00EF48D0 /* NoteViewController.swift in Sources */,
-				96090E581C2025B8004FB3DC /* UserAddress.swift in Sources */,
 				04CF8DE11C144FB400512979 /* String+Hash.swift in Sources */,
 				047A5F421C145424004FA20F /* HomeNavViewController.swift in Sources */,
 				04CF8ED81C144FDB00512979 /* MJRefreshBackNormalFooter.m in Sources */,
@@ -2095,6 +2112,7 @@
 				04CF8F111C144FDB00512979 /* UIWebView+AFNetworking.m in Sources */,
 				04CF8EE21C144FDB00512979 /* RegExCategories.m in Sources */,
 				04CF8ECB1C144FDB00512979 /* CyclePictureCell.swift in Sources */,
+				048E22501C560DBB00E7096B /* LoginViewController.swift in Sources */,
 				96C83E831C1975CA0075A204 /* File.swift in Sources */,
 				04CF8DD41C144FB400512979 /* SettingViewController.swift in Sources */,
 				04CF8DC01C144FB400512979 /* LoadAnimatImageView.swift in Sources */,
@@ -2158,9 +2176,9 @@
 				04CF8EF91C144FDB00512979 /* Debugging.swift in Sources */,
 				32D7AF221C2F16D100EF48D0 /* HRHDatePickerView.m in Sources */,
 				048E223A1C532C4700E7096B /* MyCenterController.swift in Sources */,
-				04CF8DC11C144FB400512979 /* LoginViewController.swift in Sources */,
 				04CF8ECC1C144FDB00512979 /* CyclePictureView.swift in Sources */,
 				04CF8F051C144FDB00512979 /* SVProgressHUD.m in Sources */,
+				048E22561C5648A200E7096B /* MZTimerLabel.m in Sources */,
 				04CF8ED11C144FDB00512979 /* MJRefreshComponent.m in Sources */,
 				04CF8DBD1C144FB400512979 /* CityViewController.swift in Sources */,
 				04CF8DD11C144FB400512979 /* RecommendViewController.swift in Sources */,

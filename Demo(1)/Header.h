@@ -22,6 +22,7 @@
 #import "UINavigationBar+Awesome.h"
 #import "UIScrollView+APParallaxHeader.h"
 #import "ParallaxHeaderView.h"
+#import "MZTimerLabel.h"
 //! Project version number for ViewPagerIndicator.
 FOUNDATION_EXPORT double ViewPagerIndicatorVersionNumber;
 

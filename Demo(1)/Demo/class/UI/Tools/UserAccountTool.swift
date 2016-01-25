@@ -1,10 +1,10 @@
 //
 //  UserAccountTool.swift
-//  SmallDay
-//  项目GitHub地址:         https://github.com/ZhongTaoTian/SmallDay
-//  项目思路和架构讲解博客:    http://www.jianshu.com/p/bcc297e19a94
-//  Created by MacBook on 15/9/9.
-//  Copyright (c) 2015年 维尼的小熊. All rights reserved.
+//  Demo
+//
+//  Created by 黄人煌 on 15/12/28.
+//  Copyright © 2015年 Fjnu. All rights reserved.
+//
 //  管理用户账号工具
 
 import UIKit
@@ -36,3 +36,52 @@ class UserAccountTool: NSObject {
         return account!
     }
 }
+
+class UserAddress: NSObject {
+    class func userIsAddress() -> Bool {
+        let user = NSUserDefaults.standardUserDefaults()
+        let telephone = user.objectForKey(SD_UserDefaults_Telephone) as? String
+        let address = user.objectForKey(SD_UserDefaults_Address) as? String
+        let name = user.objectForKey(SD_UserDefaults_Name) as? String
+        if telephone != nil && address != nil && name != nil{
+            if !telephone!.isEmpty && !address!.isEmpty && !name!.isEmpty{
+                return true
+            }
+        }
+        return false
+    }
+    class func userAccount() -> [String]? {
+        if !userIsAddress() {
+            return nil
+        }
+        var information: [String] = []
+        let user = NSUserDefaults.standardUserDefaults()
+        let name = user.objectForKey(SD_UserDefaults_Name) as? String
+        information.append(name!)
+        let telephone = user.objectForKey(SD_UserDefaults_Telephone) as? String
+        information.append(telephone!)
+        let address = user.objectForKey(SD_UserDefaults_Address) as? String
+        information.append(address!)
+        return information
+    }
+}
+
+class UserOrderInfo: NSObject {
+    class func isNote() -> Bool{
+        let info = NSUserDefaults.standardUserDefaults()
+        let note = info.objectForKey(SD_OrderInfo_Note)
+        if note != nil {
+            return true
+        }
+        return false
+    }
+    class func orderInfoNote() -> String? {
+        if !isNote() {
+            return nil
+        }
+        let info = NSUserDefaults.standardUserDefaults()
+        let note = info.objectForKey(SD_OrderInfo_Note) as? String
+        return note
+    }
+}
+
