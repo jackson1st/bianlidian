@@ -18,9 +18,9 @@ public class HTTPManager {
     public static func POST(contentType: ContentType,params: [String: AnyObject]?) -> HTTPManager {
         let manager = HTTPManager()
         if(params != nil){
-        manager.request = Alamofire.request(.POST, HTTPURL2 + contentType.rawValue, parameters: params, encoding: .JSON)
+        manager.request = Alamofire.request(.POST, HTTPURL + contentType.rawValue, parameters: params, encoding: .JSON)
         }else{
-            manager.request = Alamofire.request(.POST, HTTPURL2 + contentType.rawValue)
+            manager.request = Alamofire.request(.POST, HTTPURL + contentType.rawValue)
         }
         return manager
     }

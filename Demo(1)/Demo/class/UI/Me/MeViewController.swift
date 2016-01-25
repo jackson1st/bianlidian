@@ -52,7 +52,7 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(false)
+        super.viewWillDisappear(true)
 //        self.tabBarController!.tabBar.hidden = false
         navigationController?.navigationBar.lt_setBackgroundColor(navigationColor)
 //        navigationController?.navigationBar.shadowImage = UIImage()
