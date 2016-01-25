@@ -207,6 +207,7 @@
 		32D7AF281C30617C00EF48D0 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D7AF271C30617C00EF48D0 /* NoteViewController.swift */; };
 		960512611C54B6660021BDE4 /* pop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960512561C54B6580021BDE4 /* pop.framework */; };
 		960512621C54B6660021BDE4 /* pop.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 960512561C54B6580021BDE4 /* pop.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		960512661C55D6AE0021BDE4 /* SearchkeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960512651C55D6AE0021BDE4 /* SearchkeyViewController.swift */; };
 		96090E541C202457004FB3DC /* GoodSizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96090E531C202457004FB3DC /* GoodSizeViewController.swift */; };
 		96090E561C2024B5004FB3DC /* AddressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96090E551C2024B5004FB3DC /* AddressController.swift */; };
 		960929711C4CDC84006BE59E /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960929701C4CDC84006BE59E /* HTTPManager.swift */; };
@@ -683,6 +684,7 @@
 		32D7AF251C2F871C00EF48D0 /* PayStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PayStoryboard.storyboard; sourceTree = "<group>"; };
 		32D7AF271C30617C00EF48D0 /* NoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		960512491C54B6570021BDE4 /* pop.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = pop.xcodeproj; path = "pop-master-2/pop.xcodeproj"; sourceTree = "<group>"; };
+		960512651C55D6AE0021BDE4 /* SearchkeyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchkeyViewController.swift; sourceTree = "<group>"; };
 		96090E531C202457004FB3DC /* GoodSizeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodSizeViewController.swift; sourceTree = "<group>"; };
 		96090E551C2024B5004FB3DC /* AddressController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressController.swift; sourceTree = "<group>"; };
 		960929701C4CDC84006BE59E /* HTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPManager.swift; sourceTree = "<group>"; };
@@ -1693,6 +1695,7 @@
 			children = (
 				96C83EAC1C199FCE0075A204 /* Model */,
 				9678C8D61C19044D008C814A /* SearcherViewController.swift */,
+				960512651C55D6AE0021BDE4 /* SearchkeyViewController.swift */,
 				9678C8F71C192C6D008C814A /* SearcherResultViewController.swift */,
 				965B38861C1959AB006594BE /* IitemSearchResultViewCell.swift */,
 				965B38871C1959AB006594BE /* IitemSearchResultViewCell.xib */,
@@ -2095,6 +2098,7 @@
 				04CF8DC51C144FB400512979 /* SDRefreshHeader.swift in Sources */,
 				04CF8F0B1C144FDB00512979 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				04CF8ECF1C144FDB00512979 /* MJRefreshAutoFooter.m in Sources */,
+				960512661C55D6AE0021BDE4 /* SearchkeyViewController.swift in Sources */,
 				04CF8EDC1C144FDB00512979 /* MJRefreshStateHeader.m in Sources */,
 				048E21ED1C52522800E7096B /* UINavigationBar+Awesome.m in Sources */,
 				04CF8F091C144FDB00512979 /* UIImageView+wnxImage.swift in Sources */,
@@ -2360,7 +2364,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hrh.D;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hrh.S;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = Header.h;
@@ -2396,7 +2400,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hrh.D;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hrh.S;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = Header.h;

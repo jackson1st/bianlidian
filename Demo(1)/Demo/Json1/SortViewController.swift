@@ -10,7 +10,6 @@ import UIKit
 import WebKit
 class SortViewController: UIViewController{
 
-    var ViewSearch: UIView!
     var tableViewLeft: UITableView!
     var collectionViewRight: UICollectionView!
     lazy var bigClass = [String]()
@@ -30,13 +29,7 @@ class SortViewController: UIViewController{
         let vc = story.instantiateViewControllerWithIdentifier("searchView") as! SearcherViewController
         return vc
     }()
-    /**
-     职责链！！！
-     响应搜索控制器当中的点击事件
-     */
-    func endingEditing(){
-        searchVC.endingEditing()
-    }
+
     
     //响应搜索按钮的方法
     func pushSearchViewController(){
@@ -46,9 +39,6 @@ class SortViewController: UIViewController{
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.tabBarController?.tabBar.hidden = false
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
     }
     
     override func didReceiveMemoryWarning() {
@@ -69,22 +59,10 @@ extension SortViewController{
     }
     
     func initSearch(){
-        let button = UIButton()
-        button.backgroundColor = UIColor.whiteColor()
-        button.setTitle("输入便利店或商品名称", forState: UIControlState.Normal)
-        button.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-        button.setTitleColor(UIColor.grayColor(), forState: UIControlState.Highlighted)
-        button.setImage(UIImage(named: "search"), forState: UIControlState.Normal)
-        button.imageEdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
-        button.titleLabel?.font = UIFont.systemFontOfSize(15)
-        button.layer.cornerRadius = 4
-        self.navigationController?.navigationBar.addSubview(button)
-        button.snp_makeConstraints { (make) -> Void in
-            make.center.equalTo((self.navigationController?.navigationBar)!)
-            make.width.equalTo(330)
-            make.height.equalTo(26)
-        }
-        button.addTarget(self, action: "pushSearchViewController", forControlEvents: UIControlEvents.TouchUpInside)
+        let searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.placeholder = "输入便利店或商品名称"
+        navigationItem.titleView = searchBar
     }
     
     func initData(){
@@ -144,6 +122,14 @@ extension SortViewController{
         collectionViewRight.registerNib(nib, forCellWithReuseIdentifier: "cell")
     }
     
+}
+
+// MARK: - UISearchBarDelegate
+extension SortViewController: UISearchBarDelegate{
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        pushSearchViewController()
+        return false
+    }
 }
 
 // MARK: - UITableViewDelegate,UITableViewDataSource

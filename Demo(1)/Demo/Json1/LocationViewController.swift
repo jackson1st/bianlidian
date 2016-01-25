@@ -25,6 +25,7 @@ class LocationViewController: UIViewController,UITableViewDelegate,UITableViewDa
     let httpManager = AFHTTPRequestOperationManager()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController!.navigationBar.barTintColor = UIColor.colorWith(242, green: 48, blue: 58, alpha: 1)
         initHttp()
         initArr()
         initView()

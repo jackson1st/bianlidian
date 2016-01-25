@@ -8,13 +8,9 @@
 
 import UIKit
 
-class SearcherResultViewController: UIViewController {
+class SearcherResultViewController: SearcherViewController {
 
-    
-    var address: String!
     var ViewChooseType: UIView!
-    
-    
     var keyForSearchResult: String!{
         didSet{
             HTTPManager.POST(ContentType.SearchResultListByItemName, params: ["address": address, "itemname": keyForSearchResult]).responseJSON({ (json) -> Void in
@@ -34,7 +30,6 @@ class SearcherResultViewController: UIViewController {
     }
     var data = [SearchItemResult]()
     var item: GoodDetail?
-    
     var tableView: UITableView!
     
     //排序
@@ -45,18 +40,24 @@ class SearcherResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initAll()
+        initAll2()
+        self.view.backgroundColor = UIColor.colorWith(243, green: 241, blue: 244, alpha: 1)
+        self.view.bringSubviewToFront(MainView)
+        showSuperView(true)
     }
     
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        //self.navigationController?.setNavigationBarHidden(false, animated: false)
+    deinit{
+        print("我要被销毁了")
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func showSuperView(show:Bool){
+        MainView.hidden = show
     }
     
     func ButtonTypeClicked(sender: AnyObject){
@@ -128,11 +129,24 @@ extension SearcherResultViewController{
         }
     }
 }
+// MARK: - SearchkeyViewControllerDelegate
+extension SearcherResultViewController{
+    override func TheKeyGoToResultViewController(key: String) {
+        if(history.contains(key) == true){
+            history.removeAtIndex(history.indexOf(key)!)
+        }
+        history.insert(key, atIndex: 0)
+        searchvc.searchBar.text = key
+        keyForSearchResult = key
+        searchvc.active = false
+        searchvc.searchBar.resignFirstResponder()
+    }
+}
 
 //MARK:- 一些初始化
 extension SearcherResultViewController{
     
-    func initAll(){
+     func initAll2(){
         initViewChooseType()
         initTabelView()
     }
@@ -142,7 +156,7 @@ extension SearcherResultViewController{
         view.addSubview(ViewChooseType)
         ViewChooseType.translatesAutoresizingMaskIntoConstraints = false
         ViewChooseType.snp_makeConstraints { (make) -> Void in
-            make.top.equalTo(view)
+            make.top.equalTo(view).offset(64)
             make.left.equalTo(view)
             make.width.equalTo(view)
             make.height.equalTo(30)
@@ -254,6 +268,7 @@ extension SearcherResultViewController{
     
     func initTabelView(){
         tableView = UITableView()
+        tableView.tag = 101
         tableView.translatesAutoresizingMaskIntoConstraints = false
         let nib = UINib(nibName: "IitemSearchResultViewCell", bundle: NSBundle.mainBundle())
         tableView.registerNib(nib, forCellReuseIdentifier: "cell")
@@ -275,82 +290,104 @@ extension SearcherResultViewController{
     
 }
 
-// MARK: - UITableViewDelegate,UITableViewDataSource
-extension SearcherResultViewController: UITableViewDelegate,UITableViewDataSource{
+// MARK: - UISearchBarDelegate
+extension SearcherResultViewController{
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        showSuperView(false)
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        showSuperView(true)
+    }
+}
+
+// MARK: - UITableViewDelegate,UITableViewDataSource
+extension SearcherResultViewController{
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(tableView.tag == 101){
+            return data.count
+        }else{
+            return super.tableView(tableView, numberOfRowsInSection: section)
+        }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell") as! IitemSearchResultViewCell
-        cell.data = data[indexPath.row]
-        print(indexPath.row)
-        return cell
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if(tableView.tag == 101){
+            let cell = tableView.dequeueReusableCellWithIdentifier("cell") as! IitemSearchResultViewCell
+            cell.data = data[indexPath.row]
+            print(indexPath.row)
+            return cell
+        }else{
+            return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+        }
     }
     
     //数据的请求写到对应的页面较好，之后完善
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("yes")
         
-        let itemno = data[indexPath.row].No
-        let json: JSONND = ["itemno":itemno!,"address":address!]
-        
-        /**
-        *  获取商品详情
-        *
-        *  @param ContentType.ItemDetail 地址
-        *  @param
-        *  @param "address":address!]    json数组
-        *
-        *  @return 无
-        */
-        HTTPManager.POST(ContentType.ItemDetail, params: ["itemno":itemno!,"address":address!]).responseJSON({ (json) -> Void in
-            let dict = json["detail"] as! [String: AnyObject]
-            print(dict)
-            self.item = GoodDetail()
-            var arry = json["comment"] as? NSArray
-            self.item?.comments = [Comment]()
-            for var x in arry!{
-                var xx = x as! [String: AnyObject]
-                self.item?.comments?.append(Comment(content: xx["comment"] as? String, date: xx["commentDate"] as? String, userName: xx["custNo"] as? String))
-            }
-            self.item?.eshopIntegral = dict["eshopIntegral"] as! Int
-            self.item?.itemBynum1 = dict["itemBynum1"] as! String
-            self.item?.itemName = dict["itemName"] as! String
-            self.item?.itemNo = dict["itemNo"] as! String
-            self.item?.itemSalePrice = dict["itemSalePrice"] as! String
-            arry = json["stocks"] as! NSArray
-            self.item?.itemStocks = [ItemStock]()
-            for var x in arry!{
-                var xx = x as! [String: AnyObject]
-                self.item?.itemStocks.append(ItemStock(name: xx["shopName"] as? String, qty: (xx["stockQty"] as? Int)))
-            }
+        if(tableView.tag == 101){
+            let itemno = data[indexPath.row].No
+            let json: JSONND = ["itemno":itemno!,"address":address!]
             
-            arry = dict["itemUnits"] as! NSArray
-            print(arry)
-            self.item?.itemUnits = [ItemUnit]()
-            for var x in arry!{
-                var xx = x as! [String: AnyObject]
-                self.item?.itemUnits.append(ItemUnit(salePrice: xx["itemSalePrice"] as? String , sizeName: xx["itemSize"] as? String))
+            /**
+            *  获取商品详情
+            *
+            *  @param ContentType.ItemDetail 地址
+            *  @param
+            *  @param "address":address!]    json数组
+            *
+            *  @return 无
+            */
+            HTTPManager.POST(ContentType.ItemDetail, params: ["itemno":itemno!,"address":address!]).responseJSON({ (json) -> Void in
+                let dict = json["detail"] as! [String: AnyObject]
+                print(dict)
+                self.item = GoodDetail()
+                var arry = json["comment"] as? NSArray
+                self.item?.comments = [Comment]()
+                for var x in arry!{
+                    var xx = x as! [String: AnyObject]
+                    self.item?.comments?.append(Comment(content: xx["comment"] as? String, date: xx["commentDate"] as? String, userName: xx["custNo"] as? String))
+                }
+                self.item?.eshopIntegral = dict["eshopIntegral"] as! Int
+                self.item?.itemBynum1 = dict["itemBynum1"] as! String
+                self.item?.itemName = dict["itemName"] as! String
+                self.item?.itemNo = dict["itemNo"] as! String
+                self.item?.itemSalePrice = dict["itemSalePrice"] as! String
+                arry = json["stocks"] as! NSArray
+                self.item?.itemStocks = [ItemStock]()
+                for var x in arry!{
+                    var xx = x as! [String: AnyObject]
+                    self.item?.itemStocks.append(ItemStock(name: xx["shopName"] as? String, qty: (xx["stockQty"] as? Int)))
+                }
+                
+                arry = dict["itemUnits"] as! NSArray
+                print(arry)
+                self.item?.itemUnits = [ItemUnit]()
+                for var x in arry!{
+                    var xx = x as! [String: AnyObject]
+                    self.item?.itemUnits.append(ItemUnit(salePrice: xx["itemSalePrice"] as? String , sizeName: xx["itemSize"] as? String))
+                }
+                self.item?.imageDetail = json["imageDetail"] as! [String]
+                self.item?.imageTop = json["imageTop"] as! [String]
+                
+                let vc = UIStoryboard(name: "Home", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("itemDetail") as! OtherViewController
+                vc.item = self.item
+                //self.navigationController?.setNavigationBarHidden(true, animated: false)
+                self.navigationController?.pushViewController(vc, animated: true)
+                }) { (error) -> Void in
+                    print("发生了错误: " + (error?.localizedDescription)!)
             }
-            self.item?.imageDetail = json["imageDetail"] as! [String]
-            self.item?.imageTop = json["imageTop"] as! [String]
-            
-            let vc = UIStoryboard(name: "Home", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("itemDetail") as! OtherViewController
-            vc.item = self.item
-            //self.navigationController?.setNavigationBarHidden(true, animated: false)
-            self.navigationController?.pushViewController(vc, animated: true)
-            }) { (error) -> Void in
-                print("发生了错误: " + (error?.localizedDescription)!)
+        }else{
+            super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
         }
         
     }
-    
-    
-    
 }

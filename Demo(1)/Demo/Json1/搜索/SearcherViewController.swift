@@ -9,95 +9,111 @@
 import UIKit
 import pop
 
+protocol SearcherViewControllerDelegate:NSObjectProtocol{
+    func pushResultViewController(resultV: SearcherResultViewController)
+}
+
 class SearcherViewController: UIViewController {
 
-    //自定义搜索栏
-    var TextFieldSearch: UITextField!
-    var tableView: UITableView!
     var navVC: UINavigationController!
-    var ViewHot: UIView!
-    var data = [String]()
     var address: String!
     var userDefault = NSUserDefaults()
+    
+    var view1:UIView!//用来存放热门搜索
+    lazy var MainView: UIView = {
+        let view2 = UIView(frame: self.view.frame)
+        view2.backgroundColor = UIColor.colorWith(243, green: 241, blue: 244, alpha: 1)
+        self.view.addSubview(view2)
+        return view2
+    }()
     var hotText:[String]!
     lazy var Labelhot: UILabel = {
-        let label = UILabel(frame: CGRectMake(10, 59, 200, 50))
+        let label = UILabel(frame: CGRectMake(10, 0, 200, 45))
         label.textAlignment = NSTextAlignment.Left
-        label.textColor = UIColor.blackColor()
-        label.font = UIFont.systemFontOfSize(16)
+        label.textColor = UIColor.darkTextColor()
+        label.font = UIFont.systemFontOfSize(15)
         label.text = "热门搜索"
         return label
     }()
+    
+    lazy var history: [String] = {
+        let userDefault = NSUserDefaults()
+        var strs = userDefault.objectForKey("history") as? [String]
+        if(strs == nil){
+            strs = [String]()
+        }
+        return strs!
+    }()
     var resultController: SearcherResultViewController?
+    var searchKeyVC : SearchkeyViewController!
     var SearchResultView: UIView?
+    var searchvc: UISearchController!
+    var historytableView: UITableView?
     var ButtonCancel: UIButton!
     var flag = false
+    
+    
+    weak var delegate: SearcherViewControllerDelegate?
+    lazy var backBtn: UIButton = {
+        //设置返回按钮属性
+        let backBtn = UIButton(type: UIButtonType.Custom)
+        backBtn.titleLabel?.font = UIFont.systemFontOfSize(17)
+        backBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        backBtn.setTitleColor(UIColor.grayColor(), forState: .Highlighted)
+        backBtn.setImage(UIImage(named: "back_0"), forState: .Normal)
+        backBtn.setImage(UIImage(named: "back_2"), forState: .Highlighted)
+        backBtn.addTarget(self, action: "didTappedBackButton", forControlEvents: .TouchUpInside)
+//        backBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        backBtn.contentEdgeInsets = UIEdgeInsetsMake(0, -25, 0, -17)
+//        backBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
+        let btnW: CGFloat = 10
+        backBtn.frame = CGRectMake(0, 0, btnW, 40)
+        return backBtn
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //self.view.backgroundColor = UIColor.colorWith(243, green: 241, blue: 244, alpha: 1)
         navVC = self.navigationController
         navVC.navigationBar.barTintColor = UIColor.colorWith(242, green: 48, blue: 58, alpha: 1)
+        navVC.navigationBar.tintColor = UIColor.whiteColor()
         initAll()
         //实现需要定位，有bug
         address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
-        
-    }
-    
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        TextFieldSearch.resignFirstResponder()
-        if(flag){
-            
-        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    
     override func viewWillAppear(animated: Bool) {
-        super.viewDidAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.tabBarController!.tabBar.hidden = true
-        
+        super.viewDidAppear(animated)
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        endingEditing()
+    deinit{
+        print("被销毁了")
     }
     
+    //有强引用，导致控制器无法正常销毁，后期需要解决，目前先写在这个方法过渡
     override func viewDidDisappear(animated: Bool) {
+        userDefault.setObject(history, forKey: "history")
         super.viewDidDisappear(animated)
-//        TextFieldSearch.snp_removeConstraints()
-//        TextFieldSearch.removeFromSuperview()
     }
     
-    
-    //取消按钮的功能，cool!
-    func SoGoodFunction(){
-        if(tableView.hidden == true){
-            if(SearchResultView?.hidden == false){
-                SearchResultView?.hidden = true
-            }else{
-                self.navigationController?.popViewControllerAnimated(true)
-                self.dismissViewControllerAnimated(true, completion: nil)
-                view.hidden = true
-            }
-            endingEditing()
-        }else{
-            endingEditing()
-        }
+    func didTappedBackButton(){
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
-    
-    
-    func endingEditing(){
-        TextFieldSearch.resignFirstResponder()
-        SearchResultView?.hidden = false
-        tableView.hidden = true
+    //清除搜索历史记录
+    func ClearSearchHistory(){
+        let alert = UIAlertController(title: "清空搜索历史记录", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        alert.addAction(UIAlertAction(title: "确定", style: UIAlertActionStyle.Default, handler: { (_) -> Void in
+            self.history = []
+            self.historytableView!.reloadData()
+        }))
+        alert.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 
 
@@ -105,53 +121,10 @@ class SearcherViewController: UIViewController {
 //MARK:-一些操作实现
 extension SearcherViewController{
     
-    //发送选择的关键字，从而进行跳转
-    func goToSearchResult(str: String){
-        if(resultController == nil){
-            resultController = SearcherResultViewController()
-            SearchResultView = resultController?.view
-            self.addChildViewController(resultController!)
-            self.view.addSubview(SearchResultView!)
-            SearchResultView?.translatesAutoresizingMaskIntoConstraints = false
-            SearchResultView?.snp_makeConstraints(closure: { (make) -> Void in
-                make.top.equalTo(self.view).offset(64)
-                make.left.equalTo(self.view)
-                make.width.equalTo(self.view)
-                make.bottom.equalTo(self.view)
-            })
-        }
-        SearchResultView?.hidden = false
-        resultController!.address = address
-        resultController!.keyForSearchResult = str
-        
-    }
-    
-    //获取搜索关键字
-    func getSearchKey(str:String){
-        
-        HTTPManager.POST(.SearchResultList, params: ["address": address, "name": str]).responseJSON({ (json) -> Void in
-            self.data = json["name"] as! [String]
-            self.tableView.hidden = false
-            self.tableView.reloadData()
-            }) { (error) -> Void in
-                print("发生了错误: " + (error?.localizedDescription)!)
-        }
-        
-//        Pitaya.build(HTTPMethod:.POST , url: "http://192.168.43.185:8080/BSMD/item/findlist").setHTTPBodyRaw(json.RAWValue, isJSON: true).responseJSON { (json, response) -> Void in
-//            
-//            self.data = json.data["name"] as! [String]
-//
-//            self.tableView.hidden = false
-//            self.tableView.reloadData()
-//        }
-        
-        
-    }
     
     func ButtonHotClicked(sender: AnyObject){
         let btn = sender as! UIButton
-        TextFieldSearch.text = btn.titleLabel?.text
-        goToSearchResult((btn.titleLabel?.text)!)
+        TheKeyGoToResultViewController((btn.titleLabel?.text)!)
     }
     
 }
@@ -163,73 +136,59 @@ extension SearcherViewController{
     func initAll(){
         initSearch()
         initViewHotSea()
-        initTableView()
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: self, action: nil)
     }
     
     func initSearch(){
-        TextFieldSearch = UITextField()
-        TextFieldSearch.backgroundColor = UIColor.whiteColor()
-        TextFieldSearch.textAlignment = .Center
-        TextFieldSearch.placeholder = "输入便利店或商品名称"
-        TextFieldSearch.font = UIFont.systemFontOfSize(15)
-        TextFieldSearch.returnKeyType = .Search
-        TextFieldSearch.delegate = self
-        TextFieldSearch.layer.cornerRadius = 4
-        TextFieldSearch.clearButtonMode = .Always
-        TextFieldSearch.addTarget(self, action: "contentChange", forControlEvents: UIControlEvents.EditingChanged)
-        navVC.navigationBar.addSubview(TextFieldSearch)
-        if(ButtonCancel == nil){
-            ButtonCancel = UIButton()
-            ButtonCancel.setTitle("取消", forState: .Normal)
-            ButtonCancel.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-            ButtonCancel.setTitleColor(UIColor.lightGrayColor(), forState: .Highlighted)
-            ButtonCancel.hidden = true
-            ButtonCancel.alpha = 0
-            ButtonCancel.titleLabel?.font = UIFont.systemFontOfSize(15)
-            navVC.navigationBar.addSubview(ButtonCancel)
-            ButtonCancel?.snp_makeConstraints(closure: { (make) -> Void in
-                make.width.equalTo(40)
-                make.right.equalTo(navVC.navigationBar).offset(-3)
-                make.centerY.equalTo(navVC.navigationBar)
-            })
-            ButtonCancel.addTarget(self, action: "SoGoodFunction", forControlEvents: UIControlEvents.TouchUpInside)
-        }
-        TextFieldSearch.translatesAutoresizingMaskIntoConstraints = false
-        TextFieldSearch.snp_makeConstraints { (make) -> Void in
-            make.left.equalTo(navVC.navigationBar.snp_left).offset(30)
-            make.centerY.equalTo(navVC.navigationBar.snp_centerY)
-            make.height.equalTo(26)
-            make.width.equalTo(330)
-        }
+        
+        searchKeyVC = SearchkeyViewController()
+        searchKeyVC.delegate = self
+        searchvc = UISearchController(searchResultsController: searchKeyVC)
+        searchvc.searchBar.delegate = self
+        searchvc.searchResultsUpdater = searchKeyVC
+        searchvc.hidesNavigationBarDuringPresentation = false
+        searchvc.dimsBackgroundDuringPresentation = false
+        searchvc.searchBar.barStyle = .Default
+        searchvc.searchBar.placeholder = "输入便利店或商品名称"
+        searchvc.searchBar.clearsContextBeforeDrawing = false
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView:backBtn)
+        navigationItem.titleView =  searchvc.searchBar
+        definesPresentationContext = true
     }
     
-    func initTableView(){
-        tableView = UITableView(frame: CGRect(x: 0, y: 59, width: self.view.width, height: self.view.height - 59))
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.bounces = false
-        tableView.showsHorizontalScrollIndicator = false
-        tableView.showsVerticalScrollIndicator = false
-        tableView.hidden = true
-        self.view.addSubview(tableView)
+    func initHistoryTableView(){
+        historytableView = UITableView(frame: CGRect(x: 0, y: view1.y + view1.height + 7, width: self.view.frame.width, height: self.view.height - 64 - view1.height - 15), style: .Plain)
+        historytableView?.keyboardDismissMode = .OnDrag
+        MainView.addSubview(historytableView!)
+        let footButton = UIButton(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 25))
+        footButton.setTitle("清空搜索历史", forState: .Normal)
+        footButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+        footButton.titleLabel?.textAlignment = .Center
+        footButton.addTarget(self, action: "ClearSearchHistory", forControlEvents: .TouchUpInside)
+        historytableView!.tableFooterView = footButton
+        historytableView!.delegate = self
+        historytableView!.dataSource = self
+        historytableView!.reloadData()
+        
     }
     
     func initViewHotSea(){
-        let view1 = UIView(frame: self.view.frame)
-        self.view.addSubview(view1)
+        view1 = UIView(frame: self.view.frame)
+        view1.backgroundColor = UIColor.whiteColor()
+        view1.translatesAutoresizingMaskIntoConstraints = false
+        MainView.addSubview(view1)
         view1.addSubview(Labelhot)
         let btnH:CGFloat  = 32
         var btnY:CGFloat  = CGRectGetMaxY(Labelhot.frame)
         var btnW:CGFloat  = 0
-        let margin:CGFloat  = 10
-        let textMargin:CGFloat = 35
+        let margin:CGFloat  = 5
+        let textMargin:CGFloat = 25
         var lastBtn: UIButton?
         HTTPManager.POST(ContentType.SearchHotKey, params: nil).responseJSON({ (json) -> Void in
             self.hotText = json["keywords"] as! [String]
             print(self.hotText)
             for var x in self.hotText! {
                 let btn = UIButton()
+                btn.titleLabel?.font = UIFont.systemFontOfSize(15)
                 btn.setTitle(x, forState: .Normal)
                 btn.setTitleColor(UIColor.blackColor(), forState: .Normal)
                 btn.titleLabel!.sizeToFit()
@@ -248,118 +207,40 @@ extension SearcherViewController{
                         btn.frame = CGRectMake(margin, btnY, btnW, btnH)
                     }
                     lastBtn = btn
-                    
                 }
-                view1.addSubview(btn)
+                self.view1.addSubview(btn)
+                self.view1.frame.size.height = btn.frame.origin.y + btn.frame.size.height + 10
             }
+            self.view1.frame.origin.y += 70
+            self.initHistoryTableView()
             //self.viewDidLoad()
             }) { (error) -> Void in
-                 print("发生了错误: " + (error?.localizedDescription)!)
+                print("发生了错误: " + (error?.localizedDescription)!)
         }
+    }
+}
+// MARK: - UISearchControllerDelegate
+extension SearcherViewController: SearchkeyViewControllerDelegate,UISearchBarDelegate{
+    
+    func TheKeyGoToResultViewController(key: String) {
+        if(history.contains(key) == true){
+            history.removeAtIndex(history.indexOf(key)!)
+        }
+        history.insert(key, atIndex: 0)
+        searchvc.searchBar.text = key
+        let searchResultViewController = SearcherResultViewController()
+        searchResultViewController.address = address
+        searchResultViewController.keyForSearchResult = key
+        searchResultViewController.hidesBottomBarWhenPushed = true
+        self.delegate?.pushResultViewController(searchResultViewController)
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        TheKeyGoToResultViewController(searchBar.text!)
     }
 }
 
-//TextField's delegate
-extension SearcherViewController: UITextFieldDelegate{
-    
-    func textFieldDidBeginEditing(textField: UITextField) {
-        if(view.hidden == true){
-            view.hidden = false
-        }
-        SearchResultView?.hidden = true
-        //显示“取消”按钮
-        //加个pop动画来实现
-        //考虑是否可以复用，应该是可以
-//        let basicAnimation = CABasicAnimation(keyPath: "frame.size.width")
-////        basicAnimation.keyPath = "frame.size.width"
-//        basicAnimation.toValue = 300.0
-//        basicAnimation.duration = 0.5
-//        basicAnimation.removedOnCompletion = false
-//        basicAnimation.fillMode = kCAFillModeForwards
-//        TextFieldSearch.layer.addAnimation(basicAnimation, forKey: "cancel")
-        TextFieldSearch.pop_removeAllAnimations()
-        let basicAnimation = POPBasicAnimation(propertyNamed: kPOPViewFrame)
-        basicAnimation.toValue = NSValue(CGRect: CGRectMake(30, 9, 300, 26))
-        basicAnimation.duration = 0.5
-        basicAnimation.delegate = self
-        TextFieldSearch.pop_addAnimation(basicAnimation, forKey: "basicCancel")
-        ButtonCancel.pop_removeAllAnimations()
-        ButtonCancel.hidden = false
-        print(ButtonCancel.frame)
-        let basicAnimation2 = POPBasicAnimation(propertyNamed: kPOPViewAlpha)
-        basicAnimation2.toValue = 1
-        basicAnimation2.duration = 0.5
-        ButtonCancel.pop_addAnimation(basicAnimation2, forKey: "buttonAnimation")
-//        self.TextFieldSearch.snp_updateConstraints(closure: { (make) -> Void in
-//            make.right.equalTo(navVC.navigationBar).offset(-50)
-//        })
-        
-        textField.text = ""
-        textField.becomeFirstResponder()
-        textField.textAlignment = .Left
-    }
-    
-    func contentChange(){
-        let str = TextFieldSearch.text
-        if(str != ""){
-            //发送搜索内容，获取data
-            getSearchKey(str!)
-        }else{
-            tableView.hidden = true
-        }
-    }
-    
-    func textFieldDidEndEditing(textField: UITextField) {
-        textField.textAlignment = .Center
-        //隐藏“取消”按钮
-        //加个pop动画来实现
-//        let basicAnimation = CABasicAnimation(keyPath: "frame.size.width")
-//        //basicAnimation.keyPath = "frame.size.width"
-//        basicAnimation.toValue = 320
-//        basicAnimation.duration = 0.5
-//        basicAnimation.removedOnCompletion = false
-//        basicAnimation.fillMode = kCAFillModeForwards
-//        TextFieldSearch.layer.addAnimation(basicAnimation, forKey: "return")
-        ButtonCancel.hidden = true
-        TextFieldSearch.pop_removeAllAnimations()
-        let basicAnimation = POPBasicAnimation(propertyNamed: kPOPViewFrame)
-        basicAnimation.toValue = NSValue(CGRect: CGRectMake(30, 9, 329, 26))
-        basicAnimation.duration = 0.5
-        basicAnimation.delegate = self
-        TextFieldSearch.pop_addAnimation(basicAnimation, forKey: "basicReturn")
-    }
-    
-    func textFieldShouldClear(textField: UITextField) -> Bool {
-        
-        tableView.hidden = true
-        return true
-    }
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        //发送搜索请求，并更新
-        goToSearchResult(textField.text!)
-        tableView.hidden = true
-        textField.textAlignment = .Center
-        textField.resignFirstResponder()
-        return true
-    }
-}
 
-extension SearcherViewController: POPAnimationDelegate{
-    func pop_animationDidStop(anim: POPAnimation!, finished: Bool) {
-        if(finished == true){
-            if(ButtonCancel.hidden == false){
-                TextFieldSearch.snp_updateConstraints(closure: { (make) -> Void in
-                    make.width.equalTo(300)
-                })
-            }else{
-                TextFieldSearch.snp_updateConstraints(closure: { (make) -> Void in
-                    make.width.equalTo(330)
-                })
-            }
-        }
-    }
-}
 
 extension SearcherViewController: UITableViewDelegate,UITableViewDataSource{
     
@@ -368,13 +249,17 @@ extension SearcherViewController: UITableViewDelegate,UITableViewDataSource{
         if(cell == nil){
             cell = UITableViewCell(style: .Default, reuseIdentifier: "cell")
         }
-        
-        cell?.textLabel?.text = data[indexPath.row]
+        cell?.textLabel?.text = self.history[indexPath.row]
         return cell!
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        if(self.history.count == 0){
+            historytableView?.tableFooterView?.hidden = true
+        }else{
+            historytableView?.tableFooterView?.hidden = false
+        }
+        return self.history.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -382,12 +267,8 @@ extension SearcherViewController: UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //点击了之后需要跳转到新的页面
-        goToSearchResult(data[indexPath.row])
-    }
-    
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 10
+        let key = self.history[indexPath.row]
+        TheKeyGoToResultViewController(key)
     }
     
 }

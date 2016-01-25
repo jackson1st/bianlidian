@@ -34,10 +34,11 @@ class MainViewController: UIViewController,WKNavigationDelegate,UISearchBarDeleg
     //商品model
     var item: GoodDetail?
     
+    //拥有一个SearcherResultViewController
+    
     override func viewDidLoad() {
-        self.hidesBottomBarWhenPushed = false
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "viewDidLoad", name: "reloadMainView", object: nil)
-        super.viewDidLoad()
+        
         let item = UIBarButtonItem(title: "", style: .Plain, target: self, action: nil)
         self.navigationItem.backBarButtonItem = item;
         if(userDefault.boolForKey("needSetLocation") == false){
@@ -46,6 +47,7 @@ class MainViewController: UIViewController,WKNavigationDelegate,UISearchBarDeleg
             initAll()
         }
         
+        super.viewDidLoad()
     }
     
     deinit {
@@ -67,6 +69,9 @@ extension MainViewController{
         if( vc.isKindOfClass(OtherViewController)){
             let vc2 = vc as! OtherViewController
             vc2.item = self.item
+        }else{
+            let vc2 = vc as! SearcherViewController
+            vc2.delegate  = self
         }
     }
     
@@ -80,6 +85,20 @@ extension MainViewController{
         
 // MARK: - 临时解决点击搜索栏后，搜索栏会下移一个搜索栏高的距离
         webView?.scrollView.contentOffset.y = -40
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
+    
+}
+
+extension MainViewController: SearcherViewControllerDelegate{
+    func pushResultViewController(SearchResultVC: SearcherResultViewController) {
+        self.navigationController?.popViewControllerAnimated(false)
+        self.navigationController?.pushViewController(SearchResultVC, animated: true)
     }
 }
 
@@ -261,14 +280,6 @@ extension MainViewController{
     }
     
     
-    @IBAction func Clicked(){
-        let alerVC = UIAlertController(title: "是否拨打电话", message: "拨打服务电话:15260025228", preferredStyle: UIAlertControllerStyle.Alert)
-        alerVC.addAction(UIAlertAction(title: "确定", style: UIAlertActionStyle.Default, handler: { (AlertAction) -> Void in
-            UIApplication.sharedApplication().openURL(NSURL(string: "tel:15260025228")!)
-        }))
-        alerVC.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel, handler: nil))
-        presentViewController(alerVC, animated: true, completion: nil)
-    }
     
 }
 
@@ -277,8 +288,9 @@ extension MainViewController{
     
     func textFieldDidBeginEditing(textField: UITextField) {
         textField.resignFirstResponder()
-        self.navigationController?.navigationBarHidden = false
+        self.hidesBottomBarWhenPushed = true
         self.performSegueWithIdentifier("showSearcher", sender: nil)
+        self.hidesBottomBarWhenPushed = false
     }
 }
 
