@@ -25,10 +25,6 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         navigationItem.title = "登录"
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
         //添加scrollView
         addScrollView()
         
@@ -125,16 +121,16 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         }
         let account = phoneTextField.text
         let psdMD5 = psdTextField.text
-//        lgoin(account!,passWord: psdMD5!)
+        lgoin(account!,passWord: psdMD5!)
 //        //将用户的账号和密码暂时保存到本地,实际开发中光用MD5加密是不够的,需要多重加密
-            NSUserDefaults.standardUserDefaults().setObject(account, forKey: SD_UserDefaults_Account)
-            NSUserDefaults.standardUserDefaults().setObject(psdMD5, forKey: SD_UserDefaults_Password)
-        if NSUserDefaults.standardUserDefaults().synchronize() {
-            dismissViewControllerAnimated(true, completion: nil)
-           }
-        else{
-            SVProgressHUD.showErrorWithStatus("登录失败，请检查账号密码", maskType: SVProgressHUDMaskType.Black)
-        }
+//            NSUserDefaults.standardUserDefaults().setObject(account, forKey: SD_UserDefaults_Account)
+//            NSUserDefaults.standardUserDefaults().setObject(psdMD5, forKey: SD_UserDefaults_Password)
+//        if NSUserDefaults.standardUserDefaults().synchronize() {
+//            dismissViewControllerAnimated(true, completion: nil)
+//           }
+//        else{
+//            SVProgressHUD.showErrorWithStatus("登录失败，请检查账号密码", maskType: SVProgressHUDMaskType.Black)
+//        }
     
     }
     
@@ -159,37 +155,26 @@ extension  LoginViewController {
     
     func lgoin(userName: String,passWord: String) {
         
-        let manager = AFHTTPRequestOperationManager()
-        manager.responseSerializer = AFJSONResponseSerializer()
-        manager.requestSerializer = AFJSONRequestSerializer()
         let parameters = ["username":userName,
             "password":passWord]
-        // manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/html") as Set<NSObject>
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            //这里写需要大量时间的代码
-            print("这里写需要大量时间的代码")
-            dispatch_async(dispatch_get_main_queue(), {
-                manager.POST("http://192.168.199.233:8080/BSMD/loginMobile.do", parameters: parameters, success: { (oper, data) -> Void in
-                    if let Ok = data as? NSDictionary {
-                        if(true) {
-//                        if(Ok["status"] as! String == "success") {
-                         //将用户的账号和密码暂时保存到本地,实际开发中光用MD5加密是不够的,需要多重加密
-                                NSUserDefaults.standardUserDefaults().setObject(userName, forKey: SD_UserDefaults_Account)
-                                NSUserDefaults.standardUserDefaults().setObject(passWord, forKey: SD_UserDefaults_Password)
-                                if NSUserDefaults.standardUserDefaults().synchronize() {
-                                    self.navigationController?.popViewControllerAnimated(true)
-                            }
-                            else{
-                                SVProgressHUD.showErrorWithStatus("登录失败，请检查账号密码", maskType: SVProgressHUDMaskType.Black)
-                            }
-                            
+        
+        HTTPManager.POST(ContentType.LoginMobile, params: parameters).responseJSON({ (json) -> Void in
+            print(json)
+            
+            let infomation: [String : String] = (json as? [String : String])!
 
-                        }
-                    }
-                    }) { (opeation, error) -> Void in
-                        print(error)
+            if(infomation["status"] == "error") {
+                 SVProgressHUD.showErrorWithStatus("登录失败，请检查账号密码", maskType: SVProgressHUDMaskType.Black)
+                
+            }
+            
+                NSUserDefaults.standardUserDefaults().setObject(userName, forKey: SD_UserDefaults_Account)
+                NSUserDefaults.standardUserDefaults().setObject(passWord, forKey: SD_UserDefaults_Password)
+                if NSUserDefaults.standardUserDefaults().synchronize() {
+                    self.navigationController?.popViewControllerAnimated(true)
                 }
-            })
-        })
+            }) { (error) -> Void in
+              SVProgressHUD.showErrorWithStatus("登录失败，请检查账号密码", maskType: SVProgressHUDMaskType.Black)
+        }
     }
 }

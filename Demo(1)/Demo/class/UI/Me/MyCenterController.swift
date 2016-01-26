@@ -11,29 +11,9 @@ import UIKit
 class MyCenterController: UITableViewController {
     
     @IBOutlet var iconImageView: UIImageView!
-    override func viewDidLoad() {
-        prepareUI()
-    }
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(false)
-        setNavigation()
-    }
-    func prepareUI(){
-        setTableViewHeader()
-        setNavigation()
-        
-    }
     
-    func setNavigation(){
-        
-    }
-    func setTableViewHeader(){
-        
-        iconImageView.userInteractionEnabled = true
-        iconImageView.layer.masksToBounds = true
-        iconImageView.layer.cornerRadius = 32.5
-        //添加tableHeaderView
-        tableView.frame = CGRect(x: 0, y: 0, width: AppWidth, height: AppHeight)
+    override func viewDidLoad() {
+
     }
 
 }
