@@ -35,6 +35,15 @@ class UserAccountTool: NSObject {
         let account = user.objectForKey(SD_UserDefaults_Account) as? String
         return account!
     }
+    class func userCustNo() -> String? {
+        if !userIsLogin() {
+            return nil
+        }
+        
+        let user = NSUserDefaults.standardUserDefaults()
+        let account = user.objectForKey(SD_UserDefaults_CustNo) as? String
+        return account!
+    }
 }
 
 class UserAddress: NSObject {

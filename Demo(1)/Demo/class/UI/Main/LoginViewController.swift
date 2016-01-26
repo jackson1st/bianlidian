@@ -9,6 +9,7 @@ import UIKit
 public let SD_UserLogin_Notification = "SD_UserLogin_Notification"
 public let SD_UserDefaults_Account = "SD_UserDefaults_Account"
 public let SD_UserDefaults_Password = "SD_UserDefaults_Password"
+public let SD_UserDefaults_CustNo = "SD_UserDefaults_CustNo"
 
 class LoginViewController: UIViewController, UIScrollViewDelegate {
     
@@ -161,15 +162,16 @@ extension  LoginViewController {
         HTTPManager.POST(ContentType.LoginMobile, params: parameters).responseJSON({ (json) -> Void in
             print(json)
             
-            let infomation: [String : String] = (json as? [String : String])!
+            let infomation = json as? NSDictionary
 
-            if(infomation["status"] == "error") {
+            if(infomation!["status"] as? String == "error") {
                  SVProgressHUD.showErrorWithStatus("登录失败，请检查账号密码", maskType: SVProgressHUDMaskType.Black)
                 
             }
-            
+                let custNo = infomation!["custNo"] as? String
                 NSUserDefaults.standardUserDefaults().setObject(userName, forKey: SD_UserDefaults_Account)
                 NSUserDefaults.standardUserDefaults().setObject(passWord, forKey: SD_UserDefaults_Password)
+                NSUserDefaults.standardUserDefaults().setObject(custNo, forKey: SD_UserDefaults_Password)
                 if NSUserDefaults.standardUserDefaults().synchronize() {
                     self.navigationController?.popViewControllerAnimated(true)
                 }
