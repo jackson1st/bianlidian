@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="zD4-QA-4Ka">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="zD4-QA-4Ka">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -186,15 +186,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CPM-OR-qwT" userLabel="toolBar">
                                 <rect key="frame" x="-4" y="618" width="383" height="49"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jol-Z4-4oq">
-                                        <rect key="frame" x="14" y="11" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="Jol-Z4-4oq" secondAttribute="height" multiplier="1:1" id="tVL-yH-bCg"/>
-                                        </constraints>
-                                        <state key="normal" title="收藏">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HKB-cr-6tz">
                                         <rect key="frame" x="169" y="10" width="46" height="30"/>
                                         <constraints>
@@ -221,15 +212,31 @@
                                             <action selector="ButtonAddItemToShopCartClicked:" destination="EM3-S1-Fsg" eventType="touchUpInside" id="jkJ-vr-OPK"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jol-Z4-4oq">
+                                        <rect key="frame" x="6" y="-6" width="63" height="61"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="63" id="bc2-0g-ZLf"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <inset key="titleEdgeInsets" minX="-57" minY="45" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" image="collect_0">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="collect_1"/>
+                                        <connections>
+                                            <action selector="ButtonLikedClicked" destination="EM3-S1-Fsg" eventType="touchUpInside" id="xBq-gj-7aJ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="Jol-Z4-4oq" firstAttribute="leading" secondItem="CPM-OR-qwT" secondAttribute="leading" constant="14" id="11e-R8-N4D"/>
                                     <constraint firstItem="HKB-cr-6tz" firstAttribute="centerX" secondItem="CPM-OR-qwT" secondAttribute="centerX" id="7G0-Ig-feg"/>
                                     <constraint firstAttribute="trailing" secondItem="grG-59-dWU" secondAttribute="trailing" id="9cR-gd-mtO"/>
+                                    <constraint firstItem="Jol-Z4-4oq" firstAttribute="leading" secondItem="CPM-OR-qwT" secondAttribute="leading" constant="6" id="RKO-fT-aqO"/>
                                     <constraint firstAttribute="bottom" secondItem="HKB-cr-6tz" secondAttribute="bottom" constant="9" id="Whm-WK-QFd"/>
-                                    <constraint firstAttribute="bottom" secondItem="Jol-Z4-4oq" secondAttribute="bottom" constant="8" id="eHp-cn-jIY"/>
                                     <constraint firstAttribute="height" constant="49" id="oN6-gh-Z8P"/>
+                                    <constraint firstItem="Jol-Z4-4oq" firstAttribute="centerY" secondItem="HKB-cr-6tz" secondAttribute="centerY" id="uL2-zb-Esn"/>
+                                    <constraint firstItem="Jol-Z4-4oq" firstAttribute="top" secondItem="CPM-OR-qwT" secondAttribute="top" constant="-6" id="xxF-qB-2e9"/>
                                     <constraint firstItem="grG-59-dWU" firstAttribute="centerY" secondItem="CPM-OR-qwT" secondAttribute="centerY" id="yzf-kf-0LN"/>
                                 </constraints>
                             </view>
@@ -333,6 +340,7 @@
                         <outlet property="ButtonDetail" destination="31i-jC-qtV" id="ILk-GT-iii"/>
                         <outlet property="ButtonEVA" destination="JCa-El-d1F" id="46O-dg-idk"/>
                         <outlet property="ButtonItem" destination="3XS-XF-90l" id="6ZJ-39-A0f"/>
+                        <outlet property="ButtonLiked" destination="Jol-Z4-4oq" id="1oY-nK-EN2"/>
                         <outlet property="ConstaintViewFlagLeading" destination="FF6-i9-lYh" id="uH2-vV-A61"/>
                         <outlet property="ViewFlag" destination="MUu-ce-xnC" id="bbR-lY-6GK"/>
                         <outlet property="toolBar" destination="CPM-OR-qwT" id="0S3-bc-40X"/>
@@ -489,6 +497,8 @@
     </scenes>
     <resources>
         <image name="back_1" width="44" height="44"/>
+        <image name="collect_0" width="44" height="44"/>
+        <image name="collect_1" width="44" height="44"/>
         <image name="map_2" width="44" height="44"/>
         <image name="recommendation_1" width="27" height="27"/>
         <image name="recommendation_2" width="27" height="27"/>

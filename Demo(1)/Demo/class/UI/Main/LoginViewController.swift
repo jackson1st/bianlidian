@@ -25,7 +25,10 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         navigationItem.title = "登录"
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
         //添加scrollView
         addScrollView()
         

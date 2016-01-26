@@ -10,6 +10,7 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
     @IBOutlet weak var ButtonItem: UIButton!
     @IBOutlet weak var ButtonDetail: UIButton!
     @IBOutlet weak var ButtonEVA: UIButton!
+    @IBOutlet weak var ButtonLiked: UIButton!
     @IBOutlet weak var ViewFlag: UIView!
     @IBOutlet weak var ConstaintViewFlagLeading: NSLayoutConstraint!
     
@@ -67,10 +68,14 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
         initAll()
         self.view.backgroundColor = UIColor.colorWith(243, green: 241, blue: 244, alpha: 1)
     }
+    
     //购买数量
     var viewAddNum: UIView!
     var labelAddNum: UILabel!
     var addNum: Int = 1
+    
+    
+    
     
     //MARK: - 页面出现的事务
     override func viewWillAppear(animated: Bool) {
@@ -81,12 +86,17 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
             starRefreshView()
             Model.defaultModel.loadDataForNetWork({ () -> Void in
                 self.changeButtonAddState()
-                self.stopRefreshView()
-                theme.isFirstLoad = false
-                self.viewDidLoad()
+                CollectionModel.CollectionCenter.loadDataFromNet({ () -> Void in
+                    self.changeButtonLikedState()
+                    self.stopRefreshView()
+                    theme.isFirstLoad = false
+                    self.viewDidLoad()
+                })
             })
+            
         }else{
             theme.isFirstLoad = false
+            changeButtonLikedState()
             changeButtonAddState()
             self.viewDidLoad()
         }
@@ -143,6 +153,19 @@ extension OtherViewController{
                 ButtonAdd.setTitle("加入购物车", forState: .Normal)
                 ButtonAdd.setTitleColor(UIColor.whiteColor(), forState: .Normal)
                 ButtonAdd.userInteractionEnabled = true
+            }
+        }
+    }
+    
+    //改变收藏按钮的状态
+    func changeButtonLikedState(){
+        if(UserAccountTool.userIsLogin() == false){
+            ButtonLiked.selected = false
+        }else{
+            if(CollectionModel.CollectionCenter.find((item?.itemNo)!)){
+                ButtonLiked.selected = false
+            }else{
+                ButtonLiked.selected = true
             }
         }
     }
@@ -212,6 +235,16 @@ extension OtherViewController{
             changeButtonAddState()
             theme.refreshFlag = true
             print(Model.defaultModel.shopCart.count)
+        }
+    }
+    @IBAction func ButtonLikedClicked() {
+        if(ButtonLiked.state == .Normal){
+            
+//            CollectionModel.CollectionCenter.addLiked(LikedModel(No: item?.itemNo, price: item?.itemSalePrice, name: item?.itemName, url: item.im, unitNo: <#T##String#>, size: <#T##String#>, pack: <#T##String#>), success: { () -> Void in
+//                self.ButtonLiked.selected = true
+//            })
+        }else{
+            
         }
     }
     

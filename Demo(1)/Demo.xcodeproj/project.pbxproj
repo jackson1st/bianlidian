@@ -226,6 +226,7 @@
 		965B38891C1959AB006594BE /* IitemSearchResultViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 965B38871C1959AB006594BE /* IitemSearchResultViewCell.xib */; };
 		9678C8D71C19044D008C814A /* SearcherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678C8D61C19044D008C814A /* SearcherViewController.swift */; };
 		9678C8F81C192C6D008C814A /* SearcherResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678C8F71C192C6D008C814A /* SearcherResultViewController.swift */; };
+		96BCBC2B1C570E350028CA42 /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCBC2A1C570E350028CA42 /* CollectionModel.swift */; };
 		96C83E831C1975CA0075A204 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C83E761C1975CA0075A204 /* File.swift */; };
 		96C83E841C1975CA0075A204 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C83E771C1975CA0075A204 /* Helper.swift */; };
 		96C83E851C1975CA0075A204 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C83E781C1975CA0075A204 /* HTTPMethod.swift */; };
@@ -702,6 +703,7 @@
 		965B38871C1959AB006594BE /* IitemSearchResultViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IitemSearchResultViewCell.xib; sourceTree = "<group>"; };
 		9678C8D61C19044D008C814A /* SearcherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearcherViewController.swift; path = "搜索/SearcherViewController.swift"; sourceTree = "<group>"; };
 		9678C8F71C192C6D008C814A /* SearcherResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearcherResultViewController.swift; sourceTree = "<group>"; };
+		96BCBC2A1C570E350028CA42 /* CollectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
 		96C83E761C1975CA0075A204 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		96C83E771C1975CA0075A204 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		96C83E781C1975CA0075A204 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -1655,6 +1657,7 @@
 				960FC0FC1C1560E100F0580D /* ContentView.swift */,
 				96E829FD1C15683800247660 /* ItemContentView.xib */,
 				96E82A011C15AF6500247660 /* EVAView.swift */,
+				96BCBC2A1C570E350028CA42 /* CollectionModel.swift */,
 				960FC0FE1C15D0F900F0580D /* 评论 */,
 			);
 			name = "商品详情";
@@ -2039,6 +2042,7 @@
 				04CF8ED41C144FDB00512979 /* MJRefreshAutoGifFooter.m in Sources */,
 				04CF8DDC1C144FB400512979 /* PayViewController.swift in Sources */,
 				96C83E881C1975CA0075A204 /* JSONND.swift in Sources */,
+				96BCBC2B1C570E350028CA42 /* CollectionModel.swift in Sources */,
 				040F8C7B1C22C57D0027CDC1 /* ResignViewController.swift in Sources */,
 				047A5F1F1C14519C004FA20F /* MainMeViewController.swift in Sources */,
 				04CF8DC41C144FB400512979 /* MainTableView.swift in Sources */,
