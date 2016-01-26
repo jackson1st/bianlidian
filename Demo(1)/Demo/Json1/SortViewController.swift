@@ -27,6 +27,7 @@ class SortViewController: UIViewController{
     lazy var searchVC:SearcherViewController = {
         let story = UIStoryboard(name: "Home", bundle: nil)
         let vc = story.instantiateViewControllerWithIdentifier("searchView") as! SearcherViewController
+        vc.delegate = self
         return vc
     }()
 
@@ -96,7 +97,7 @@ extension SortViewController{
         tableViewLeft.snp_makeConstraints { (make) -> Void in
             make.width.equalTo(80)
             make.left.equalTo(view)
-            make.top.equalTo(view).offset(64)
+            make.top.equalTo(view)
             make.bottom.equalTo(view.snp_bottom)
         }
     }
@@ -169,6 +170,14 @@ extension SortViewController: UITableViewDelegate,UITableViewDataSource{
     
     }
     
+}
+
+// MARK: - SearcherViewControllerDelegate
+extension SortViewController: SearcherViewControllerDelegate{
+    func pushResultViewController(resultV: SearcherResultViewController) {
+        self.navigationController?.popViewControllerAnimated(false)
+        self.navigationController?.pushViewController(resultV, animated: true)
+    }
 }
 
 // MARK: - UICollectionViewDelegate,UICollectionViewDataSource

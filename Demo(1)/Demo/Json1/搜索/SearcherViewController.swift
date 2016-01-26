@@ -9,7 +9,7 @@
 import UIKit
 import pop
 
-protocol SearcherViewControllerDelegate:NSObjectProtocol{
+protocol SearcherViewControllerDelegate: NSObjectProtocol{
     func pushResultViewController(resultV: SearcherResultViewController)
 }
 

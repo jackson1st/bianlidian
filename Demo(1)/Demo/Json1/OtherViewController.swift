@@ -65,6 +65,7 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
         }
         super.viewDidLoad()
         initAll()
+        self.view.backgroundColor = UIColor.colorWith(243, green: 241, blue: 244, alpha: 1)
     }
     //购买数量
     var viewAddNum: UIView!
