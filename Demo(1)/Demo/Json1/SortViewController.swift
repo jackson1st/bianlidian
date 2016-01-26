@@ -34,12 +34,12 @@ class SortViewController: UIViewController{
     
     //响应搜索按钮的方法
     func pushSearchViewController(){
+        searchVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(searchVC, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.tabBarController?.tabBar.hidden = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -56,7 +56,6 @@ extension SortViewController{
         initData()
         let item = UIBarButtonItem(title: "", style: .Plain, target: self, action: nil)
         self.navigationItem.backBarButtonItem = item;
-        self.hidesBottomBarWhenPushed = true
     }
     
     func initSearch(){
@@ -175,6 +174,7 @@ extension SortViewController: UITableViewDelegate,UITableViewDataSource{
 // MARK: - SearcherViewControllerDelegate
 extension SortViewController: SearcherViewControllerDelegate{
     func pushResultViewController(resultV: SearcherResultViewController) {
+        resultV.hidesBottomBarWhenPushed = true
         self.navigationController?.popViewControllerAnimated(false)
         self.navigationController?.pushViewController(resultV, animated: true)
     }
@@ -203,6 +203,7 @@ extension SortViewController: UICollectionViewDelegateFlowLayout,UICollectionVie
         let vc = SearcherResultViewController()
         vc.address = address
         vc.keyForSearchResult = smallCalsses[indexPath.row].name
+        vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
         
     }

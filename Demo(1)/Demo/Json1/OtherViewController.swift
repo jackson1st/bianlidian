@@ -81,7 +81,6 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBarHidden = true
-        self.tabBarController!.tabBar.hidden = true
         if(theme.isFirstLoad == true && UserAccountTool.userIsLogin()){
             starRefreshView()
             Model.defaultModel.loadDataForNetWork({ () -> Void in
@@ -97,17 +96,17 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
             })
             
         }else{
+            if(theme.isFirstLoad){
+                changeButtonLikedState()
+                changeButtonAddState()
+                self.viewDidLoad()
+            }
             theme.isFirstLoad = false
-            changeButtonLikedState()
-            changeButtonAddState()
-            self.viewDidLoad()
         }
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
 
     }
     
@@ -165,9 +164,9 @@ extension OtherViewController{
             ButtonLiked.selected = false
         }else{
             if(CollectionModel.CollectionCenter.find((item?.itemNo)!)){
-                ButtonLiked.selected = false
-            }else{
                 ButtonLiked.selected = true
+            }else{
+                ButtonLiked.selected = false
             }
         }
     }
@@ -379,6 +378,7 @@ extension OtherViewController{
         scrollView.bounces = false
         scrollView.directionalLockEnabled = true
         scrollView.delegate = self
+        scrollView.backgroundColor = UIColor.colorWith(243, green: 241, blue: 244, alpha: 1)
         self.view.addSubview(scrollView)
         
         //初始化第一个scrollView

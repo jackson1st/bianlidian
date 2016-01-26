@@ -18,6 +18,7 @@ class CollectionModel: NSObject {
     
     ///检查是否存在
     func find(no: String) -> Bool{
+        print(dict[no])
         if(dict[no] != nil){
             return true
         }else{
@@ -32,13 +33,10 @@ class CollectionModel: NSObject {
     
     /// 加入收藏
     func addLiked(no: String,success: (()->Void)?){
-        HTTPManager.POST(ContentType.CollectionAdd, params: ["username":UserAccountTool.userAccount()!,"itemNo":no]).responseJSON({ (json) -> Void in
+        HTTPManager.POST(ContentType.CollectionAdd, params: ["custno": UserAccountTool.userCustNo()!,"itemNo":no]).responseJSON({ (json) -> Void in
             print(json)
             //执行回调
-            if(success != nil){
-                success!()
-            }
-            self.loadDataFromNet(nil)
+            self.loadDataFromNet(success)
             
             }) { (error) -> Void in
                 print("发生了错误: " + (error?.localizedDescription)!)
@@ -50,11 +48,10 @@ class CollectionModel: NSObject {
     func removeAtNo(no: String,success: (()->Void)?){
         let index = findOfIndex(no)
         let model = Likes[index]
-        HTTPManager.POST(ContentType.CollectionDelete, params: ["username":UserAccountTool.userAccount()!,"itemNo":model.no]).responseJSON({ (json) -> Void in
+        HTTPManager.POST(ContentType.CollectionDelete, params: ["custno": UserAccountTool.userCustNo()!,"itemNo":model.no]).responseJSON({ (json) -> Void in
             print(json)
-            self.Likes.removeAtIndex(index)
-            self.dict[model.no] = nil
             //执行回调
+            self.loadDataFromNet(success)
             
             }) { (error) -> Void in
                 print("发生了错误: " + (error?.localizedDescription)!)
@@ -66,10 +63,16 @@ class CollectionModel: NSObject {
         if(UserAccountTool.userIsLogin()){
             Likes.removeAll()
             dict.removeAll()
-            HTTPManager.POST(ContentType.CollectionGet, params: ["custNo": UserAccountTool.userAccount()!]).responseJSON({ (json) -> Void in
+            HTTPManager.POST(ContentType.CollectionGet, params: ["custno": UserAccountTool.userCustNo()!]).responseJSON({ (json) -> Void in
                 if(json["code"] as! String == "success"){
                     let arr = json["collection"] as! NSArray
-                    print(arr)
+                    for(var i = 0; i < arr.count; i++){
+                        let x = arr[i] as! NSDictionary
+                        print(x)
+                        let model = LikedModel(No: x["item_no"] as! String, price: x["item_sale_price"] as? String, name: x["item_name"] as! String, url: x["url"] as! String, unitNo: x["item_unit_no"] as? String, size: x["item_size"] as? String, pack: x["item_pack"] as? String)
+                        self.Likes.append(model)
+                        self.dict[model.no] = i
+                    }
                 }
                 
                 if(success != nil){
@@ -102,14 +105,14 @@ class LikedModel: NSObject {
         super.init()
     }
     
-    convenience init(No: String,price: String,name: String,url: String,unitNo: String,size: String,pack: String){
+    convenience init(No: String,price: String?,name: String,url: String,unitNo: String?,size: String?,pack: String?){
         self.init()
         self.no = No
-        self.price = price
+        self.price = price ?? "无"
         self.name = name
         self.url = url
-        self.unitNo = unitNo
-        self.size = size
-        self.pack = pack
+        self.unitNo = unitNo ?? "无"
+        self.size = size ?? "无"
+        self.pack = pack ?? "无"
     }
 }

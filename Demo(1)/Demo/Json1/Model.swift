@@ -96,7 +96,7 @@ class Model: NSObject {
         
         //获取用户id
         if UserAccountTool.userIsLogin() {
-            userID = userDefault.objectForKey(SD_UserDefaults_Account) as? String
+            userID = userDefault.objectForKey(SD_UserDefaults_CustNo) as? String
             if(userID == nil){
                 return
             }

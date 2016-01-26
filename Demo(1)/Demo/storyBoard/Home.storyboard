@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="zD4-QA-4Ka">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="zD4-QA-4Ka">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -222,7 +222,7 @@
                                         <state key="normal" image="collect_0">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="selected" image="collect_1"/>
+                                        <state key="selected" image="collect_2"/>
                                         <connections>
                                             <action selector="ButtonLikedClicked" destination="EM3-S1-Fsg" eventType="touchUpInside" id="xBq-gj-7aJ"/>
                                         </connections>
@@ -244,12 +244,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mdW-aL-UkX">
-                                        <rect key="frame" x="0.0" y="12" width="38" height="38"/>
+                                        <rect key="frame" x="0.0" y="20" width="38" height="38"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="38" id="YxD-Xx-MWQ"/>
                                             <constraint firstAttribute="height" constant="38" id="dPv-hr-el4"/>
                                         </constraints>
-                                        <state key="normal" image="back_1"/>
+                                        <state key="normal" image="back_0"/>
+                                        <state key="highlighted" image="back_1"/>
                                         <connections>
                                             <action selector="ButtonBackClicked:" destination="EM3-S1-Fsg" eventType="touchUpInside" id="G7i-tO-Rmx"/>
                                         </connections>
@@ -319,7 +320,7 @@
                                     <constraint firstItem="oCT-ox-qNP" firstAttribute="centerX" secondItem="nt8-Wy-LmU" secondAttribute="centerX" id="CK2-Z1-bad"/>
                                     <constraint firstItem="mdW-aL-UkX" firstAttribute="leading" secondItem="nt8-Wy-LmU" secondAttribute="leading" id="Gch-vJ-1A0"/>
                                     <constraint firstItem="oCT-ox-qNP" firstAttribute="top" secondItem="nt8-Wy-LmU" secondAttribute="top" constant="20" id="Qm6-Dx-pe9"/>
-                                    <constraint firstItem="mdW-aL-UkX" firstAttribute="top" secondItem="nt8-Wy-LmU" secondAttribute="top" constant="12" id="rN6-Uh-Twg"/>
+                                    <constraint firstItem="mdW-aL-UkX" firstAttribute="top" secondItem="nt8-Wy-LmU" secondAttribute="top" constant="20" id="rN6-Uh-Twg"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -496,9 +497,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back_0" width="44" height="44"/>
         <image name="back_1" width="44" height="44"/>
         <image name="collect_0" width="44" height="44"/>
-        <image name="collect_1" width="44" height="44"/>
+        <image name="collect_2" width="44" height="44"/>
         <image name="map_2" width="44" height="44"/>
         <image name="recommendation_1" width="27" height="27"/>
         <image name="recommendation_2" width="27" height="27"/>

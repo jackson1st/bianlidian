@@ -171,7 +171,7 @@ extension  LoginViewController {
                 let custNo = infomation!["custNo"] as? String
                 NSUserDefaults.standardUserDefaults().setObject(userName, forKey: SD_UserDefaults_Account)
                 NSUserDefaults.standardUserDefaults().setObject(passWord, forKey: SD_UserDefaults_Password)
-                NSUserDefaults.standardUserDefaults().setObject(custNo, forKey: SD_UserDefaults_Password)
+                NSUserDefaults.standardUserDefaults().setObject(custNo, forKey: SD_UserDefaults_CustNo)
                 if NSUserDefaults.standardUserDefaults().synchronize() {
                     self.navigationController?.popViewControllerAnimated(true)
                 }

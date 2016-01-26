@@ -151,4 +151,9 @@ public enum ContentType : String {
     //获取用户礼卷
     case StampGet = "/BSMD/getUserPosStamp.do"
     //
+    
+    /**
+    *  头像
+    */
+    case HeadImg = "/BSMD/userHeadPicSubmit.do"
 }
