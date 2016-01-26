@@ -75,8 +75,6 @@ class SearcherViewController: UIViewController {
         super.viewDidLoad()
         //self.view.backgroundColor = UIColor.colorWith(243, green: 241, blue: 244, alpha: 1)
         navVC = self.navigationController
-        navVC.navigationBar.barTintColor = UIColor.colorWith(242, green: 48, blue: 58, alpha: 1)
-        navVC.navigationBar.tintColor = UIColor.whiteColor()
         initAll()
         //实现需要定位，有bug
         address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!

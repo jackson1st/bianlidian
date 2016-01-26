@@ -19,7 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         // Required - 初始化  
-        
+        let bar = UINavigationBar.appearance()
+        bar.barTintColor = UIColor.colorWith(242, green: 48, blue: 58, alpha: 1)
+        bar.tintColor = UIColor.whiteColor()
+        let navigationTitleAttribute: NSMutableDictionary = NSMutableDictionary(object: UIColor.whiteColor(), forKey: NSForegroundColorAttributeName)
+        navigationTitleAttribute.setObject(UIFont.systemFontOfSize(17), forKey: NSFontAttributeName)
+        bar.titleTextAttributes = navigationTitleAttribute as?[String: AnyObject]
         if (UIApplication.sharedApplication().currentUserNotificationSettings()?.types != UIUserNotificationType.None) {
 //            self.addLocalNotification()
         }

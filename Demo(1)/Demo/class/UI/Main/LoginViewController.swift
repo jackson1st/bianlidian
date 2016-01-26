@@ -25,10 +25,6 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         navigationItem.title = "登录"
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        let navigationTitleAttribute: NSDictionary = NSDictionary(object: UIColor.whiteColor(), forKey: NSForegroundColorAttributeName)
-        
-        self.navigationController?.navigationBar.titleTextAttributes = navigationTitleAttribute as?[String: AnyObject]
         //添加scrollView
         addScrollView()
         
