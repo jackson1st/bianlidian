@@ -271,6 +271,7 @@ class JFShoppingCartViewController: UIViewController{
     lazy var loginButton: UIButton = {
         let loginButton = UIButton(frame: CGRect(x: (AppWidth - 240)/2 + 27, y: 322, width: 85, height: 30))
         loginButton.setBackgroundImage(UIImage(named: "购物车登录"), forState: UIControlState.Normal)
+        loginButton.addTarget(self, action: "enterLoginView", forControlEvents: UIControlEvents.TouchUpInside)
         return loginButton
     }()
     
@@ -278,6 +279,7 @@ class JFShoppingCartViewController: UIViewController{
     lazy var resignButton: UIButton = {
         let resignButton = UIButton(frame: CGRect(x: (AppWidth - 240)/2 + 122, y: 322, width: 85, height: 30 ))
         resignButton.setBackgroundImage(UIImage(named: "购物车注册"), forState: UIControlState.Normal)
+        resignButton.addTarget(self, action: "enterResignView", forControlEvents: UIControlEvents.TouchUpInside)
         return resignButton
     }()
     
@@ -553,6 +555,16 @@ extension JFShoppingCartViewController {
         }
         select.showInView(self.view)
         
+    }
+    
+    func enterLoginView(){
+        let vc =  myStoryBoard.instantiateViewControllerWithIdentifier("LoginViewController")
+        presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func enterResignView(){
+        let vc = myStoryBoard.instantiateViewControllerWithIdentifier("ResignViewController")
+        presentViewController(vc, animated: true, completion: nil)
     }
 }
 

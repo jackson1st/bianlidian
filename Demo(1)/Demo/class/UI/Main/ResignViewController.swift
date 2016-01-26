@@ -97,8 +97,33 @@ class ResignViewController: UIViewController,UIScrollViewDelegate {
 extension ResignViewController {
     func sentCodeClick() {
         
-        let vc = SentSecurityCodeViewController()
-        vc.phoneNumber = phoneTextField.text
-        self.navigationController?.pushViewController(vc, animated: true)
+        if !phoneTextField.text!.validateMobile() {
+            SVProgressHUD.showErrorWithStatus("请输入11位的正确手机号", maskType: SVProgressHUDMaskType.Black)
+            return
+        } else if
+            psdTextField.text!.isEmpty {
+                SVProgressHUD.showErrorWithStatus("密码不能为空", maskType: SVProgressHUDMaskType.Black)
+                return
+        }
+        else if psdTextField.text != rePsdTextField.text {
+            SVProgressHUD.showErrorWithStatus("两次输入密码不一致", maskType: SVProgressHUDMaskType.Black)
+            return
+        }
+        
+        let param: [String : AnyObject] = ["tel" : phoneTextField.text! , "password" : psdTextField.text! ]
+        HTTPManager.POST(ContentType.ValidateAndSend, params: param).responseJSON({ (json) -> Void in
+            print("注册界面发送验证码返回数据")
+            print(json)
+            let vc = SentSecurityCodeViewController()
+            vc.phoneNumber = self.phoneTextField.text
+            self.navigationController?.pushViewController(vc, animated: true)
+            }) { (error) -> Void in
+                SVProgressHUD.showErrorWithStatus("发送验证码失败,请点击重试", maskType: SVProgressHUDMaskType.Black)
+                
+        }
     }
+    @IBAction func closeResign(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 }

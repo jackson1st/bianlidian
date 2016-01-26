@@ -101,8 +101,9 @@ public enum ContentType : String {
      */
     //手机注册
     case Register = "/BSMD/registerMobile.do"
-    //激活
-    case UserActivation = "/BSMD/activation.do"
+    //获取验证码
+    //validateAndSend.do
+    case ValidateAndSend = "/BSMD/validateAndSend.do"
     
     
     /**

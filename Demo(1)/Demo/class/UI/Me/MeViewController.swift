@@ -8,6 +8,7 @@
 //  这种cell最好用stroyboard的静态单元格来描述
 
 import UIKit
+public let myStoryBoard = UIStoryboard(name: "MyOrderStoryBoard", bundle: nil)
 public let SD_UserIconData_Path = theme.cachesPath + "/iconImage.data"
 public let navigationColor = UIColor.colorWith(245, green: 77, blue: 86, alpha: 1)
 
@@ -26,7 +27,6 @@ enum SDMineCellType: Int {
 
 class MeViewController: UIViewController,UINavigationControllerDelegate {
     
-    private let myStoryBoard = UIStoryboard(name: "MyOrderStoryBoard", bundle: nil)
     private var loginLabel: UILabel!
     private var tableView: UITableView!
     private var iconImageView: UIImageView!
@@ -53,9 +53,9 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(true)
-//        self.tabBarController!.tabBar.hidden = false
+        self.tabBarController!.tabBar.hidden = false
         navigationController?.navigationBar.lt_setBackgroundColor(navigationColor)
-//        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     
@@ -160,8 +160,8 @@ extension MeViewController: IconViewDelegate {
         if UserAccountTool.userIsLogin() {
             iconActionSheet.showInView(view)
         } else {
-            let login = myStoryBoard.instantiateViewControllerWithIdentifier("LoginViewController")
-            presentViewController(login, animated: true, completion: nil)
+            let vc = LoginViewController()
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
@@ -299,8 +299,8 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
                     let myCenterVC = MyCenterViewController()
                     navigationController!.pushViewController(myCenterVC, animated: true)
                 } else {
-                    let login = myStoryBoard.instantiateViewControllerWithIdentifier("LoginViewController")
-                    presentViewController(login, animated: true, completion: nil)
+                    let vc = LoginViewController()
+                    navigationController?.pushViewController(vc, animated: true)
                 }
                 
             } else if indexPath.row == SDMineCellType.MyCollect.hashValue { // 我的收藏
@@ -310,10 +310,11 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
                     
                     let orderVC = myStoryBoard.instantiateViewControllerWithIdentifier("OrderView")
                     navigationController!.pushViewController(orderVC, animated: true)
+                    
                 } else {
-                    let login = myStoryBoard.instantiateViewControllerWithIdentifier("LoginViewController")
-                    presentViewController(login, animated: true, completion: nil)
-                }
+                    
+                    let vc = LoginViewController()
+                    navigationController?.pushViewController(vc, animated: true)                }
             } else {                                                        // 应用推荐
                 let rmdVC = RecommendViewController()
                 navigationController!.pushViewController(rmdVC, animated: true)

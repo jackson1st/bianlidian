@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         // Required - 初始化  
+
         
         if (UIApplication.sharedApplication().currentUserNotificationSettings()?.types != UIUserNotificationType.None) {
 //            self.addLocalNotification()

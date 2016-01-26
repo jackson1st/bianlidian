@@ -799,7 +799,11 @@
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="登录" id="jm3-bl-4Is">
-                        <barButtonItem key="leftBarButtonItem" image="back_0" id="oMD-lU-fGi"/>
+                        <barButtonItem key="leftBarButtonItem" image="icon_close" id="oMD-lU-fGi">
+                            <connections>
+                                <action selector="closeLogin:" destination="lCe-WZ-NZY" id="xu1-Ej-3Sv"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="注册" id="anu-Ac-O9L">
                             <connections>
                                 <action selector="resignClick:" destination="lCe-WZ-NZY" id="hEt-q2-aOf"/>
@@ -809,9 +813,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6ER-qZ-HJh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2263" y="-1719"/>
+            <point key="canvasLocation" x="-2359" y="-1722"/>
         </scene>
-        <!--Resign View Controller-->
+        <!--注册-->
         <scene sceneID="32L-ak-Egz">
             <objects>
                 <viewController id="BSp-ju-vki" customClass="ResignViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
@@ -824,7 +828,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="bY6-Xq-f4B"/>
+                    <navigationItem key="navigationItem" title="注册" id="bY6-Xq-f4B">
+                        <barButtonItem key="leftBarButtonItem" image="icon_close" id="GVg-c7-rYp">
+                            <connections>
+                                <action selector="closeResign:" destination="BSp-ju-vki" id="fD9-CL-VEG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IQv-D9-ZpM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -853,7 +863,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back_0" width="44" height="44"/>
+        <image name="icon_close" width="32" height="32"/>
         <image name="my" width="80" height="80"/>
         <image name="我的手机" width="56" height="56"/>
         <image name="立即支付按钮_1" width="660" height="65"/>

@@ -25,10 +25,7 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         navigationItem.title = "登录"
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        let navigationTitleAttribute: NSDictionary = NSDictionary(object: UIColor.whiteColor(), forKey: NSForegroundColorAttributeName)
-        
-        self.navigationController?.navigationBar.titleTextAttributes = navigationTitleAttribute as?[String: AnyObject]
+
         //添加scrollView
         addScrollView()
         
@@ -36,14 +33,11 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         addForgetButton()
         // 添加手机文本框和密码文本框
         addTextField()
-        // 添加键盘通知
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillChangeFrameNotification:", name: UIKeyboardWillChangeFrameNotification, object: nil)
-    }
-
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    func setNavigation() {
+
+    }
     func addScrollView() {
         backScrollView = UIScrollView(frame: view.bounds)
         backScrollView.backgroundColor = UIColor.colorWith(245, green: 245, blue: 245, alpha: 1)
@@ -67,7 +61,7 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
     func addForgetButton() {
         forgetButton = UIButton(frame: CGRect(x: 30, y: 175, width: 65, height: 30))
         forgetButton.setTitle("忘记密码?", forState: UIControlState.Normal)
-        forgetButton.tintColor = UIColor.blueColor()
+        forgetButton.tintColor = UIColor.redColor()
         forgetButton.titleLabel?.font = UIFont.systemFontOfSize(14)
         forgetButton.addTarget(self, action: "forgetClick", forControlEvents: UIControlEvents.TouchUpInside)
         backScrollView.addSubview(forgetButton)
@@ -130,10 +124,10 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         let psdMD5 = psdTextField.text
 //        lgoin(account!,passWord: psdMD5!)
 //        //将用户的账号和密码暂时保存到本地,实际开发中光用MD5加密是不够的,需要多重加密
-        NSUserDefaults.standardUserDefaults().setObject(account, forKey: SD_UserDefaults_Account)
-        NSUserDefaults.standardUserDefaults().setObject(psdMD5, forKey: SD_UserDefaults_Password)
+            NSUserDefaults.standardUserDefaults().setObject(account, forKey: SD_UserDefaults_Account)
+            NSUserDefaults.standardUserDefaults().setObject(psdMD5, forKey: SD_UserDefaults_Password)
         if NSUserDefaults.standardUserDefaults().synchronize() {
-            navigationController?.popViewControllerAnimated(true)
+            dismissViewControllerAnimated(true, completion: nil)
            }
         else{
             SVProgressHUD.showErrorWithStatus("登录失败，请检查账号密码", maskType: SVProgressHUDMaskType.Black)
@@ -141,21 +135,14 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
     
     }
     
+    @IBAction func closeLogin(sender: AnyObject) {
+        
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     func forgetClick(){
         
     }
-    
-//    func keyboardWillChangeFrameNotification(note: NSNotification) {
-//        // TODO 添加键盘弹出的事件
-//        let userinfo = note.userInfo!
-//        let rect = userinfo[UIKeyboardFrameEndUserInfoKey]!.CGRectValue
-//        var boardH = AppHeight - rect.origin.y
-//        if boardH > 0 {
-//            boardH = boardH + NavigationH
-//        }
-//        backScrollView.contentSize = CGSizeMake(0, view.height + boardH)
-//    }
-    
+
     func backScrollViewTap() {
         view.endEditing(true)
     }

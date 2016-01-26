@@ -93,13 +93,14 @@ class Model: NSObject {
     
     //从服务器加载数据
     func loadDataForNetWork(success: (() -> Void)?){
-        let address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
+        
         //获取用户id
         if UserAccountTool.userIsLogin() {
-        userID = userDefault.objectForKey(SD_UserDefaults_Account) as? String
+            userID = userDefault.objectForKey(SD_UserDefaults_Account) as? String
             if(userID == nil){
                 return
             }
+        let address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
             HTTPManager.POST(ContentType.ShowCarDetail, params: ["cust":userID,"areaName":address]).responseJSON({ (json) -> Void in
                 print("json的内容:")
                 self.shopCart.removeAll()
@@ -160,6 +161,9 @@ class Model: NSObject {
                 }, error: { (error) -> Void in
                     print("发生了错误: " + (error?.localizedDescription)!)
             })
+        }
+        else {
+            return 
         }
     }
     
