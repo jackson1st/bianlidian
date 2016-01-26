@@ -86,12 +86,14 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
             starRefreshView()
             Model.defaultModel.loadDataForNetWork({ () -> Void in
                 self.changeButtonAddState()
-                CollectionModel.CollectionCenter.loadDataFromNet({ () -> Void in
-                    self.changeButtonLikedState()
-                    self.stopRefreshView()
-                    theme.isFirstLoad = false
-                    self.viewDidLoad()
-                })
+                
+            })
+            
+            CollectionModel.CollectionCenter.loadDataFromNet({ () -> Void in
+                self.changeButtonLikedState()
+                self.stopRefreshView()
+                theme.isFirstLoad = false
+                self.viewDidLoad()
             })
             
         }else{
@@ -238,13 +240,20 @@ extension OtherViewController{
         }
     }
     @IBAction func ButtonLikedClicked() {
-        if(ButtonLiked.state == .Normal){
-            
-//            CollectionModel.CollectionCenter.addLiked(LikedModel(No: item?.itemNo, price: item?.itemSalePrice, name: item?.itemName, url: item.im, unitNo: <#T##String#>, size: <#T##String#>, pack: <#T##String#>), success: { () -> Void in
-//                self.ButtonLiked.selected = true
-//            })
+        print(ButtonLiked.state)
+        if(UserAccountTool.userIsLogin() == false){
+            SVProgressHUD.showInfoWithStatus("登录后才可以收藏哦！")
         }else{
-            
+            if(ButtonLiked.state.rawValue == 1 ){
+                CollectionModel.CollectionCenter.addLiked((item?.itemNo)!, success: { () -> Void in
+                    self.ButtonLiked.selected = true
+                })
+                
+            }else{
+                CollectionModel.CollectionCenter.removeAtNo((item?.itemNo)!, success: { () -> Void in
+                    self.ButtonLiked.selected = false
+                })
+            }
         }
     }
     
