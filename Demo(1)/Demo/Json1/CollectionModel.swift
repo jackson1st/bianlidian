@@ -11,18 +11,23 @@ import UIKit
 class CollectionModel: NSObject {
     static let CollectionCenter = CollectionModel()
     var Likes = [LikedModel]()
-    var dict = [String: Bool]()
+    var dict = [String: Int]()
     private override init(){
         super.init()
     }
     
     ///检查是否存在
     func find(no: String) -> Bool{
-        if(dict[no] == true){
+        if(dict[no] != nil){
             return true
         }else{
             return false
         }
+    }
+    
+    func findOfIndex(no: String) -> Int{
+        
+        return dict[no]!
     }
     
     /// 加入收藏
@@ -30,22 +35,26 @@ class CollectionModel: NSObject {
         HTTPManager.POST(ContentType.CollectionAdd, params: ["username":UserAccountTool.userAccount()!,"itemNo":no]).responseJSON({ (json) -> Void in
             print(json)
             //执行回调
-            self.loadDataFromNet(success)
+            if(success != nil){
+                success!()
+            }
+            self.loadDataFromNet(nil)
             
             }) { (error) -> Void in
                 print("发生了错误: " + (error?.localizedDescription)!)
         }
     }
     
+    
     /// 删除收藏
-    func removeAtIndex(index: Int,success: (()->Void)?){
+    func removeAtNo(no: String,success: (()->Void)?){
+        let index = findOfIndex(no)
         let model = Likes[index]
         HTTPManager.POST(ContentType.CollectionDelete, params: ["username":UserAccountTool.userAccount()!,"itemNo":model.no]).responseJSON({ (json) -> Void in
             print(json)
             self.Likes.removeAtIndex(index)
-            self.dict[model.no] = false
+            self.dict[model.no] = nil
             //执行回调
-            self.loadDataFromNet(success)
             
             }) { (error) -> Void in
                 print("发生了错误: " + (error?.localizedDescription)!)
@@ -57,12 +66,11 @@ class CollectionModel: NSObject {
         if(UserAccountTool.userIsLogin()){
             Likes.removeAll()
             dict.removeAll()
-            HTTPManager.POST(ContentType.CollectionGet, params: ["username": UserAccountTool.userAccount()!]).responseJSON({ (json) -> Void in
+            HTTPManager.POST(ContentType.CollectionGet, params: ["custNo": UserAccountTool.userAccount()!]).responseJSON({ (json) -> Void in
                 if(json["code"] as! String == "success"){
                     let arr = json["collection"] as! NSArray
                     print(arr)
                 }
-                
                 
                 if(success != nil){
                     success!()
