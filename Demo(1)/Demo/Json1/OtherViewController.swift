@@ -82,6 +82,7 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
                 arr.append((item?.itemUnits[i].sizeName)!)
             }
             data.append(arr)
+            viewDidLoad()
         }
     }
     var data = [[String]]()
@@ -106,6 +107,9 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
             return
         }
         super.viewDidLoad()
+        if(item == nil){
+            return
+        }
         initAll()
         self.view.backgroundColor = UIColor.colorWith(243, green: 241, blue: 244, alpha: 1)
     }
