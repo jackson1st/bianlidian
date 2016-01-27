@@ -88,7 +88,7 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
                 
             })
             
-            CollectionModel.CollectionCenter.loadDataFromNet({ () -> Void in
+            CollectionModel.CollectionCenter.loadDataFromNet(1, count: 10, success: nil, callback: { () -> Void in
                 self.changeButtonLikedState()
                 self.stopRefreshView()
                 theme.isFirstLoad = false
@@ -244,7 +244,7 @@ extension OtherViewController{
             SVProgressHUD.showInfoWithStatus("登录后才可以收藏哦！")
         }else{
             if(ButtonLiked.state.rawValue == 1 ){
-                CollectionModel.CollectionCenter.addLiked((item?.itemNo)!, success: { () -> Void in
+                CollectionModel.CollectionCenter.addLiked(item!, success: { () -> Void in
                     self.ButtonLiked.selected = true
                 })
                 

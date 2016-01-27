@@ -304,6 +304,7 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 
             } else if indexPath.row == SDMineCellType.MyCollect.hashValue { // 我的收藏
+                self.navigationController?.pushViewController(MyLikeViewController(), animated: true)
                 
             } else if indexPath.row == SDMineCellType.MyOrder.hashValue {   // 我的订单
                 if UserAccountTool.userIsLogin() {

@@ -12,6 +12,7 @@ class CollectionModel: NSObject {
     static let CollectionCenter = CollectionModel()
     var Likes = [LikedModel]()
     var dict = [String: Int]()
+    
     private override init(){
         super.init()
     }
@@ -32,12 +33,16 @@ class CollectionModel: NSObject {
     }
     
     /// 加入收藏
-    func addLiked(no: String,success: (()->Void)?){
-        HTTPManager.POST(ContentType.CollectionAdd, params: ["custno": UserAccountTool.userCustNo()!,"itemNo":no]).responseJSON({ (json) -> Void in
+    func addLiked(model: GoodDetail,success: (()->Void)?){
+        HTTPManager.POST(ContentType.CollectionAdd, params: ["custno": UserAccountTool.userCustNo()!,"itemNo":model.itemNo]).responseJSON({ (json) -> Void in
             print(json)
-            //执行回调
-            self.loadDataFromNet(success)
+            //执行回调,待斟酌
+            self.dict[model.itemNo] = self.Likes.count
+            self.Likes.append(LikedModel(No: model.itemNo, price: model.itemSalePrice, name: model.itemName, url: model.imageTop[0], unitNo: nil, size: nil, pack: nil))
             
+            if(success != nil){
+                success!()
+            }
             }) { (error) -> Void in
                 print("发生了错误: " + (error?.localizedDescription)!)
         }
@@ -51,33 +56,56 @@ class CollectionModel: NSObject {
         HTTPManager.POST(ContentType.CollectionDelete, params: ["custno": UserAccountTool.userCustNo()!,"itemNo":model.no]).responseJSON({ (json) -> Void in
             print(json)
             //执行回调
-            self.loadDataFromNet(success)
             
+            self.Likes.removeAtIndex(index)
+            self.dict[no] = nil
+            
+            if(success != nil){
+                success!()
+            }
             }) { (error) -> Void in
                 print("发生了错误: " + (error?.localizedDescription)!)
         }
     }
     
+    func isLiked(no: String,success: (() -> Void)?){
+       // HTTPManager.POST(<#T##contentType: ContentType##ContentType#>, params: ["custno": UserAccountTool.userCustNo()!,"itemNo":model.no]).responseJSON
+    }
     
-    func loadDataFromNet(success: (() -> Void)?){
+    
+    
+    func loadDataFromNet(index: Int,count: Int,success: ((data:[LikedModel]) -> Void)?,callback:(()->Void)?){
         if(UserAccountTool.userIsLogin()){
-            Likes.removeAll()
-            dict.removeAll()
-            HTTPManager.POST(ContentType.CollectionGet, params: ["custno": UserAccountTool.userCustNo()!]).responseJSON({ (json) -> Void in
-                if(json["code"] as! String == "success"){
-                    let arr = json["collection"] as! NSArray
+            HTTPManager.POST(ContentType.CollectionGet, params: ["custno": UserAccountTool.userCustNo()!,"pageindex":"\(index)","pagecount":"\(count)"]).responseJSON({ (var json) -> Void in
+                print(json)
+                json = json["list"] as! [String: AnyObject]
+                let size = json["pageSize"] as! Int
+                var data = [LikedModel]()
+                if(index < size){
+                    let arr = json["list"] as! NSArray
                     for(var i = 0; i < arr.count; i++){
                         let x = arr[i] as! NSDictionary
                         print(x)
                         let model = LikedModel(No: x["item_no"] as! String, price: x["item_sale_price"] as? String, name: x["item_name"] as! String, url: x["url"] as! String, unitNo: x["item_unit_no"] as? String, size: x["item_size"] as? String, pack: x["item_pack"] as? String)
-                        self.Likes.append(model)
-                        self.dict[model.no] = i
+                        data.append(model)
                     }
                 }
                 
                 if(success != nil){
-                    success!()
+                    success!(data: data)
+                }else{
+                    self.Likes.removeAll()
+                    self.dict.removeAll()
+                    self.Likes = data
+                    for(var i = 0;i<data.count;i++){
+                        self.dict[data[i].no] = i
+                    }
                 }
+                
+                if(callback != nil){
+                    callback!()
+                }
+                
                 }, error: { (error) -> Void in
                     print("发生了错误: " + (error?.localizedDescription)!)
             })
