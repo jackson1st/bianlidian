@@ -17,6 +17,8 @@ class SentSecurityCodeViewController: UIViewController,UIScrollViewDelegate {
     var phoneNumber: String!
     var timerButton: UIButton!
     var timerLabel: UILabel!
+    var codeNumber: String!
+    var password: String!
     override func viewDidLoad() {
         addScrollView()
         addTextField()
@@ -98,6 +100,11 @@ class SentSecurityCodeViewController: UIViewController,UIScrollViewDelegate {
 extension SentSecurityCodeViewController : MZTimerLabelDelegate{
     func resignClick(){
         
+        HTTPManager.POST(ContentType.Register, params: ["tel" : phoneNumber,"password": password]).responseJSON({ (json) -> Void in
+            print("注册成功")
+            }) { (error) -> Void in
+                print(error)
+        }
     }
     func timeCount() {
         timerButton.setTitle(nil, forState: UIControlState.Normal)

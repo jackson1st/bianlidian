@@ -114,8 +114,11 @@ extension ResignViewController {
         HTTPManager.POST(ContentType.ValidateAndSend, params: param).responseJSON({ (json) -> Void in
             print("注册界面发送验证码返回数据")
             print(json)
+            let info = json as? NSDictionary
             let vc = SentSecurityCodeViewController()
             vc.phoneNumber = self.phoneTextField.text
+            vc.password = self.psdTextField.text
+            vc.codeNumber = info!["validateCode"] as? String
             self.navigationController?.pushViewController(vc, animated: true)
             }) { (error) -> Void in
                 SVProgressHUD.showErrorWithStatus("发送验证码失败,请点击重试", maskType: SVProgressHUDMaskType.Black)

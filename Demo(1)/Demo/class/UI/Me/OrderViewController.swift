@@ -8,6 +8,7 @@
 //  我的订单
 
 import UIKit
+
 class OrderViewController: UIViewController{
     
     @IBOutlet var seg: UISegmentedControl!
@@ -31,14 +32,18 @@ class OrderViewController: UIViewController{
         self.tableView.delegate = self
         
         // 设置TableViewHeader
-        self.tableView.header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+    self.tableView.header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
             self.pullRefreshData()
             self.tableView.header.endRefreshing()
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
         })
         
         self.tableView.footer = MJRefreshAutoNormalFooter(refreshingBlock: { () -> Void in
+            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
             self.dropDownLoading()
             self.tableView.footer.endRefreshing()
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
         })
     }
     

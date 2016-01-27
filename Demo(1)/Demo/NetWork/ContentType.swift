@@ -135,8 +135,7 @@ public enum ContentType : String {
     /**
     *  用户头像相关
     */
-    
-    
+    case UserHeadPicSubmit = "/BSMD/updateProfile.do"
     /**
     *  积分相关
     */

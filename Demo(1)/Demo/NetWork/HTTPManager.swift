@@ -12,7 +12,8 @@ public class HTTPManager {
     //http://192.168.199.242:8080
     //http://139.129.45.31:8080
     static let HTTPURL2 = "http://139.129.45.31:8080"
-    static let HTTPURL = "http://192.168.199.242:8080"
+    static let HTTPURL3 = "http://192.168.199.242:8080"
+    static let HTTPURL = "http://192.168.199.134:8080"
     var request: Request!
     
     public static func POST(contentType: ContentType,params: [String: AnyObject]?) -> HTTPManager {
@@ -23,6 +24,10 @@ public class HTTPManager {
             manager.request = Alamofire.request(.POST, HTTPURL + contentType.rawValue)
         }
         return manager
+    }
+    
+    public static func UPload(contentType: ContentType,params: [String: String]?,multipartFormData: (MultipartFormData)->Void,encodingMemoryThreshold: (Manager.MultipartFormDataEncodingResult -> Void)?){
+        Alamofire.upload(.POST, HTTPURL + contentType.rawValue, headers: params, multipartFormData: multipartFormData,encodingCompletion: encodingMemoryThreshold)
     }
     
     public func responseJSON(success: (json:[String: AnyObject]) -> Void, error: (error: NSError?) -> Void ){

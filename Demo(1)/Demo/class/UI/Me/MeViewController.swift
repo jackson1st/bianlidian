@@ -8,6 +8,7 @@
 //  这种cell最好用stroyboard的静态单元格来描述
 
 import UIKit
+import Alamofire
 public let myStoryBoard = UIStoryboard(name: "MyOrderStoryBoard", bundle: nil)
 public let SD_UserIconData_Path = theme.cachesPath + "/iconImage.data"
 public let navigationColor = UIColor.colorWith(245, green: 77, blue: 86, alpha: 1)
@@ -63,6 +64,7 @@ class MeViewController: UIViewController,UINavigationControllerDelegate {
         navigationItem.title = ""
         navigationController?.navigationBar.lt_setBackgroundColor(UIColor.clearColor())
         navigationController?.navigationBar.shadowImage = UIImage()
+//        navigationController?.navigationBar.hidden = true
         navigationItem.leftBarButtonItem = nil
         navigationItem.rightBarButtonItem = nil
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(imageName: "settinghhhh", highlImageName: "settingh", targer: self, action: "settingClick")
@@ -228,30 +230,46 @@ extension MeViewController: UIImagePickerControllerDelegate {
                             // TODO: 将头像的data传入服务器
                             // 本地也保留一份data数据
                             try NSFileManager.defaultManager().createDirectoryAtPath(theme.cachesPath, withIntermediateDirectories: true, attributes: nil)
-                        } catch _ {
+                            } catch _ {
                         }
                         NSFileManager.defaultManager().createFileAtPath(SD_UserIconData_Path, contents: data, attributes: nil)
                         
-                        iconView!.iconButton.setImage(UIImage(data: NSData(contentsOfFile: SD_UserIconData_Path)!)!.imageClipOvalImage(), forState: .Normal)
-                        
-                    } else {
-                        SVProgressHUD.showErrorWithStatus("照片保存失败", maskType: SVProgressHUDMaskType.Black)
-                    }
-                }
+                        HTTPManager.UPload(ContentType.UserHeadPicSubmit, params: ["custno" : UserAccountTool.userCustNo()!], multipartFormData: { (MultipartFormData) -> Void in
+                            MultipartFormData.appendBodyPart(data: data!, name: "head", fileName: "head.jpg", mimeType: "image/jpg")
+                            }, encodingMemoryThreshold: { (MultipartFormDataEncodingResult) -> Void in
+                                switch (MultipartFormDataEncodingResult){
+                                case .Success(let upload, _, _):upload.responseJSON(completionHandler: { (response) -> Void in
+                                    if response.result.isSuccess {
+                                        SVProgressHUD.showSuccessWithStatus("图片上传成功", maskType: SVProgressHUDMaskType.Black)
+                                    }
+                                    else {
+                                        SVProgressHUD.showErrorWithStatus("图片上传失败", maskType: SVProgressHUDMaskType.Black)
+                                    }
+                                })
+                                case .Failure(let x):
+                                    SVProgressHUD.showErrorWithStatus("图片上传失败", maskType: SVProgressHUDMaskType.Black)
+                                }
+                        })
             }
-        } else {
+        else {
             SVProgressHUD.showErrorWithStatus("图片无法获取", maskType: SVProgressHUDMaskType.Black)
         }
         
         picker.dismissViewControllerAnimated(true, completion: nil)
+            }
+            }
+        }
     }
-    
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         pickVC.dismissViewControllerAnimated(true, completion: nil)
     }
+
+    
 }
 
-/// MARK:UITableViewDelegate, UITableViewDataSource 代理方法
+
+
+// MARK:UITableViewDelegate, UITableViewDataSource 代理方法
 extension MeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
@@ -295,8 +313,8 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
             } else if indexPath.row == SDMineCellType.MyCenter.hashValue {  // 个人中心
                 if UserAccountTool.userIsLogin() {
                     
-//                    let myCenterVC = myStoryBoard.instantiateViewControllerWithIdentifier("MyCenterController")     
-                    let myCenterVC = MyCenterViewController()
+                    let myCenterVC = myStoryBoard.instantiateViewControllerWithIdentifier("MyCenterController")     
+//                    let myCenterVC = MyCenterViewController()
                     navigationController!.pushViewController(myCenterVC, animated: true)
                 } else {
                     let vc = LoginViewController()

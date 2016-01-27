@@ -1,10 +1,9 @@
 //
-//  theme.swift
-//  SmallDay
-//  项目GitHub地址:         https://github.com/ZhongTaoTian/SmallDay
-//  项目思路和架构讲解博客:    http://www.jianshu.com/p/bcc297e19a94
-//  Created by MacBook on 15/8/14.
-//  Copyright (c) 2015年 维尼的小熊. All rights reserved.
+//  PayViewController.swift
+//  webDemo
+//
+//  Created by mac on 15/12/5.
+//  Copyright © 2015年 jason. All rights reserved.
 //  全局公用属性
 
 import UIKit
@@ -40,5 +39,7 @@ struct theme {
     static var refreshFlag = true
     //判断是否是第一次请求购物车数据
     static var isFirstLoad = true
+    // 用户名
+    static var userName: String?
     
 }

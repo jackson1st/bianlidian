@@ -213,6 +213,9 @@
                     </tableView>
                     <connections>
                         <outlet property="iconImageView" destination="vkF-6I-wSA" id="YLA-MC-4IY"/>
+                        <outlet property="integral" destination="ZO6-Ao-y7R" id="tmw-iF-vEx"/>
+                        <outlet property="phoneNumber" destination="G0K-7U-8Ii" id="h28-kU-NB4"/>
+                        <outlet property="userName" destination="swz-Xa-pZh" id="Fv9-iO-xv0"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oX0-sq-K0T" userLabel="First Responder" sceneMemberID="firstResponder"/>

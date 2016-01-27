@@ -25,6 +25,15 @@ class UserAccountTool: NSObject {
         return false
     }
     
+    class func setUserInfo(phoneNomber: String,passWord: String, custNo: String,userName: String, imageUrl: String, integral: Int) {
+        NSUserDefaults.standardUserDefaults().setObject(phoneNomber, forKey: SD_UserDefaults_Account)
+        NSUserDefaults.standardUserDefaults().setObject(passWord, forKey: SD_UserDefaults_Password)
+        NSUserDefaults.standardUserDefaults().setObject(custNo, forKey: SD_UserDefaults_CustNo)
+        NSUserDefaults.standardUserDefaults().setObject(userName, forKey: SD_UserDefaults_UserName)
+        NSUserDefaults.standardUserDefaults().setObject(imageUrl, forKey: SD_UserDefaults_ImageUrl)
+        NSUserDefaults.standardUserDefaults().setObject(integral, forKey: SD_UserDefaults_Integral)
+    }
+    
     /// 如果用户登录了,返回用户的账号(电话号)
     class func userAccount() -> String? {
         if !userIsLogin() {
@@ -44,6 +53,34 @@ class UserAccountTool: NSObject {
         let account = user.objectForKey(SD_UserDefaults_CustNo) as? String
         return account!
     }
+    class func userName() -> String? {
+        if !userIsLogin() {
+            return nil
+        }
+        
+        let user = NSUserDefaults.standardUserDefaults()
+        let account = user.objectForKey(SD_UserDefaults_UserName) as? String
+        return account!
+    }
+    class func userIntegral() -> Int? {
+        if !userIsLogin() {
+            return nil
+        }
+        
+        let user = NSUserDefaults.standardUserDefaults()
+        let account = user.objectForKey(SD_UserDefaults_Integral) as? Int
+        return account!
+    }
+    class func userImageUrl() -> String? {
+        if !userIsLogin() {
+            return nil
+        }
+        
+        let user = NSUserDefaults.standardUserDefaults()
+        let account = user.objectForKey(SD_UserDefaults_ImageUrl) as? String
+        return account!
+    }
+    
 }
 
 class UserAddress: NSObject {

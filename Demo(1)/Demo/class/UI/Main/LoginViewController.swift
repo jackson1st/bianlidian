@@ -10,6 +10,9 @@ public let SD_UserLogin_Notification = "SD_UserLogin_Notification"
 public let SD_UserDefaults_Account = "SD_UserDefaults_Account"
 public let SD_UserDefaults_Password = "SD_UserDefaults_Password"
 public let SD_UserDefaults_CustNo = "SD_UserDefaults_CustNo"
+public let SD_UserDefaults_ImageUrl = "SD_UserDefaults_ImageUrl"
+public let SD_UserDefaults_Integral = "SD_UserDefaults_Integral"
+public let SD_UserDefaults_UserName = "SD_UserDefaults_UserName"
 
 class LoginViewController: UIViewController, UIScrollViewDelegate {
     
@@ -123,16 +126,6 @@ class LoginViewController: UIViewController, UIScrollViewDelegate {
         let account = phoneTextField.text
         let psdMD5 = psdTextField.text
         lgoin(account!,passWord: psdMD5!)
-//        //将用户的账号和密码暂时保存到本地,实际开发中光用MD5加密是不够的,需要多重加密
-//            NSUserDefaults.standardUserDefaults().setObject(account, forKey: SD_UserDefaults_Account)
-//            NSUserDefaults.standardUserDefaults().setObject(psdMD5, forKey: SD_UserDefaults_Password)
-//        if NSUserDefaults.standardUserDefaults().synchronize() {
-//            dismissViewControllerAnimated(true, completion: nil)
-//           }
-//        else{
-//            SVProgressHUD.showErrorWithStatus("登录失败，请检查账号密码", maskType: SVProgressHUDMaskType.Black)
-//        }
-    
     }
     
     @IBAction func closeLogin(sender: AnyObject) {
@@ -158,7 +151,7 @@ extension  LoginViewController {
         
         let parameters = ["username":userName,
             "password":passWord]
-        
+        MBProgressHUD.showMessage("登录中....")
         HTTPManager.POST(ContentType.LoginMobile, params: parameters).responseJSON({ (json) -> Void in
             print(json)
             
@@ -166,17 +159,23 @@ extension  LoginViewController {
 
             if(infomation!["status"] as? String == "error") {
                  SVProgressHUD.showErrorWithStatus("登录失败，请检查账号密码", maskType: SVProgressHUDMaskType.Black)
-                
+                 MBProgressHUD.hideHUD()
+                return
             }
+            if(infomation!["status"] as? String == "success") {
+                
                 let custNo = infomation!["custNo"] as? String
-                NSUserDefaults.standardUserDefaults().setObject(userName, forKey: SD_UserDefaults_Account)
-                NSUserDefaults.standardUserDefaults().setObject(passWord, forKey: SD_UserDefaults_Password)
-                NSUserDefaults.standardUserDefaults().setObject(custNo, forKey: SD_UserDefaults_Password)
-                if NSUserDefaults.standardUserDefaults().synchronize() {
-                    self.navigationController?.popViewControllerAnimated(true)
-                }
+                let userName = infomation!["userName"] as? String
+                let imageUrl = infomation!["imageUrl"] as? String
+                let integral = infomation!["integral"] as? Int
+                UserAccountTool.setUserInfo(userName!, passWord: passWord, custNo: custNo!, userName: userName!, imageUrl: imageUrl!, integral: integral!)
+                MBProgressHUD.hideHUD()
+                return
+            }
+            
             }) { (error) -> Void in
               SVProgressHUD.showErrorWithStatus("登录失败，请检查账号密码", maskType: SVProgressHUDMaskType.Black)
+               MBProgressHUD.hideHUD()
         }
     }
 }
