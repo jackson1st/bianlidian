@@ -165,6 +165,7 @@ extension  LoginViewController {
             if(infomation!["status"] as? String == "success") {
                 
                 let custNo = infomation!["custNo"] as? String
+<<<<<<< HEAD
                 let userName = infomation!["userName"] as? String
                 let imageUrl = infomation!["imageUrl"] as? String
                 let integral = infomation!["integral"] as? Int
@@ -173,6 +174,14 @@ extension  LoginViewController {
                 return
             }
             
+=======
+                NSUserDefaults.standardUserDefaults().setObject(userName, forKey: SD_UserDefaults_Account)
+                NSUserDefaults.standardUserDefaults().setObject(passWord, forKey: SD_UserDefaults_Password)
+                NSUserDefaults.standardUserDefaults().setObject(custNo, forKey: SD_UserDefaults_CustNo)
+                if NSUserDefaults.standardUserDefaults().synchronize() {
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+>>>>>>> origin/master
             }) { (error) -> Void in
               SVProgressHUD.showErrorWithStatus("登录失败，请检查账号密码", maskType: SVProgressHUDMaskType.Black)
                MBProgressHUD.hideHUD()

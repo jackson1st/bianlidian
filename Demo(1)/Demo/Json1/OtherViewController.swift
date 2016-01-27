@@ -81,7 +81,6 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBarHidden = true
-        self.tabBarController!.tabBar.hidden = true
         if(theme.isFirstLoad == true && UserAccountTool.userIsLogin()){
             starRefreshView()
             Model.defaultModel.loadDataForNetWork({ () -> Void in
@@ -89,7 +88,7 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
                 
             })
             
-            CollectionModel.CollectionCenter.loadDataFromNet({ () -> Void in
+            CollectionModel.CollectionCenter.loadDataFromNet(1, count: 10, success: nil, callback: { () -> Void in
                 self.changeButtonLikedState()
                 self.stopRefreshView()
                 theme.isFirstLoad = false
@@ -97,17 +96,17 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
             })
             
         }else{
+            if(theme.isFirstLoad){
+                changeButtonLikedState()
+                changeButtonAddState()
+                self.viewDidLoad()
+            }
             theme.isFirstLoad = false
-            changeButtonLikedState()
-            changeButtonAddState()
-            self.viewDidLoad()
         }
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
 
     }
     
@@ -165,9 +164,9 @@ extension OtherViewController{
             ButtonLiked.selected = false
         }else{
             if(CollectionModel.CollectionCenter.find((item?.itemNo)!)){
-                ButtonLiked.selected = false
-            }else{
                 ButtonLiked.selected = true
+            }else{
+                ButtonLiked.selected = false
             }
         }
     }
@@ -245,7 +244,7 @@ extension OtherViewController{
             SVProgressHUD.showInfoWithStatus("登录后才可以收藏哦！")
         }else{
             if(ButtonLiked.state.rawValue == 1 ){
-                CollectionModel.CollectionCenter.addLiked((item?.itemNo)!, success: { () -> Void in
+                CollectionModel.CollectionCenter.addLiked(item!, success: { () -> Void in
                     self.ButtonLiked.selected = true
                 })
                 
@@ -379,6 +378,7 @@ extension OtherViewController{
         scrollView.bounces = false
         scrollView.directionalLockEnabled = true
         scrollView.delegate = self
+        scrollView.backgroundColor = UIColor.colorWith(243, green: 241, blue: 244, alpha: 1)
         self.view.addSubview(scrollView)
         
         //初始化第一个scrollView

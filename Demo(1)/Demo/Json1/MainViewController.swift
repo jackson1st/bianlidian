@@ -64,19 +64,20 @@ class MainViewController: UIViewController,WKNavigationDelegate,UISearchBarDeleg
 extension MainViewController{
     //隐藏tabBar的方法：在跳转之前调用self.hidesBottomBarWhenPushed = true
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
-        self.hidesBottomBarWhenPushed = true
         let vc = segue.destinationViewController
+        vc.hidesBottomBarWhenPushed = true
         if( vc.isKindOfClass(OtherViewController)){
             let vc2 = vc as! OtherViewController
             vc2.item = self.item
         }else{
-            let vc2 = vc as! SearcherViewController
-            vc2.delegate  = self
+            if(vc.isKindOfClass(SearcherViewController)){
+                let vc2 = vc as! SearcherViewController
+                vc2.delegate  = self
+            }
         }
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.tabBarController?.tabBar.hidden = false
         let userDefault = NSUserDefaults.standardUserDefaults()
         if(userDefault.boolForKey("needSetLocation") == false){
             self.performSegueWithIdentifier("showLocation", sender: nil)

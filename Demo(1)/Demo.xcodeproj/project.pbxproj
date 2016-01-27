@@ -230,6 +230,9 @@
 		9678C8D71C19044D008C814A /* SearcherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678C8D61C19044D008C814A /* SearcherViewController.swift */; };
 		9678C8F81C192C6D008C814A /* SearcherResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678C8F71C192C6D008C814A /* SearcherResultViewController.swift */; };
 		96BCBC2B1C570E350028CA42 /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCBC2A1C570E350028CA42 /* CollectionModel.swift */; };
+		96BCBC591C585ADC0028CA42 /* MyLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCBC581C585ADC0028CA42 /* MyLikeViewController.swift */; };
+		96BCBC5C1C5874220028CA42 /* LikeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCBC5A1C5874220028CA42 /* LikeTableViewCell.swift */; };
+		96BCBC5D1C5874220028CA42 /* LikeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96BCBC5B1C5874220028CA42 /* LikeTableViewCell.xib */; };
 		96C83E831C1975CA0075A204 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C83E761C1975CA0075A204 /* File.swift */; };
 		96C83E841C1975CA0075A204 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C83E771C1975CA0075A204 /* Helper.swift */; };
 		96C83E851C1975CA0075A204 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C83E781C1975CA0075A204 /* HTTPMethod.swift */; };
@@ -712,6 +715,9 @@
 		9678C8D61C19044D008C814A /* SearcherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearcherViewController.swift; path = "搜索/SearcherViewController.swift"; sourceTree = "<group>"; };
 		9678C8F71C192C6D008C814A /* SearcherResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearcherResultViewController.swift; sourceTree = "<group>"; };
 		96BCBC2A1C570E350028CA42 /* CollectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
+		96BCBC581C585ADC0028CA42 /* MyLikeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLikeViewController.swift; sourceTree = "<group>"; };
+		96BCBC5A1C5874220028CA42 /* LikeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeTableViewCell.swift; sourceTree = "<group>"; };
+		96BCBC5B1C5874220028CA42 /* LikeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LikeTableViewCell.xib; sourceTree = "<group>"; };
 		96C83E761C1975CA0075A204 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		96C83E771C1975CA0075A204 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		96C83E781C1975CA0075A204 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -1034,6 +1040,9 @@
 				043B85C81C4DD7F5009EAB79 /* OrderInfoController.swift */,
 				048E22391C532C4700E7096B /* MyCenterController.swift */,
 				048E224D1C55C88A00E7096B /* UserInformation.swift */,
+				96BCBC581C585ADC0028CA42 /* MyLikeViewController.swift */,
+				96BCBC5A1C5874220028CA42 /* LikeTableViewCell.swift */,
+				96BCBC5B1C5874220028CA42 /* LikeTableViewCell.xib */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -2016,6 +2025,7 @@
 				32D7AF261C2F871C00EF48D0 /* PayStoryboard.storyboard in Resources */,
 				047A5F451C145424004FA20F /* Main2.storyboard in Resources */,
 				96E82A0A1C17053500247660 /* MyOrderStoryBoard.storyboard in Resources */,
+				96BCBC5D1C5874220028CA42 /* LikeTableViewCell.xib in Resources */,
 				043B85CF1C4E30DF009EAB79 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2189,6 +2199,7 @@
 				047A5F4E1C145424004FA20F /* TestSeague.swift in Sources */,
 				9678C8F81C192C6D008C814A /* SearcherResultViewController.swift in Sources */,
 				96C83E8E1C1975CA0075A204 /* String+Base64.swift in Sources */,
+				96BCBC5C1C5874220028CA42 /* LikeTableViewCell.swift in Sources */,
 				96C83E8F1C1975CA0075A204 /* String+NSData.swift in Sources */,
 				04795E551C5867FF00336F41 /* MBProgressHUD+MJ.m in Sources */,
 				04CF8EC91C144FDB00512979 /* AFURLSessionManager.m in Sources */,
@@ -2218,6 +2229,7 @@
 				04CF8DD51C144FB400512979 /* ShakeViewController.swift in Sources */,
 				04CF8EF61C144FDB00512979 /* ConstraintItem.swift in Sources */,
 				96C83E8C1C1975CA0075A204 /* PitayaManager+Static.swift in Sources */,
+				96BCBC591C585ADC0028CA42 /* MyLikeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2393,7 +2405,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hrh.D;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hrh.S;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = Header.h;
@@ -2429,7 +2441,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hrh.D;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hrh.S;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = Header.h;
