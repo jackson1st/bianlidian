@@ -16,6 +16,8 @@ class MyLikeViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initAll()
+        tableView.backgroundColor = UIColor.colorWith(245, green: 245, blue: 245, alpha: 1)
+        navigationItem.title = "我的收藏"
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,6 +59,7 @@ extension MyLikeViewController{
     
     func initTableview(){
         tableView.registerNib(UINib(nibName: "LikeTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "cell")
+        tableView.rowHeight = 103
     }
     
     func initHeaderRefresh(){

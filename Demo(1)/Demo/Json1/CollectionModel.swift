@@ -18,12 +18,11 @@ class CollectionModel: NSObject {
     }
     
     ///检查是否存在
-    func find(no: String) -> Bool{
-        print(dict[no])
-        if(dict[no] != nil){
-            return true
-        }else{
-            return false
+    func find(no: String,success: (flag: String)->Void) {
+        HTTPManager.POST(ContentType.CollectionExisted, params: ["custno":UserAccountTool.userCustNo()!,"itemNo":no]).responseJSON({ (json) -> Void in
+            success(flag: json["statue"] as! String)
+            }) { (error) -> Void in
+                print("发生了错误: " + (error?.localizedDescription)!)
         }
     }
     
@@ -81,7 +80,7 @@ class CollectionModel: NSObject {
                 json = json["list"] as! [String: AnyObject]
                 let size = json["pageSize"] as! Int
                 var data = [LikedModel]()
-                if(index < size){
+                if(index <= size){
                     let arr = json["list"] as! NSArray
                     for(var i = 0; i < arr.count; i++){
                         let x = arr[i] as! NSDictionary

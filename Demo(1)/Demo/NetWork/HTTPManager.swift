@@ -11,14 +11,9 @@ import Alamofire
 public class HTTPManager {
     //http://192.168.199.242:8080
     //http://139.129.45.31:8080
-<<<<<<< HEAD
     static let HTTPURL2 = "http://139.129.45.31:8080"
-    static let HTTPURL3 = "http://192.168.199.242:8080"
-    static let HTTPURL = "http://192.168.199.134:8080"
-=======
-    static let HTTPURL = "http://139.129.45.31:8080"
-    static let HTTPURL2 = "http://192.168.199.242:8080"
->>>>>>> origin/master
+    static let HTTPURL = "http://192.168.199.242:8080"
+    static let HTTPURL1 = "http://192.168.199.134:8080"
     var request: Request!
     
     public static func POST(contentType: ContentType,params: [String: AnyObject]?) -> HTTPManager {

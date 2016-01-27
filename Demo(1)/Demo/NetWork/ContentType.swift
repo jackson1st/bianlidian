@@ -131,7 +131,8 @@ public enum ContentType : String {
     case CollectionDelete = "/BSMD/deleteCollection.do"
     //添加收藏
     case CollectionAdd = "/BSMD/insertCollection.do"
-    
+    //查询是否收藏
+    case CollectionExisted = "/BSMD/isCollected.do"
     /**
     *  用户头像相关
     */

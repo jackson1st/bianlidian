@@ -32,8 +32,7 @@ class MainViewController: UIViewController,WKNavigationDelegate,UISearchBarDeleg
     var address:String?
     
     //商品model
-    var item: GoodDetail?
-    
+    var itemno: String!
     //拥有一个SearcherResultViewController
     
     override func viewDidLoad() {
@@ -68,7 +67,8 @@ extension MainViewController{
         vc.hidesBottomBarWhenPushed = true
         if( vc.isKindOfClass(OtherViewController)){
             let vc2 = vc as! OtherViewController
-            vc2.item = self.item
+            vc2.address = address
+            vc2.itemNo = itemno
         }else{
             if(vc.isKindOfClass(SearcherViewController)){
                 let vc2 = vc as! SearcherViewController
@@ -212,46 +212,8 @@ extension MainViewController{
     
     func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
         //MARK:接收到点击了哪个商品
-        
-        HTTPManager.POST(ContentType.ItemDetail, params: ["itemno":message.body,"address":address!]).responseJSON({ (json) -> Void in
-            let dict = json["detail"] as! [String: AnyObject]
-            self.item = GoodDetail()
-            var arry = json["comment"] as? NSArray
-            
-            self.item?.comments = [Comment]()
-            for var x in arry!{
-                var xx = x as! [String: AnyObject]
-                self.item?.comments?.append(Comment(content: xx["comment"] as? String, date: xx["commentDate"] as? String, userName: xx["custNo"] as? String))
-            }
-            self.item?.barcode = dict["barcode"] as? String
-            self.item?.eshopIntegral = dict["eshopIntegral"] as! Int
-            self.item?.itemBynum1 = dict["itemBynum1"] as! String
-            self.item?.itemName = dict["itemName"] as! String
-            self.item?.itemNo = dict["itemNo"] as! String
-            self.item?.itemSalePrice = dict["itemSalePrice"] as! String
-            arry = json["stocks"] as? NSArray
-            print(arry)
-            self.item?.itemStocks = [ItemStock]()
-            for var x in arry!{
-                var xx = x as! [String: AnyObject]
-                self.item?.itemStocks.append(ItemStock(name: xx["shopName"] as? String, qty: xx["stockQty"] as? Int))
-            }
-            
-            arry = dict["itemUnits"] as! NSArray
-            print(arry)
-            self.item?.itemUnits = [ItemUnit]()
-            for var x in arry!{
-                var xx = x as! [String: AnyObject]
-                self.item?.itemUnits.append(ItemUnit(salePrice: xx["itemSalePrice"] as? String , sizeName: xx["itemSize"] as? String))
-            }
-            
-            self.item?.imageDetail = json["imageDetail"] as! [String]
-            self.item?.imageTop = json["imageTop"] as! [String]
-            self.performSegueWithIdentifier("showHome", sender: self)
-            }) { (error) -> Void in
-                print("发生了错误: " + (error?.localizedDescription)!)
-        }
-        
+        itemno = "\(message.body)"
+        self.performSegueWithIdentifier("showHome", sender: nil)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {

@@ -28,9 +28,6 @@
 		043B85C71C4CC909009EAB79 /* Center.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043B85C61C4CC909009EAB79 /* Center.storyboard */; };
 		043B85C91C4DD7F5009EAB79 /* OrderInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B85C81C4DD7F5009EAB79 /* OrderInfoController.swift */; };
 		043B85CF1C4E30DF009EAB79 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 043B85CD1C4E30DF009EAB79 /* Info.plist */; };
-		04795E551C5867FF00336F41 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 04795E511C5867FF00336F41 /* MBProgressHUD+MJ.m */; };
-		04795E561C5867FF00336F41 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04795E521C5867FF00336F41 /* MBProgressHUD.bundle */; };
-		04795E571C5867FF00336F41 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 04795E541C5867FF00336F41 /* MBProgressHUD.m */; };
 		047A5F1F1C14519C004FA20F /* MainMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5F1E1C14519C004FA20F /* MainMeViewController.swift */; };
 		047A5F381C145424004FA20F /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 047A5F211C145424004FA20F /* Address.plist */; };
 		047A5F391C145424004FA20F /* cityData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 047A5F221C145424004FA20F /* cityData.plist */; };
@@ -222,6 +219,9 @@
 		961B169B1C242AAB0034C463 /* SortModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961B169A1C242AAB0034C463 /* SortModel.swift */; };
 		961B169F1C2436AB0034C463 /* smallClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961B169D1C2436AB0034C463 /* smallClassCell.swift */; };
 		961B16A01C2436AB0034C463 /* smallClassCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 961B169E1C2436AB0034C463 /* smallClassCell.xib */; };
+		9626475A1C58EA77003CC7EE /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 962647561C58EA77003CC7EE /* MBProgressHUD+MJ.m */; };
+		9626475B1C58EA77003CC7EE /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 962647571C58EA77003CC7EE /* MBProgressHUD.bundle */; };
+		9626475C1C58EA77003CC7EE /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 962647591C58EA77003CC7EE /* MBProgressHUD.m */; };
 		9627A8521C4F38D800B7FEF8 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9627A8451C4F38CD00B7FEF8 /* Alamofire.framework */; };
 		9627A8531C4F38D800B7FEF8 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9627A8451C4F38CD00B7FEF8 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		964F47CE1C21158400C4435D /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964F47CD1C21158400C4435D /* Model.swift */; };
@@ -420,11 +420,6 @@
 		043B85C81C4DD7F5009EAB79 /* OrderInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderInfoController.swift; sourceTree = "<group>"; };
 		043B85CD1C4E30DF009EAB79 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		043B85CE1C4E30DF009EAB79 /* WebImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebImage.h; sourceTree = "<group>"; };
-		04795E501C5867FF00336F41 /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
-		04795E511C5867FF00336F41 /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
-		04795E521C5867FF00336F41 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
-		04795E531C5867FF00336F41 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		04795E541C5867FF00336F41 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		047A5F1E1C14519C004FA20F /* MainMeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMeViewController.swift; sourceTree = "<group>"; };
 		047A5F211C145424004FA20F /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
 		047A5F221C145424004FA20F /* cityData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cityData.plist; sourceTree = "<group>"; };
@@ -708,6 +703,11 @@
 		961B169A1C242AAB0034C463 /* SortModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SortModel.swift; path = SortModel/SortModel.swift; sourceTree = "<group>"; };
 		961B169D1C2436AB0034C463 /* smallClassCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = smallClassCell.swift; sourceTree = "<group>"; };
 		961B169E1C2436AB0034C463 /* smallClassCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = smallClassCell.xib; sourceTree = "<group>"; };
+		962647551C58EA77003CC7EE /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
+		962647561C58EA77003CC7EE /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
+		962647571C58EA77003CC7EE /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
+		962647581C58EA77003CC7EE /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		962647591C58EA77003CC7EE /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		9627A83A1C4F38CC00B7FEF8 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Alamofire.xcodeproj; sourceTree = "<group>"; };
 		964F47CD1C21158400C4435D /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		965B38861C1959AB006594BE /* IitemSearchResultViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IitemSearchResultViewCell.swift; sourceTree = "<group>"; };
@@ -823,19 +823,6 @@
 			name = WebImage;
 			path = Demo/extension/WebImage;
 			sourceTree = SOURCE_ROOT;
-		};
-		04795E4F1C5867FF00336F41 /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				04795E501C5867FF00336F41 /* MBProgressHUD+MJ.h */,
-				04795E511C5867FF00336F41 /* MBProgressHUD+MJ.m */,
-				04795E521C5867FF00336F41 /* MBProgressHUD.bundle */,
-				04795E531C5867FF00336F41 /* MBProgressHUD.h */,
-				04795E541C5867FF00336F41 /* MBProgressHUD.m */,
-			);
-			name = MBProgressHUD;
-			path = ../../../../../../Downloads/MBProgressHUD;
-			sourceTree = "<group>";
 		};
 		047A5F201C145424004FA20F /* Json1 */ = {
 			isa = PBXGroup;
@@ -1079,7 +1066,7 @@
 		04CF8DE51C144FDB00512979 /* extension */ = {
 			isa = PBXGroup;
 			children = (
-				04795E4F1C5867FF00336F41 /* MBProgressHUD */,
+				962647541C58EA77003CC7EE /* MBProgressHUD */,
 				048E22531C5648A200E7096B /* MZTimerLabel */,
 				960512491C54B6570021BDE4 /* pop.xcodeproj */,
 				048E21F41C530BF100E7096B /* APParallaxHeader */,
@@ -1710,6 +1697,18 @@
 			name = sortModel;
 			sourceTree = "<group>";
 		};
+		962647541C58EA77003CC7EE /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				962647551C58EA77003CC7EE /* MBProgressHUD+MJ.h */,
+				962647561C58EA77003CC7EE /* MBProgressHUD+MJ.m */,
+				962647571C58EA77003CC7EE /* MBProgressHUD.bundle */,
+				962647581C58EA77003CC7EE /* MBProgressHUD.h */,
+				962647591C58EA77003CC7EE /* MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 		9627A83B1C4F38CC00B7FEF8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1996,6 +1995,7 @@
 				04CF8DD61C144FB400512979 /* ShakeViewController.xib in Resources */,
 				047A5F4C1C145424004FA20F /* Sort.storyboard in Resources */,
 				04CF8ECE1C144FDB00512979 /* LICENSE in Resources */,
+				9626475B1C58EA77003CC7EE /* MBProgressHUD.bundle in Resources */,
 				04CF8F151C144FDB00512979 /* UMSCommentDetailController.xib in Resources */,
 				04CF8F131C144FDB00512979 /* UMSocialLocalizable.strings in Resources */,
 				965B38891C1959AB006594BE /* IitemSearchResultViewCell.xib in Resources */,
@@ -2003,7 +2003,6 @@
 				047A5F401C145424004FA20F /* GoodSizeTableCell.xib in Resources */,
 				04CF8F2A1C14507A00512979 /* My.storyboard in Resources */,
 				96E829FE1C15683800247660 /* ItemContentView.xib in Resources */,
-				04795E561C5867FF00336F41 /* MBProgressHUD.bundle in Resources */,
 				04CF8D651C144DAE00512979 /* LaunchScreen.storyboard in Resources */,
 				04CF8DCE1C144FB400512979 /* MyCenterViewController.xib in Resources */,
 				04CF8F171C144FDB00512979 /* UMSCommentInputControlleriPad.xib in Resources */,
@@ -2106,8 +2105,8 @@
 				04CF8EF71C144FDB00512979 /* ConstraintMaker.swift in Sources */,
 				04CF8EC51C144FDB00512979 /* AFSecurityPolicy.m in Sources */,
 				048E22321C5318B100E7096B /* APParallaxHeader-dummy.m in Sources */,
-				04795E571C5867FF00336F41 /* MBProgressHUD.m in Sources */,
 				04CF8D601C144DAE00512979 /* Demo.xcdatamodeld in Sources */,
+				9626475C1C58EA77003CC7EE /* MBProgressHUD.m in Sources */,
 				960FC0FD1C1560E100F0580D /* ContentView.swift in Sources */,
 				04CF8EF51C144FDB00512979 /* ConstraintDescription.swift in Sources */,
 				04CF8EFA1C144FDB00512979 /* EdgeInsets.swift in Sources */,
@@ -2150,6 +2149,7 @@
 				96C83E8A1C1975CA0075A204 /* Pitaya.swift in Sources */,
 				04CF8F001C144FDB00512979 /* String+wnxString.swift in Sources */,
 				96C83E8B1C1975CA0075A204 /* PitayaManager+NSURLSessionDelegate.swift in Sources */,
+				9626475A1C58EA77003CC7EE /* MBProgressHUD+MJ.m in Sources */,
 				047A5F3F1C145424004FA20F /* GoodSizeTableCell.swift in Sources */,
 				04CF8F111C144FDB00512979 /* UIWebView+AFNetworking.m in Sources */,
 				04CF8EE21C144FDB00512979 /* RegExCategories.m in Sources */,
@@ -2201,7 +2201,6 @@
 				96C83E8E1C1975CA0075A204 /* String+Base64.swift in Sources */,
 				96BCBC5C1C5874220028CA42 /* LikeTableViewCell.swift in Sources */,
 				96C83E8F1C1975CA0075A204 /* String+NSData.swift in Sources */,
-				04795E551C5867FF00336F41 /* MBProgressHUD+MJ.m in Sources */,
 				04CF8EC91C144FDB00512979 /* AFURLSessionManager.m in Sources */,
 				960929751C4CDD68006BE59E /* something'.swift in Sources */,
 				04CF8EF11C144FDB00512979 /* UIImageView+WebCache.m in Sources */,

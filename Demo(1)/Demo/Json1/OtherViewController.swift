@@ -31,6 +31,47 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
     var screenWidth = Int(UIScreen.mainScreen().bounds.width)
     var photoCur: Int = 0
     var titleForView: String?
+    var address: String!
+    var itemNo:String!{
+        didSet{
+            HTTPManager.POST(ContentType.ItemDetail, params: ["itemno":itemNo,"address":address!]).responseJSON({ (json) -> Void in
+                let dict = json["detail"] as! [String: AnyObject]
+                let model = GoodDetail()
+                var arry = json["comment"] as? NSArray
+                
+                model.comments = [Comment]()
+                for var x in arry!{
+                    var xx = x as! [String: AnyObject]
+                    model.comments?.append(Comment(content: xx["comment"] as? String, date: xx["commentDate"] as? String, userName: xx["custNo"] as? String))
+                }
+                model.barcode = dict["barcode"] as? String
+                model.eshopIntegral = dict["eshopIntegral"] as! Int
+                model.itemBynum1 = dict["itemBynum1"] as! String
+                model.itemName = dict["itemName"] as! String
+                model.itemNo = dict["itemNo"] as! String
+                model.itemSalePrice = dict["itemSalePrice"] as! String
+                arry = json["stocks"] as? NSArray
+                model.itemStocks = [ItemStock]()
+                for var x in arry!{
+                    var xx = x as! [String: AnyObject]
+                    model.itemStocks.append(ItemStock(name: xx["shopName"] as? String, qty: xx["stockQty"] as? Int))
+                }
+                
+                arry = dict["itemUnits"] as! NSArray
+                model.itemUnits = [ItemUnit]()
+                for var x in arry!{
+                    var xx = x as! [String: AnyObject]
+                   model.itemUnits.append(ItemUnit(salePrice: xx["itemSalePrice"] as? String , sizeName: xx["itemSize"] as? String))
+                }
+                
+                model.imageDetail = json["imageDetail"] as! [String]
+                model.imageTop = json["imageTop"] as! [String]
+                self.item = model
+                }) { (error) -> Void in
+                    print("发生了错误: " + (error?.localizedDescription)!)
+            }
+        }
+    }
     var item: GoodDetail?{
         didSet{
             sumCountForSizeChoose = (item?.itemUnits.count)!
@@ -105,6 +146,10 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
         }
     }
     
+    deinit{
+        print("被销毁")
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -163,11 +208,9 @@ extension OtherViewController{
         if(UserAccountTool.userIsLogin() == false){
             ButtonLiked.selected = false
         }else{
-            if(CollectionModel.CollectionCenter.find((item?.itemNo)!)){
-                ButtonLiked.selected = true
-            }else{
-                ButtonLiked.selected = false
-            }
+            CollectionModel.CollectionCenter.find((item?.itemNo)!, success: { (flag) -> Void in
+                self.ButtonLiked.selected = flag == "Y" ?? false
+            })
         }
     }
     
