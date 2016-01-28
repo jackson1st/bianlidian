@@ -22,7 +22,10 @@ class ContentView: UIView {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/master
 =======
 >>>>>>> origin/master
     

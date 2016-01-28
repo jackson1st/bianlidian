@@ -84,7 +84,10 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
             data.append(arr)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             self.viewDidLoad()
+=======
+>>>>>>> origin/master
 =======
 >>>>>>> origin/master
 =======
@@ -119,8 +122,11 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
         }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         changeButtonLikedState()
         changeButtonAddState()
+=======
+>>>>>>> origin/master
 =======
 >>>>>>> origin/master
 =======
