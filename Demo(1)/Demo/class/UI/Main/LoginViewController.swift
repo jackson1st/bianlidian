@@ -164,10 +164,10 @@ extension  LoginViewController {
             }
             if(infomation!["status"] as? String == "success") {
                 
-                let custNo = infomation!["custNo"] as? String
-                let userName = infomation!["userName"] as? String
-                let imageUrl = infomation!["imageUrl"] as? String
-                let integral = infomation!["integral"] as? Int
+                let custNo = infomation!["userInfo"]!["custNo"] as? String
+                let userName = infomation!["userInfo"]!["username"] as? String
+                let imageUrl = infomation!["userInfo"]!["imageUrl"] as? String
+                let integral = infomation!["userInfo"]!["integral"] as? Int
                 UserAccountTool.setUserInfo(userName!, passWord: passWord, custNo: custNo!, userName: userName!, imageUrl: imageUrl!, integral: integral!)
                 MBProgressHUD.hideHUD()
                 return

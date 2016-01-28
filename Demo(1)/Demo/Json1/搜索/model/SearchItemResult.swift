@@ -10,15 +10,6 @@ import UIKit
 
 class SearchItemResult: NSObject {
     
-    /**
-    brandName = "\U96f7\U67cf";
-    eshopIntegral = "<null>";
-    itemBynum1 = "1650\U4eba";
-    itemName = "j\U673a\U68b0\U952e\U76d8";
-    itemNo = 10001;
-    itemSalePrice = "\U00a546.50";
-    url = "http://192.168.199.242:8080/BSMD/Android/image/index_img_i4.png";
-    */
     var brandName: String?
     var eshopIntegral: Double?
     var name: String?
@@ -37,4 +28,6 @@ class SearchItemResult: NSObject {
         self.eshopIntegral = eshopIntegral == nil ? 0:eshopIntergral
         self.imgurl = url == nil ? "无":url
     }
+    
+    
 }

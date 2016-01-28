@@ -202,6 +202,7 @@ extension SortViewController: UICollectionViewDelegateFlowLayout,UICollectionVie
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let vc = SearcherResultViewController()
         vc.address = address
+        vc.findByClass = true
         vc.keyForSearchResult = smallCalsses[indexPath.row].name
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)

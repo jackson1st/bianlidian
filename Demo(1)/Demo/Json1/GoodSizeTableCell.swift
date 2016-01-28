@@ -30,6 +30,9 @@ class GoodSizeTableCell: UITableViewCell {
                 cur++
                 button.frame.origin = CGPoint(x: sx,y: sy)
                 button.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
+                button.layer.cornerRadius = 4
+                button.layer.borderColor = UIColor.lightGrayColor().CGColor
+                button.layer.borderWidth = 0.6
                 buttonView.addSubview(button)
                 sx += button.frame.width + 5
             }
@@ -42,15 +45,19 @@ class GoodSizeTableCell: UITableViewCell {
     func buttonClicked(sender: AnyObject?){
         let buttonTag = (sender as! UIButton).tag
         var flag = 0
+    
         for var button in buttons!{
             if(button.tag != buttonTag){
                 button.selected = false
+                button.layer.borderColor = UIColor.lightGrayColor().CGColor
             }else{
                 if(button.selected != true){
                     button.selected = true
+                    button.layer.borderColor = UIColor.colorWith(242, green: 48, blue: 58, alpha: 1).CGColor
                     flag = 1
                 }else{
                     button.selected = false
+                    button.layer.borderColor = UIColor.lightGrayColor().CGColor
                 }
                 
             }

@@ -171,6 +171,7 @@ class JFShoppingCartViewController: UIViewController{
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Plain, target: self, action: "didTappedBackButton")
             self.tabBarController!.tabBar.hidden = true
         }
+        
         let clearView: UIView = UIView()
         clearView.backgroundColor = UIColor.clearColor()
         tableView.tableFooterView = clearView

@@ -11,9 +11,12 @@ import UIKit
 class SearcherResultViewController: SearcherViewController {
 
     var ViewChooseType: UIView!
+    var findByClass:Bool = false
+    var index = 1
+    var count = 20
     var keyForSearchResult: String!{
         didSet{
-            HTTPManager.POST(ContentType.SearchResultListByItemName, params: ["address": address, "itemname": keyForSearchResult]).responseJSON({ (json) -> Void in
+            HTTPManager.POST(ContentType.SearchResultListByItemName, params: ["address": address, findByClass ? "classname":"itemname": keyForSearchResult]).responseJSON({ (json) -> Void in
                 print(json)
                 self.data.removeAll()
                 var Json = json["itemlist"] as! NSDictionary
@@ -36,7 +39,8 @@ class SearcherResultViewController: SearcherViewController {
     var orderstyle: Bool?
     var ordercondition: String?
     var pageindex = 0
-    
+    var button1,button2,button3:UIButton!
+    var arrowLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,32 +65,45 @@ class SearcherResultViewController: SearcherViewController {
     }
     
     func ButtonTypeClicked(sender: AnyObject){
-        print(sender.tag)
         data.removeAll()
         switch(sender.tag){
         case 102:
-            if(ordercondition == "item_bynum1"){
-                if(orderstyle == false){
-                    orderstyle = true
-                }else{
-                    orderstyle = false
-                }
-            }else{
-                ordercondition = "item_bynum1"
-                orderstyle = true
-            }
+            button1.selected = false
+            button2.selected = true
+            button3.selected = false
+            button3.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+            arrowLabel.textColor = UIColor.lightGrayColor()
+            ordercondition = "item_bynum1"
+            orderstyle = false
         case 103:
+            if(button3.selected == false){
+                button1.selected = false
+                button2.selected = false
+                button3.selected = true
+            }
             if(ordercondition == "item_sale_price"){
                 if(orderstyle == false){
                     orderstyle = true
                 }else{
                     orderstyle = false
                 }
+            let transform = CGAffineTransformRotate(arrowLabel.transform, CGFloat(M_PI))
+                UIView.animateWithDuration(0.3, animations: { () -> Void in
+                    self.arrowLabel.transform = transform
+                })
+                
             }else{
-                ordercondition = "item_bynum1"
+                ordercondition = "item_sale_price"
                 orderstyle = true
+                button3.setTitleColor(UIColor.colorWith(245, green: 77, blue: 86, alpha: 1), forState: .Normal)
+                arrowLabel.textColor = UIColor.colorWith(245, green: 77, blue: 86, alpha: 1)
             }
         default:
+            button1.selected = true
+            button2.selected = false
+            button3.selected = false
+            button3.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+            arrowLabel.textColor = UIColor.lightGrayColor()
             ordercondition = "none"
         }
         loadData()
@@ -100,7 +117,7 @@ extension SearcherResultViewController{
     func loadData(){
         if(ordercondition == "none"){
             
-            HTTPManager.POST(ContentType.SearchResultListByItemName, params: ["address": address, "itemname": keyForSearchResult]).responseJSON({ (json) -> Void in
+            HTTPManager.POST(ContentType.SearchResultListByItemName, params: ["address": address, findByClass ? "classname":"itemname": keyForSearchResult]).responseJSON({ (json) -> Void in
                 print(json)
                 var Json = json["itemlist"] as! NSDictionary
                 let arr = Json["list"] as! [NSDictionary]
@@ -115,7 +132,7 @@ extension SearcherResultViewController{
 
         }else{
             
-            HTTPManager.POST(ContentType.SearchResultListByItemName, params: ["address": address, "name": keyForSearchResult, "pageindex": "1","pagecount":"10","ordercondition": ordercondition!, "orderstyle": orderstyle == true ? "asc" : "desc"]).responseJSON({ (json) -> Void in
+            HTTPManager.POST(ContentType.SearchResultListByItemName, params: ["address": address, findByClass ? "classname":"itemname": keyForSearchResult, "pageindex": "1","pagecount":"10","ordercondition": ordercondition!, "orderstyle": orderstyle == true ? "asc" : "desc"]).responseJSON({ (json) -> Void in
                 let arr = (json["itemlist"] as! NSDictionary)["list"] as! [NSDictionary]
                 print(arr)
                 for var x in arr{
@@ -159,20 +176,20 @@ extension SearcherResultViewController{
             make.top.equalTo(view).offset(64)
             make.left.equalTo(view)
             make.width.equalTo(view)
-            make.height.equalTo(30)
+            make.height.equalTo(40)
         }
         ViewChooseType.backgroundColor = UIColor.whiteColor()
         ViewChooseType.layoutIfNeeded()
-        //ViewChooseType.backgroundColor = UIColor.blackColor()
-        let width = ViewChooseType.width/4
-        var button1 = UIButton()
-        button1.setTitle("全部", forState: .Normal)
-        button1.setTitleColor(UIColor.blackColor(), forState: .Normal)
-       // button1.setTitleColor(UIColor.colorWith(245, green: 77, blue: 86, alpha: 1), forState: .Selected)
-        var view1 = UIView()
+        let width = ViewChooseType.width/3
+         button1 = UIButton()
+        button1.setTitle("综合", forState: .Normal)
+        button1.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+        button1.setTitleColor(UIColor.colorWith(245, green: 77, blue: 86, alpha: 1), forState: .Selected)
+        button1.selected = true
+        let view1 = UIView()
         button1.addSubview(view1)
         view1.translatesAutoresizingMaskIntoConstraints = false
-        view1.backgroundColor = UIColor.blackColor()
+        view1.backgroundColor = UIColor.lightGrayColor()
         view1.snp_makeConstraints { (make) -> Void in
             make.height.equalTo(button1)
             make.right.equalTo(button1)
@@ -190,15 +207,15 @@ extension SearcherResultViewController{
         button1.tag = 101
         button1.addTarget(self, action: "ButtonTypeClicked:", forControlEvents: .TouchUpInside)
         
-        var button2 = UIButton()
+         button2 = UIButton()
         button2.translatesAutoresizingMaskIntoConstraints = false
         button2.setTitle("销量", forState: .Normal)
-        button2.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        button2.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
         button2.setTitleColor(UIColor.colorWith(245, green: 77, blue: 86, alpha: 1), forState: .Selected)
-        var view2 = UIView()
+        let view2 = UIView()
         button2.addSubview(view2)
         view2.translatesAutoresizingMaskIntoConstraints = false
-        view2.backgroundColor = UIColor.blackColor()
+        view2.backgroundColor = UIColor.lightGrayColor()
         view2.snp_makeConstraints { (make) -> Void in
             make.height.equalTo(button2)
             make.right.equalTo(button2)
@@ -215,21 +232,11 @@ extension SearcherResultViewController{
         button2.tag = 102
         button2.addTarget(self, action: "ButtonTypeClicked:", forControlEvents: .TouchUpInside)
         
-        var button3 = UIButton()
+         button3 = UIButton()
         button3.translatesAutoresizingMaskIntoConstraints = false
         button3.setTitle("价格", forState: .Normal)
-        button3.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        button3.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
         button3.setTitleColor(UIColor.colorWith(245, green: 77, blue: 86, alpha: 1), forState: .Selected)
-        var view3 = UIView()
-        button3.addSubview(view3)
-        view3.translatesAutoresizingMaskIntoConstraints = false
-        view3.backgroundColor = UIColor.blackColor()
-        view3.snp_makeConstraints { (make) -> Void in
-            make.height.equalTo(button3)
-            make.right.equalTo(button3)
-            make.width.equalTo(1)
-            make.centerY.equalTo(button3)
-        }
         ViewChooseType.addSubview(button3)
         button3.snp_makeConstraints { (make) -> Void in
             make.width.equalTo(width)
@@ -239,31 +246,29 @@ extension SearcherResultViewController{
         }
         button3.tag = 103
         button3.addTarget(self, action: "ButtonTypeClicked:", forControlEvents: .TouchUpInside)
+        arrowLabel = UILabel()
+        arrowLabel.translatesAutoresizingMaskIntoConstraints = false
+        arrowLabel.text = "▲"
+        arrowLabel.textColor = UIColor.lightGrayColor()
+        arrowLabel.textAlignment = .Center
+        arrowLabel.font = UIFont.systemFontOfSize(8)
+        ViewChooseType.addSubview(arrowLabel)
+        arrowLabel.snp_makeConstraints { (make) -> Void in
+            make.left.equalTo(button3).offset(width/2 + 19)
+            make.centerY.equalTo(ViewChooseType).offset(-2)
+            make.width.equalTo(10)
+            make.height.equalTo(10)
+        }
         
-        var button4 = UIButton()
-        button4.translatesAutoresizingMaskIntoConstraints = false
-        button4.setTitle("店铺", forState: .Normal)
-        button4.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        button4.setTitleColor(UIColor.colorWith(245, green: 77, blue: 86, alpha: 1), forState: .Selected)
-        var view4 = UIView()
-        button4.addSubview(view4)
-        view4.translatesAutoresizingMaskIntoConstraints = false
-        view4.backgroundColor = UIColor.blackColor()
-        view4.snp_makeConstraints { (make) -> Void in
-            make.height.equalTo(button4)
-            make.right.equalTo(button4)
-            make.centerY.equalTo(button4)
-            make.width.equalTo(1)
+        let viewLine = UIView()
+        ViewChooseType.addSubview(viewLine)
+        viewLine.backgroundColor = UIColor.lightGrayColor()
+        viewLine.snp_makeConstraints { (make) -> Void in
+            make.height.equalTo(0.5)
+            make.bottom.equalTo(ViewChooseType).offset(-0.5)
+            make.width.equalTo(ViewChooseType)
+            make.centerX.equalTo(ViewChooseType)
         }
-        ViewChooseType.addSubview(button4)
-        button4.snp_makeConstraints { (make) -> Void in
-            make.width.equalTo(width)
-            make.height.equalTo(20)
-            make.left.equalTo(button3.snp_right)
-            make.centerY.equalTo(ViewChooseType)
-        }
-        button4.tag = 104
-        button4.addTarget(self, action: "ButtonTypeClicked:", forControlEvents: .TouchUpInside)
     }
     
     func initTabelView(){
@@ -286,6 +291,9 @@ extension SearcherResultViewController{
             make.width.equalTo(view)
             make.bottom.equalTo(view)
         }
+        let clearView = UIView()
+        clearView.backgroundColor = UIColor.clearColor()
+        tableView.tableFooterView = clearView
     }
     
 }
@@ -335,59 +343,11 @@ extension SearcherResultViewController{
         
         if(tableView.tag == 101){
             let itemno = data[indexPath.row].No
-            let json: JSONND = ["itemno":itemno!,"address":address!]
-            
-            /**
-            *  获取商品详情
-            *
-            *  @param ContentType.ItemDetail 地址
-            *  @param
-            *  @param "address":address!]    json数组
-            *
-            *  @return 无
-            */
-            HTTPManager.POST(ContentType.ItemDetail, params: ["itemno":itemno!,"address":address!]).responseJSON({ (json) -> Void in
-                let dict = json["detail"] as! [String: AnyObject]
-                print(dict)
-                self.item = GoodDetail()
-                var arry = json["comment"] as? NSArray
-                self.item?.comments = [Comment]()
-                for var x in arry!{
-                    var xx = x as! [String: AnyObject]
-                    self.item?.comments?.append(Comment(content: xx["comment"] as? String, date: xx["commentDate"] as? String, userName: xx["custNo"] as? String))
-                }
-                self.item?.eshopIntegral = dict["eshopIntegral"] as! Int
-                self.item?.itemBynum1 = dict["itemBynum1"] as! String
-                self.item?.itemName = dict["itemName"] as! String
-                self.item?.itemNo = dict["itemNo"] as! String
-                self.item?.itemSalePrice = dict["itemSalePrice"] as! String
-                arry = json["stocks"] as! NSArray
-                self.item?.itemStocks = [ItemStock]()
-                for var x in arry!{
-                    var xx = x as! [String: AnyObject]
-                    self.item?.itemStocks.append(ItemStock(name: xx["shopName"] as? String, qty: (xx["stockQty"] as? Int)))
-                }
-                
-                arry = dict["itemUnits"] as! NSArray
-                print(arry)
-                self.item?.itemUnits = [ItemUnit]()
-                for var x in arry!{
-                    var xx = x as! [String: AnyObject]
-                    self.item?.itemUnits.append(ItemUnit(salePrice: xx["itemSalePrice"] as? String , sizeName: xx["itemSize"] as? String))
-                }
-                self.item?.imageDetail = json["imageDetail"] as! [String]
-                self.item?.imageTop = json["imageTop"] as! [String]
-                
-                let vc = UIStoryboard(name: "Home", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("itemDetail") as! OtherViewController
-                vc.item = self.item
-                //self.navigationController?.setNavigationBarHidden(true, animated: false)
-                self.navigationController?.pushViewController(vc, animated: true)
-                }) { (error) -> Void in
-                    print("发生了错误: " + (error?.localizedDescription)!)
-            }
-        }else{
-            super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
+            let vc = UIStoryboard(name: "Home", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("itemDetail") as! OtherViewController
+            vc.address = address
+            vc.itemNo = itemno
+            //self.navigationController?.setNavigationBarHidden(true, animated: false)
+            self.navigationController?.pushViewController(vc, animated: true)
         }
-        
     }
 }

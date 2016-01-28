@@ -82,6 +82,14 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
                 arr.append((item?.itemUnits[i].sizeName)!)
             }
             data.append(arr)
+<<<<<<< HEAD
+<<<<<<< HEAD
+            self.viewDidLoad()
+=======
+>>>>>>> origin/master
+=======
+>>>>>>> origin/master
+            viewDidLoad()
         }
     }
     var data = [[String]]()
@@ -106,8 +114,20 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
             return
         }
         super.viewDidLoad()
+        if(item == nil){
+            return
+        }
+<<<<<<< HEAD
+<<<<<<< HEAD
+        changeButtonLikedState()
+        changeButtonAddState()
+=======
+>>>>>>> origin/master
+=======
+>>>>>>> origin/master
         initAll()
         self.view.backgroundColor = UIColor.colorWith(243, green: 241, blue: 244, alpha: 1)
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     //购买数量
@@ -124,13 +144,8 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
         self.navigationController?.navigationBarHidden = true
         if(theme.isFirstLoad == true && UserAccountTool.userIsLogin()){
             starRefreshView()
-            Model.defaultModel.loadDataForNetWork({ () -> Void in
-                self.changeButtonAddState()
-                
-            })
-            
+            Model.defaultModel.loadDataForNetWork(nil)
             CollectionModel.CollectionCenter.loadDataFromNet(1, count: 10, success: nil, callback: { () -> Void in
-                self.changeButtonLikedState()
                 self.stopRefreshView()
                 theme.isFirstLoad = false
                 self.viewDidLoad()
@@ -138,11 +153,9 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
             
         }else{
             if(theme.isFirstLoad){
-                changeButtonLikedState()
-                changeButtonAddState()
+                theme.isFirstLoad = false
                 self.viewDidLoad()
             }
-            theme.isFirstLoad = false
         }
     }
     
@@ -150,14 +163,29 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
         print("被销毁")
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+}
+
+// MARK: - 右滑返回手势
+extension OtherViewController{
+    
+//    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+//        if(self.navigationController?.viewControllers.count == 1){
+//            
+//            return false
+//            
+//        }else{
+//            
+//            return true
+//            
+//        }
+//    }
 }
 
 // MARK: - 一些方法
@@ -245,7 +273,6 @@ extension OtherViewController{
         let story = UIStoryboard(name: "Main", bundle: nil)
         let vc = story.instantiateViewControllerWithIdentifier("shoppingCart") as! JFShoppingCartViewController
         vc.backButtonShow = true
-        self.navigationController?.navigationBarHidden = false
         self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
         
@@ -274,15 +301,12 @@ extension OtherViewController{
                 JFmodel.shopNameList.append(Shop(shopName:x.shopName!))
             }
             Model.defaultModel.addItem(JFmodel, success: { () -> Void in
-               
+               self.changeButtonAddState()
             })
-            changeButtonAddState()
             theme.refreshFlag = true
-            print(Model.defaultModel.shopCart.count)
         }
     }
     @IBAction func ButtonLikedClicked() {
-        print(ButtonLiked.state)
         if(UserAccountTool.userIsLogin() == false){
             SVProgressHUD.showInfoWithStatus("登录后才可以收藏哦！")
         }else{
@@ -318,7 +342,7 @@ extension OtherViewController{
         switch(sender.tag){
         case 101:
             //减
-            if(addNum>0){
+            if(addNum>1){
                 addNum--
             }
         default:
@@ -327,7 +351,6 @@ extension OtherViewController{
             }
         }
         labelAddNum.text = "\(addNum)"
-        labelAddNum.sizeToFit()
     }
     
 }
@@ -366,6 +389,7 @@ extension OtherViewController{
         var btn1 = UIButton()
         btn1.setTitle("-", forState: .Normal)
         btn1.setTitleColor(UIColor.blackColor() , forState: .Normal)
+        btn1.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Highlighted)
         btn1.layer.cornerRadius = 10
         btn1.layer.borderColor = UIColor.blackColor().CGColor
         btn1.layer.borderWidth = 0.3
@@ -380,6 +404,7 @@ extension OtherViewController{
         }
         
         labelAddNum = UILabel()
+        labelAddNum.font = UIFont.systemFontOfSize(15)
         labelAddNum.textColor = UIColor.blackColor()
         labelAddNum.textAlignment = .Center
         labelAddNum.text = "1"
@@ -395,7 +420,8 @@ extension OtherViewController{
         
         btn2.setTitle("+", forState: .Normal)
         btn2.setTitleColor(UIColor.blackColor() , forState: .Normal)
-        btn2.layer.cornerRadius = 10
+        btn2.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Highlighted)
+        btn2.layer.cornerRadius = 8
         btn2.layer.borderColor = UIColor.blackColor().CGColor
         btn2.layer.borderWidth = 0.3
         btn2.addTarget(self, action: "AddNum:", forControlEvents: .TouchUpInside)
@@ -457,7 +483,7 @@ extension OtherViewController{
     func initDetailView(){
         let nib = NSBundle.mainBundle().loadNibNamed("ItemContentView", owner: self, options: nil)
         detailView = nib[0] as! ContentView
-        detailView.setLabel(item?.itemName, price: item?.itemSalePrice, sco: "获得积分:" + "\((item?.eshopIntegral)!)", salesNum: item?.itemBynum1)
+        detailView.setLabel(item?.itemName, price: item?.itemSalePrice, sco: "积分:" + "\((item?.eshopIntegral)!)", salesNum: item?.itemBynum1)
         firstScrollView.addSubview(detailView)
         detailView.snp_makeConstraints { (make) -> Void in
             make.left.equalTo((pictureView?.snp_left)!).offset(0)
@@ -602,14 +628,14 @@ extension OtherViewController: UITableViewDelegate,UITableViewDataSource{
         var cell = tableView.dequeueReusableCellWithIdentifier("GoodSizeCell") as! GoodSizeTableCell
         var buttons = [UIButton]()
         for(var i = 1 ; i < data[indexPath.row].count ; i++ ){
-            let button = UIButton(type: .System)
+            let button = UIButton()
             button.setTitle(data[indexPath.row][i], forState: .Normal)
-            button.frame.size        = (data[indexPath.row][i] as NSString).sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(14.0)])
+            button.setTitle(data[indexPath.row][i], forState: .Selected)
+            button.frame.size        = (data[indexPath.row][i] as NSString).sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(15.0)])
             button.setTitleColor(UIColor.blackColor() , forState: .Normal)
-            button.titleLabel?.font  = UIFont.systemFontOfSize(14)
+            button.titleLabel?.font  = UIFont.systemFontOfSize(15)
             button.frame.size.width += 15
             button.frame.size.height += 5
-            button.setBackgroundImage(UIImage(named: "populartags"), forState: .Normal)
             buttons.append(button)
         }
         cell.sizeTag        = (indexPath.row+1)*100

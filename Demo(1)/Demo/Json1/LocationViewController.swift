@@ -25,6 +25,7 @@ class LocationViewController: UIViewController,UITableViewDelegate,UITableViewDa
     let httpManager = AFHTTPRequestOperationManager()
     override func viewDidLoad() {
         super.viewDidLoad()
+        textLable.text = "请选择您所在的地区"
         self.navigationController!.navigationBar.barTintColor = UIColor.colorWith(242, green: 48, blue: 58, alpha: 1)
         initHttp()
         initArr()
@@ -61,7 +62,6 @@ class LocationViewController: UIViewController,UITableViewDelegate,UITableViewDa
     }
     
     func initTitle(){
-        textLable.text = ""
         textLable.textColor = UIColor.whiteColor()
         let userDefault = NSUserDefaults.standardUserDefaults()
         if(userDefault.boolForKey("needSetLocation") == true){

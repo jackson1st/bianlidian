@@ -20,10 +20,13 @@ class ContentView: UIView {
     }
     
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/master
     
+>>>>>>> origin/master
     func initLabel(){
         LabelTItle = UILabel()
         LabelPrice = UILabel()
@@ -76,9 +79,9 @@ class ContentView: UIView {
     
     func setLabel(title: String!, price: String!, sco: String!,salesNum: String!){
         LabelTItle.text = title
-        LabelPrice.text = price
+        LabelPrice.text = "￥" + price
         LabelSco.text = sco
-        LabelSalesNum.text = salesNum
+        LabelSalesNum.text = salesNum + "人购买"
         self.layoutIfNeeded()
     }
     

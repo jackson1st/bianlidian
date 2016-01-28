@@ -13,11 +13,20 @@ class MyLikeViewController: UITableViewController {
     var index = 1
     var count = 10
     var Likes: [LikedModel]?
+    var itemVC: OtherViewController?
+    var address: String!
     override func viewDidLoad() {
         super.viewDidLoad()
+        let userDefault = NSUserDefaults.standardUserDefaults()
+        address = userDefault.stringForKey("firstLocation")! + "-" + userDefault.stringForKey("secondLocation")! + "-" + userDefault.stringForKey("thirdLocation")!
         initAll()
         tableView.backgroundColor = UIColor.colorWith(245, green: 245, blue: 245, alpha: 1)
         navigationItem.title = "我的收藏"
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        super.viewWillAppear(animated)
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,6 +42,7 @@ class MyLikeViewController: UITableViewController {
         
         if(Likes == nil){
             CollectionModel.CollectionCenter.loadDataFromNet(index, count: count, success: nil, callback: { () -> Void in
+                self.index++
                 self.Likes =  CollectionModel.CollectionCenter.Likes
                 self.tableView.reloadData()
             })
@@ -48,6 +58,14 @@ class MyLikeViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if(itemVC == nil){
+            itemVC = UIStoryboard(name: "Home", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("itemDetail") as! OtherViewController
+            itemVC?.address = address
+        }
+        itemVC?.itemNo = Likes![indexPath.row].no
+        self.navigationController?.pushViewController(itemVC!, animated: true)
+    }
 }
 extension MyLikeViewController{
     
@@ -63,7 +81,7 @@ extension MyLikeViewController{
     }
     
     func initHeaderRefresh(){
-        tableView.header = MJRefreshHeader(refreshingBlock: { () -> Void in
+        tableView.header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             self.getNewData({ () -> Void in
                 self.tableView.header.endRefreshing()
                 self.tableView.reloadData()
@@ -100,17 +118,27 @@ extension MyLikeViewController{
     }
     
     func initFootRefresh(){
-        tableView.footer = MJRefreshFooter(refreshingBlock: { () -> Void in
+        tableView.footer = MJRefreshAutoNormalFooter(refreshingBlock: { () -> Void in
             self.loadNewData({ () -> Void in
                 self.index++
                 self.tableView.footer.endRefreshing()
                 self.tableView.reloadData()
             })
         })
+        
+        //清楚多余的线
+        let iview = UIView()
+        iview.backgroundColor = UIColor.clearColor()
+        tableView.tableFooterView = iview
     }
     
     func loadNewData(callback: () -> Void){
         CollectionModel.CollectionCenter.loadDataFromNet(index, count: count, success: { (data) -> Void in
+            if(data.count == 0){
+                SVProgressHUD.showInfoWithStatus("已经没有更多数据了")
+            }else{
+                self.index++
+            }
             for var x in data{
                 CollectionModel.CollectionCenter.dict[x.no] = self.Likes!.count
                 self.Likes!.append(x)

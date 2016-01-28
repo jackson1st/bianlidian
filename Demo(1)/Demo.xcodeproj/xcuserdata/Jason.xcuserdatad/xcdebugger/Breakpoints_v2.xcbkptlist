@@ -9,44 +9,55 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Demo/Json1/OtherViewController.swift"
-            timestampString = "475584033.03228"
+<<<<<<< HEAD
+            filePath = "Demo/Json1/SearcherResultViewController.swift"
+            timestampString = "475638055.490139"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "SearcherResultViewController"
+            landmarkType = "3">
+=======
+            filePath = "Demo/Json1/OtherViewController.swift"
+            timestampString = "475591767.68988"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "viewWillAppear(_:)"
             landmarkType = "5">
+>>>>>>> origin/master
             <Locations>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Demo.OtherViewController.viewWillAppear (Demo.OtherViewController)(Swift.Bool) -&gt; ()"
+                  symbolName = "Demo.SearcherResultViewController.keyForSearchResult.didset : Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;"
                   moduleName = "Demo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Library/Mobile%20Documents/com~apple~CloudDocs/bianlidian/Demo(1)/Demo/Json1/OtherViewController.swift"
-                  timestampString = "475470914.057259"
+                  urlString = "file:///Users/jason/Documents/bianlidian/Demo(1)/Demo/Json1/SearcherResultViewController.swift"
+                  timestampString = "475637772.109646"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "83"
-                  endingLineNumber = "83"
-                  offsetFromSymbolStart = "567">
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "53">
                </Location>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Demo.OtherViewController.(viewWillAppear (Demo.OtherViewController) -&gt; (Swift.Bool) -&gt; ()).(closure #1)"
+                  symbolName = "Demo.SearcherResultViewController.(keyForSearchResult.didset : Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;).(closure #1)"
                   moduleName = "Demo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Library/Mobile%20Documents/com~apple~CloudDocs/bianlidian/Demo(1)/Demo/Json1/OtherViewController.swift"
-                  timestampString = "475470914.057476"
+                  urlString = "file:///Users/jason/Documents/bianlidian/Demo(1)/Demo/Json1/SearcherResultViewController.swift"
+                  timestampString = "475637772.109885"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "84"
-                  endingLineNumber = "84"
-                  offsetFromSymbolStart = "12">
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "35">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -57,12 +68,21 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Demo/Json1/OtherViewController.swift"
-            timestampString = "475584033.03228"
+<<<<<<< HEAD
+            filePath = "Demo/Json1/LocationViewController.swift"
+            timestampString = "475640206.929298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "viewDidLoad()"
+=======
+            filePath = "Demo/Json1/OtherViewController.swift"
+            timestampString = "475591767.68988"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
             landmarkName = "viewWillAppear(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +94,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/OtherViewController.swift"
-            timestampString = "475584033.03228"
+            timestampString = "475591767.68988"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "viewWillAppear(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,12 +110,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/OtherViewController.swift"
-            timestampString = "475585695.924928"
+            timestampString = "475591767.68988"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "289"
-            endingLineNumber = "289"
+            startingLineNumber = "293"
+            endingLineNumber = "293"
             landmarkName = "ButtonLikedClicked()"
+>>>>>>> origin/master
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -105,12 +126,24 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Demo/Json1/OtherViewController.swift"
-            timestampString = "475584033.03228"
+<<<<<<< HEAD
+            filePath = "Demo/Json1/SearcherResultViewController.swift"
+            timestampString = "475649111.390274"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "ButtonTypeClicked(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+=======
+            filePath = "Demo/Json1/OtherViewController.swift"
+            timestampString = "475591767.68988"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
             landmarkName = "viewWillAppear(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -122,11 +155,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/OtherViewController.swift"
-            timestampString = "475585695.924928"
+            timestampString = "475591767.68988"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
+            startingLineNumber = "359"
+            endingLineNumber = "359"
             landmarkName = "initViewAddNum()"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,11 +203,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/OtherViewController.swift"
-            timestampString = "475585695.924928"
+            timestampString = "475591767.68988"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "285"
-            endingLineNumber = "285"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
             landmarkName = "ButtonLikedClicked()"
             landmarkType = "5">
          </BreakpointContent>
@@ -314,11 +347,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/OtherViewController.swift"
-            timestampString = "475585695.924928"
+            timestampString = "475591767.68988"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "460"
-            endingLineNumber = "460"
+            startingLineNumber = "464"
+            endingLineNumber = "464"
             landmarkName = "initDetailView()"
             landmarkType = "5">
          </BreakpointContent>
@@ -330,30 +363,18 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Demo/Json1/OtherViewController.swift"
-            timestampString = "475585695.924928"
+            timestampString = "475591767.68988"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "535"
-            endingLineNumber = "535"
+            startingLineNumber = "539"
+            endingLineNumber = "539"
             landmarkName = "initSizeView()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Demo/Json1/ContentView.swift"
-            timestampString = "475586549.053193"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "ContentView"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
+>>>>>>> origin/master
    </Breakpoints>
 </Bucket>
