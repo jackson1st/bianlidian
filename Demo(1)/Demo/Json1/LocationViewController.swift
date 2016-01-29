@@ -26,8 +26,6 @@ class LocationViewController: UIViewController,UITableViewDelegate,UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         textLable.text = "请选择您所在的地区"
-        self.navigationController!.navigationBar.barTintColor = UIColor.colorWith(242, green: 48, blue: 58, alpha: 1)
-        initHttp()
         initArr()
         initView()
         initTitle()
@@ -40,15 +38,9 @@ class LocationViewController: UIViewController,UITableViewDelegate,UITableViewDa
     //MARK: - 一些初始化操作
     
     
-    func initHttp(){
-        httpManager .responseSerializer = AFJSONResponseSerializer()
-        httpManager.requestSerializer = AFJSONRequestSerializer()
-    }
-    
     func initArr(){
         //manager2.responseSerializer.acceptableContentTypes = NSSet(object: "appliaction/json") as Set<NSObject>
         let parameter = ["city":"Null","county":"Null"]
-    
         
         HTTPManager.POST(ContentType.Location, params: parameter).responseJSON({ (json) -> Void in
             
@@ -83,6 +75,7 @@ class LocationViewController: UIViewController,UITableViewDelegate,UITableViewDa
         firstTableView?.dataSource = self
         firstTableView?.tag = 101
         scrollView.addSubview(firstTableView!)
+        
         secondTableView = UITableView(frame: CGRect(x: width, y: -65, width: width, height: UIScreen.mainScreen().bounds.height-64-25), style: UITableViewStyle.Plain)
         secondTableView?.delegate = self
         secondTableView?.dataSource = self
@@ -93,6 +86,18 @@ class LocationViewController: UIViewController,UITableViewDelegate,UITableViewDa
         thirdTableView?.dataSource = self
         thirdTableView?.tag = 103
         scrollView.addSubview(thirdTableView!)
+        
+        let view1 = UIView()
+        view1.backgroundColor = UIColor.clearColor()
+        firstTableView?.tableFooterView = view1
+        
+        let view2 = UIView()
+        view2.backgroundColor = UIColor.clearColor()
+        secondTableView?.tableFooterView = view2
+        
+        let view3 = UIView()
+        view3.backgroundColor = UIColor.clearColor()
+        thirdTableView?.tableFooterView = view3
     }
     
     //MARK: - 实现代理

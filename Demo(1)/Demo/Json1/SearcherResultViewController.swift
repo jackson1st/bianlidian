@@ -16,19 +16,8 @@ class SearcherResultViewController: SearcherViewController {
     var count = 20
     var keyForSearchResult: String!{
         didSet{
-            HTTPManager.POST(ContentType.SearchResultListByItemName, params: ["address": address, findByClass ? "classname":"itemname": keyForSearchResult]).responseJSON({ (json) -> Void in
-                print(json)
-                self.data.removeAll()
-                var Json = json["itemlist"] as! NSDictionary
-                let arr = Json["list"] as! [NSDictionary]
-                for var x in arr{
-                    self.data.append(SearchItemResult(no: x["itemNo"] as? String,name: x["itemName"] as? String, itemByNum: x["itemBynum1"] as? String, price: x["itemSalePrice"] as? String, brandName: x["brandName"] as? String, eshopIntergral: x["eshopIntegral"] as? Double, url: x["url"] as? String))
-                }
-                self.tableView.reloadData()
-                }) { (error) -> Void in
-                    print("发生了错误: " + (error?.localizedDescription)!)
-            }
-            
+            ordercondition = "none"
+            loadData()
         }
     }
     var data = [SearchItemResult]()
@@ -111,38 +100,66 @@ class SearcherResultViewController: SearcherViewController {
     
 }
 
+// MARK: - 数据相关操作
+extension SearcherResultViewController{
+    
+    /**
+    请求销量或者价格排序的数据
+    
+    - parameter index:   开始的页数
+    - parameter count:   请求多少个
+    - parameter success: 回调
+    */
+    func loadData(index: Int,count:Int,success:(data:[SearchItemResult]) -> Void){
+        
+        let parameter1 = ["address": address, findByClass ? "propertyname":"itemname": keyForSearchResult, "pageindex":index,"pagecount":count,"ordercondition": ordercondition!, "orderstyle": orderstyle == true ? "asc" : "desc"] as  [String: AnyObject]
+        let parameter2 = ["address": address, findByClass ? "propertyname":"itemname": keyForSearchResult, "pageindex":index,"pagecount":count] as [String: AnyObject]
+        HTTPManager.POST(ContentType.SearchResultListByItemName, params: self.ordercondition == "none" ? parameter2 : parameter1).responseJSON({ (json) -> Void in
+            print(json)
+            
+            var data = [SearchItemResult]()
+            let Json = json["itemlist"] as! NSDictionary
+            let arr = Json["list"] as! [NSDictionary]
+            let size = Json["pageSize"] as! Int
+            if(index <= size){
+                self.index = index
+                for var x in arr{
+                    data.append(SearchItemResult(no: x["itemNo"] as? String,name: x["itemName"] as? String, itemByNum: x["itemBynum1"] as? String, price: x["itemSalePrice"] as? String, brandName: x["brandName"] as? String, eshopIntergral: x["eshopIntegral"] as? Double, url: x["url"] as? String))
+                }
+            }
+            success(data: data)
+            }) { (error) -> Void in
+                print("发生了错误: " + (error?.localizedDescription)!)
+        }
+    }
+    
+}
+
 // MARK: - 一些操作方法
 extension SearcherResultViewController{
     
     func loadData(){
-        if(ordercondition == "none"){
-            
-            HTTPManager.POST(ContentType.SearchResultListByItemName, params: ["address": address, findByClass ? "classname":"itemname": keyForSearchResult]).responseJSON({ (json) -> Void in
-                print(json)
-                var Json = json["itemlist"] as! NSDictionary
-                let arr = Json["list"] as! [NSDictionary]
-                for var x in arr{
-                    self.data.append(SearchItemResult(no: x["itemNo"] as? String,name: x["itemName"] as? String, itemByNum: x["itemBynum1"] as? String, price: x["itemSalePrice"] as? String, brandName: x["brandName"] as? String, eshopIntergral: x["eshopIntegral"] as? Double, url: x["url"] as? String))
-                }
-                self.tableView.reloadData()
-                }) { (error) -> Void in
-                    print("发生了错误: " + (error?.localizedDescription)!)
+        loadData(1, count: 20, success: { (data) -> Void in
+            self.data = data
+            self.tableView.reloadData()
+        })
+    }
+    
+    /**
+     上拉或点击加载更多方法
+     
+     - parameter index:   页标
+     - parameter count:   请求的条数
+     - parameter success: 成功的回调
+     - parameter failure: 失败的回调
+     */
+    func getMoreData(index: Int,count:Int,success:(data:[SearchItemResult]) -> Void,failure:()->Void){
+        loadData(index + 1, count: count) { (data) -> Void in
+            if(data.count == 0){
+                failure()
+            }else{
+                success(data:data)
             }
-            
-
-        }else{
-            
-            HTTPManager.POST(ContentType.SearchResultListByItemName, params: ["address": address, findByClass ? "classname":"itemname": keyForSearchResult, "pageindex": "1","pagecount":"10","ordercondition": ordercondition!, "orderstyle": orderstyle == true ? "asc" : "desc"]).responseJSON({ (json) -> Void in
-                let arr = (json["itemlist"] as! NSDictionary)["list"] as! [NSDictionary]
-                print(arr)
-                for var x in arr{
-                    self.data.append(SearchItemResult(no: x["itemNo"] as? String,name: x["itemName"] as? String, itemByNum: x["itemBynum1"] as? String, price: x["itemSalePrice"] as? String, brandName: x["brandName"] as? String, eshopIntergral: x["eshopIntegral"] as? Double, url: x["url"] as? String))
-                }
-                self.tableView.reloadData()
-                }, error: { (error) -> Void in
-                    print("发生了错误: " + (error?.localizedDescription)!)
-            })
-            
         }
     }
 }
@@ -294,6 +311,20 @@ extension SearcherResultViewController{
         let clearView = UIView()
         clearView.backgroundColor = UIColor.clearColor()
         tableView.tableFooterView = clearView
+        
+        //添加上拉加载控件
+        tableView.footer = MJRefreshAutoNormalFooter(refreshingBlock: { () -> Void in
+            self.getMoreData(self.index, count: self.count, success: { (data) -> Void in
+                for var x in data{
+                    self.data.append(x)
+                }
+                self.tableView.reloadData()
+                self.tableView.footer.endRefreshing()
+                }, failure: { () -> Void in
+                    SVProgressHUD.showInfoWithStatus("没有更多数据了")
+                    self.tableView.footer.endRefreshing()
+            })
+        })
     }
     
 }

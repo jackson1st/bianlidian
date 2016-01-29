@@ -119,7 +119,7 @@ extension MyLikeViewController{
     
     func initFootRefresh(){
         tableView.footer = MJRefreshAutoNormalFooter(refreshingBlock: { () -> Void in
-            self.loadNewData({ () -> Void in
+            self.loadNetData({ () -> Void in
                 self.index++
                 self.tableView.footer.endRefreshing()
                 self.tableView.reloadData()
@@ -132,12 +132,10 @@ extension MyLikeViewController{
         tableView.tableFooterView = iview
     }
     
-    func loadNewData(callback: () -> Void){
+    func loadNetData(callback: () -> Void){
         CollectionModel.CollectionCenter.loadDataFromNet(index, count: count, success: { (data) -> Void in
             if(data.count == 0){
                 SVProgressHUD.showInfoWithStatus("已经没有更多数据了")
-            }else{
-                self.index++
             }
             for var x in data{
                 CollectionModel.CollectionCenter.dict[x.no] = self.Likes!.count

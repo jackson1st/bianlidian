@@ -20,16 +20,6 @@ class ContentView: UIView {
     }
     
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> origin/master
-=======
->>>>>>> origin/master
-    
->>>>>>> origin/master
     func initLabel(){
         LabelTItle = UILabel()
         LabelPrice = UILabel()

@@ -38,8 +38,6 @@ class MainViewController: UIViewController,WKNavigationDelegate,UISearchBarDeleg
     override func viewDidLoad() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "viewDidLoad", name: "reloadMainView", object: nil)
         
-        let item = UIBarButtonItem(title: "", style: .Plain, target: self, action: nil)
-        self.navigationItem.backBarButtonItem = item;
         if(userDefault.boolForKey("needSetLocation") == false){
             self.performSegueWithIdentifier("showLocation", sender: nil)
         }else{
@@ -107,7 +105,6 @@ extension MainViewController: SearcherViewControllerDelegate{
 extension MainViewController{
     
     func initAll(){
-        initHttpManager()
         initWebView()
         initViewSearch()
         
@@ -134,17 +131,10 @@ extension MainViewController{
         TextFieldSearchBar.delegate = self
     }
     
-    func initHttpManager(){
-        httpManager.responseSerializer = AFJSONResponseSerializer()
-        httpManager.responseSerializer.acceptableContentTypes = NSSet(object: "application/json") as Set<NSObject>
-        httpManager.requestSerializer = AFJSONRequestSerializer()
-    }
-    
     func initWebView(){
-        let url = "http://192.168.43.185:8080/BSMD/main.do"
         let config = WKWebViewConfiguration()
         config.userContentController.addScriptMessageHandler(self, name: "gan")
-        webView = WKWebView(frame: CGRect(x: 0, y:49, width: self.view.frame.width, height: self.view.frame.height-58),configuration: config)
+        webView = WKWebView(frame: CGRect(x: 0, y:55, width: self.view.frame.width, height: self.view.frame.height-58),configuration: config)
         webView?.scrollView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
         webView?.scrollView.frame.size.width = self.view.frame.width
         webView?.scrollView.bounces = false

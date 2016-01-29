@@ -82,17 +82,7 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
                 arr.append((item?.itemUnits[i].sizeName)!)
             }
             data.append(arr)
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
             self.viewDidLoad()
-=======
->>>>>>> origin/master
-=======
->>>>>>> origin/master
-=======
->>>>>>> origin/master
-            viewDidLoad()
         }
     }
     var data = [[String]]()
@@ -120,17 +110,10 @@ class OtherViewController: UIViewController ,WKNavigationDelegate,UINavigationBa
         if(item == nil){
             return
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
         changeButtonLikedState()
         changeButtonAddState()
-=======
->>>>>>> origin/master
-=======
->>>>>>> origin/master
-=======
->>>>>>> origin/master
+
         initAll()
         self.view.backgroundColor = UIColor.colorWith(243, green: 241, blue: 244, alpha: 1)
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
@@ -252,12 +235,12 @@ extension OtherViewController{
         let tg = sender.tag - 100
         switch(tg){
         case 1:
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
+            UIView.animateWithDuration(0.4, animations: { () -> Void in
                 self.ConstaintViewFlagLeading.constant = 12
                 self.scrollView.contentOffset.x = 0
             })
         case 2:
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
+            UIView.animateWithDuration(0.4, animations: { () -> Void in
                 self.ConstaintViewFlagLeading.constant = 58
                 self.scrollView.contentOffset.x = self.view.frame.width
             })
@@ -265,7 +248,7 @@ extension OtherViewController{
                 initSecondView()
             }
         case 3:
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
+            UIView.animateWithDuration(0.4, animations: { () -> Void in
                 self.ConstaintViewFlagLeading.constant = 105
                 self.scrollView.contentOffset.x =  self.view.frame.width * 2
             })
@@ -547,7 +530,7 @@ extension OtherViewController{
             make.left.equalTo(contentViewForEVAView.snp_left).offset(0)
             make.width.equalTo(self.view.frame.width)
         }
-        firstScrollView.contentSize.height += height + 150
+        firstScrollView.contentSize.height += height + 200
         print(firstScrollView.contentSize)
         // EVAVC?.view.frame.origin = CGPoint(x: 0, y: (sizeVC?.tableView.frame.origin.y)!  + (sizeVC?.tableViewHeight)! + 10)
     }

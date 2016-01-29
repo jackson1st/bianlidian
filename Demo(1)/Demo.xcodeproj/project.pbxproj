@@ -213,6 +213,7 @@
 		960929711C4CDC84006BE59E /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960929701C4CDC84006BE59E /* HTTPManager.swift */; };
 		960929731C4CDCFA006BE59E /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960929721C4CDCFA006BE59E /* ContentType.swift */; };
 		960929751C4CDD68006BE59E /* something'.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960929741C4CDD68006BE59E /* something'.swift */; };
+		960ED1A41C5A11B30042ED9D /* UIView+JS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960ED1A31C5A11B30042ED9D /* UIView+JS.swift */; };
 		960FC0F51C14943900F0580D /* GoodDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FC0F21C14943900F0580D /* GoodDetail.swift */; };
 		960FC0FD1C1560E100F0580D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FC0FC1C1560E100F0580D /* ContentView.swift */; };
 		960FC1001C15D12800F0580D /* EVAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FC0FF1C15D12800F0580D /* EVAViewController.swift */; };
@@ -697,6 +698,7 @@
 		960929701C4CDC84006BE59E /* HTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPManager.swift; sourceTree = "<group>"; };
 		960929721C4CDCFA006BE59E /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		960929741C4CDD68006BE59E /* something'.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "something'.swift"; sourceTree = "<group>"; };
+		960ED1A31C5A11B30042ED9D /* UIView+JS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+JS.swift"; sourceTree = "<group>"; };
 		960FC0F21C14943900F0580D /* GoodDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodDetail.swift; sourceTree = "<group>"; };
 		960FC0FC1C1560E100F0580D /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		960FC0FF1C15D12800F0580D /* EVAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EVAViewController.swift; path = "评论/EVAViewController.swift"; sourceTree = "<group>"; };
@@ -1094,6 +1096,7 @@
 				04CF8E9B1C144FDB00512979 /* UIView+wnxView.swift */,
 				04CF8E9C1C144FDB00512979 /* UMSocial_Sdk_4.2.3 */,
 				04CF8EB71C144FDB00512979 /* UMSocial_Sdk_Extra_Frameworks */,
+				960ED1A31C5A11B30042ED9D /* UIView+JS.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -2074,6 +2077,7 @@
 				04CF8ED41C144FDB00512979 /* MJRefreshAutoGifFooter.m in Sources */,
 				04CF8DDC1C144FB400512979 /* PayViewController.swift in Sources */,
 				96C83E881C1975CA0075A204 /* JSONND.swift in Sources */,
+				960ED1A41C5A11B30042ED9D /* UIView+JS.swift in Sources */,
 				96BCBC2B1C570E350028CA42 /* CollectionModel.swift in Sources */,
 				040F8C7B1C22C57D0027CDC1 /* ResignViewController.swift in Sources */,
 				047A5F1F1C14519C004FA20F /* MainMeViewController.swift in Sources */,

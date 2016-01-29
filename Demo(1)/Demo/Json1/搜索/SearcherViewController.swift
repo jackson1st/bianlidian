@@ -105,7 +105,7 @@ class SearcherViewController: UIViewController {
     
     //清除搜索历史记录
     func ClearSearchHistory(){
-        let alert = UIAlertController(title: "清空搜索历史记录", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        let alert = UIAlertController(title: "清空搜索历史记录", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "确定", style: UIAlertActionStyle.Default, handler: { (_) -> Void in
             self.history = []
             self.historytableView!.reloadData()
@@ -154,15 +154,30 @@ extension SearcherViewController{
     }
     
     func initHistoryTableView(){
+        
         historytableView = UITableView(frame: CGRect(x: 0, y: view1.y + view1.height + 7, width: self.view.frame.width, height: self.view.height - 64 - view1.height - 15), style: .Plain)
         historytableView?.keyboardDismissMode = .OnDrag
         MainView.addSubview(historytableView!)
-        let footButton = UIButton(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 25))
+        let footButton = UIButton()
+        let footView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 40))
+        historytableView?.addTopLine(0.5, offsetLeft: 0, offsetRight: 0)
         footButton.setTitle("清空搜索历史", forState: .Normal)
-        footButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+        footButton.titleLabel?.font = UIFont.systemFontOfSize(15)
+        footButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        footButton.setTitleColor(UIColor.colorWith(242, green: 48, blue: 58, alpha: 1), forState: .Normal)
         footButton.titleLabel?.textAlignment = .Center
         footButton.addTarget(self, action: "ClearSearchHistory", forControlEvents: .TouchUpInside)
-        historytableView!.tableFooterView = footButton
+        footButton.layer.cornerRadius = 4
+        footButton.layer.borderColor = UIColor.colorWith(242, green: 48, blue: 58, alpha: 1).CGColor
+        footButton.layer.borderWidth = 0.5
+        footView.addSubview(footButton)
+        footButton.snp_makeConstraints { (make) -> Void in
+            make.center.equalTo(footView)
+            make.height.equalTo(25)
+            make.width.equalTo(footView).offset(-250)
+        }
+        footView.addTopLine(0.5, offsetLeft: 15, offsetRight: 0)
+        historytableView!.tableFooterView = footView
         historytableView!.delegate = self
         historytableView!.dataSource = self
         historytableView!.reloadData()
@@ -175,6 +190,8 @@ extension SearcherViewController{
         view1.translatesAutoresizingMaskIntoConstraints = false
         MainView.addSubview(view1)
         view1.addSubview(Labelhot)
+        
+        
         let btnH:CGFloat  = 32
         var btnY:CGFloat  = CGRectGetMaxY(Labelhot.frame)
         var btnW:CGFloat  = 0
@@ -211,7 +228,6 @@ extension SearcherViewController{
             }
             self.view1.frame.origin.y += 70
             self.initHistoryTableView()
-            //self.viewDidLoad()
             }) { (error) -> Void in
                 print("发生了错误: " + (error?.localizedDescription)!)
         }
